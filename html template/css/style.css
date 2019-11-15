@@ -27,6 +27,7 @@ body {
 	font-weight:300;
 	line-height:1.6em;
 	color:#656565;
+	background-color: white;
 }
 
 a:active {
@@ -132,7 +133,8 @@ header .navbar-collapse  ul.navbar-nav {
 }
 
 header .navbar-default{
-    background-color: #fff;
+	background-color:white;
+
 }
 
 header .nav li a:hover,
@@ -314,10 +316,11 @@ ul.nav li.dropdown a {
 
 #featured{
 	width: 100%;
-	background:#fcfcfc;
+	background:white;
 	position:relative;
 	margin:0;
 	padding:0;
+	
 }
 
 /* ===================================
@@ -522,7 +525,7 @@ form#contactform .validation {
 }
 
 .validation {
-    color: red;
+    color: skyblue;
     display:none;
     margin: 0 0 20px;
     font-weight:400;
@@ -540,9 +543,9 @@ form#contactform .validation {
 }
 
 #errormessage {
-    color: red;
+    color: skyblue;
     display:none;
-    border:1px solid red;
+    border:1px solid skyblue;
     text-align:center;
     padding:15px;
     font-weight:600;
@@ -1532,6 +1535,7 @@ ul.time-post li.time{
 footer{
 	padding:50px 0 0 0;
 	color:#f8f8f8;
+	text-align: center;
 }
 
 footer a {
@@ -1887,6 +1891,7 @@ article img.pull-right, article .align-right{
 	.navbar-collapse.collapse  {
 		border: none;
 		overflow: hidden;
+	
 	}
 
 	
@@ -1987,4 +1992,20 @@ article img.pull-right, article .align-right{
 
 @media (max-width: 360px) {
 
+}
+.login_test
+{
+	text-align: center;
+	margin-top: 200px;
+	
+}
+ul
+{
+	list-style: none;
+
+}
+table
+{
+	margin-left : 480px;
+	
 }

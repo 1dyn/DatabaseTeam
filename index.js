@@ -4,7 +4,10 @@ var express = require('express');
 var app = express();
 
 // ejs view와 렌더링 설정
-app.set('views', __dirname + '/views');
+app.use(express.static('html_template'));
+app.use(express.static('html_template/html'));
+app.use('/html_template', express.static('./static/css'))
+app.use('/html_template', express.static('./static/js'))
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
@@ -20,7 +23,7 @@ var connection = mysql.createConnection({
   host: 'dbteam.cgkc5bv4txxd.us-east-1.rds.amazonaws.com',
   user : 'root',
   password: '12121212',
-  database: 'dbteam'
+  database: 'dbTeam'
 });
 connection.connect(function (err) {
   if (err) {
@@ -53,3 +56,4 @@ app.post('/register', function (req, res) {
 app.get('/welcome', function (req, res) {
     res.render('welcome.html');
 });
+
