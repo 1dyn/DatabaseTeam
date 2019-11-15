@@ -11,6 +11,7 @@ app.use('/html_template', express.static('./static/js'))
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
+
 // body-parser 기본 모듈 불러오기 및 설정 (POST req 해석)
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -44,16 +45,16 @@ app.listen(3306, function () {
 app.get('/', function (req, res) {
     res.render('index.html');
 });
-app.get('/register', function (req, res) {
-    res.render('register.html');
-});
-app.post('/register', function (req, res) {
-  var name = req.body.name;
-  var pwd = req.body.pwd;
-  var pwdconf = req.body.pwdconf;
-  console.log(name, pwd);
-});
-app.get('/welcome', function (req, res) {
-    res.render('welcome.html');
-});
+//app.get('/register', function (req, res) {
+//    res.render('register.html');
+//});
+//app.post('/register', function (req, res) {
+//  var name = req.body.name;
+//  var pwd = req.body.pwd;
+//  var pwdconf = req.body.pwdconf;
+//  console.log(name, pwd);
+//});
+//app.get('/welcome', function (req, res) {
+//    res.render('welcome.html');
+//});
 

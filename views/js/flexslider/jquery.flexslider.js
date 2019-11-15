@@ -9,7 +9,7 @@
  * Contributing Author: Tyler Smith
  */
 
-;(function ($) {
+(function ($) {
   
   //FlexSlider: Object Instance
   $.flexslider = function(el, options) {
