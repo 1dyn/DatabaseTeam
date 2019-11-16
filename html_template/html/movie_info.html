@@ -22,6 +22,23 @@
     Author: BootstrapMade
     Author URL: https://bootstrapmade.com
 	======================================================= -->
+	<script>
+	var bDisplay = true;
+        function doDisplay(movie){
+            var con = document.getElementById(movie);
+            con.style.display = "block";//해당 id를 가진 div 보이기
+            var movies = ["all", "inter-conf", "inter-jour", "dom-conf", "dom-jour"];
+            for (let i = 0; i < movies.length; i++) {//나머지 모든 div의 내용 숨기기
+                if (movies[i]===movie) {
+                    continue;
+                }
+                else{
+                    con = document.getElementById(movies[i]);
+                    con.style.display = "none";
+                }
+            }
+        }
+		</script>
 
 </head>
 
@@ -74,42 +91,62 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-5">
+							<div class = "movie">
 							<h4>신의 한수</h4>
 							<img src="../img/1.jpg" alt="" class="align-left" width="500" height="200" />
-							<p>
-								신의 한수 소개
-							</p>
+							<a href='javascript:doDisplay("all");'><button class="buttonpub" style="vertical-align:middle"><span>신의 한수 소개 영상</span></button><br></a>
+							</div>
 						</div>
 						<div class="col-lg-5">
+							<div class = "movie">
 							<h4>겨울왕국</h4>
 							<img src="../img/4.jpg" alt="" class="align-left" width="500" height="200" />
-							<p>
-								겨울 왕국 소개
-							</p>
+							<a href='javascript:doDisplay("inter-conf");'><button class="buttonpub" style="vertical-align:middle"><span>겨울왕국2 소개 영상</span></button><br></a>
+							</div>
 						</div>
 						<div class="col-lg-5">
+							<div class = "movie">
 							<h4>알라딘</h4>
 							<img src="../img/5.jpg" alt="" class="align-left" width="500" height="200" />
-							<p>
-								알라딘 소개
-							</p>
+							<a href='javascript:doDisplay("inter-jour");'><button class="buttonpub" style="vertical-align:middle"><span>알라딘 소개 영상</span></button><br></a>
+							</div>
 						</div>
 						<div class="col-lg-5">
+							<div class = "movie">
 							<h4>라이온 킹</h4>
 							<img src="../img/6.jpg" alt="" class="align-left" width="500" height="200" />
-							<p>
-								라이온 킹 소개
-							</p>
+							<a href='javascript:doDisplay("dom-conf");'><button class="buttonpub" style="vertical-align:middle"><span>라이온 킹 소개 영상</span></button><br></a>
+							</div>
 						</div>
 					</div>
-					<!-- divider -->
+					<div class="article" style="padding-left: 40pt; background-color:white;">
+							<div id="all" style="display: none">
+								<h2>신의 한수 소개영상</h2>	
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/JPEOa01U_Ls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+							<div id="inter-conf" style="display: none">
+								<h2>겨울 왕국 소개 영상</h2>
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/eSEs4B4H-EA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+							<div id="inter-jour" style="display: none">
+								<h2>알라딘 소개 영상</h2>
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/KrM3vS5sy2w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+							<div id="dom-conf" style="display: none">
+								<h2>라이온킹 소개 영상</h2>
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/SXMoaC3IJ3I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+						</div>
+						
+					<!-- divider 
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="solidline">
 							</div>
 						</div>
 					</div>
-					<!-- end divider -->
+					 end divider 
+					
 					<article class="row">
 						<div class="post-video">
 							<div class="post-heading">
@@ -123,6 +160,7 @@
 							신의 한수 예고편
 						</p>			
 					</article>
+				-->
 				</div>
 				<footer>
 					<div class="container">
