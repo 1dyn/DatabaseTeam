@@ -2009,3 +2009,11 @@ table
 	margin-left : 480px;
 	
 }
+.movie
+{
+	margin-left:150px;
+}
+#all,#inter-conf,#inter-jour,#dom-conf,#dom-jour
+{
+	margin-left: 230px;
+}
