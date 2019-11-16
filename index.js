@@ -36,7 +36,7 @@ connection.connect(function (err) {
 });
 
 // Express 서버 시작
-app.listen(3306, function () {
+app.listen(3307, function () {
     console.log('Example app listening on port 3306!');
 });
 
