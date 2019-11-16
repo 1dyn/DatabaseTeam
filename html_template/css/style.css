@@ -2017,3 +2017,17 @@ table
 {
 	margin-left: 230px;
 }
+.buttonpub:hover {
+	background-color: #008CBA;
+	color: white;
+	
+
+}
+.buttonpub
+{
+	background-color: white; 
+	color: black; 
+	border: 2px solid skyblue;
+	border-radius: 20%
+	
+}
