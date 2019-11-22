@@ -23,7 +23,22 @@
     Author: BootstrapMade
     Author URL: https://bootstrapmade.com
 	======================================================= -->
+	<script type="text/javascript">
+	function login(){
+		var loginForm = document.loginForm;
+		var userId = loginForm.userId.value;
+		var password = loginForm.password.value;
+		
+		if(!userId || !password){
+			alert("아이디와 비밀번호를 모두 입력해주세요.")
+		}else{
+			loginForm.submit();
+		}
+	}
+</script>
+<style>
 
+</style>
 </head>
 
 <body>
@@ -55,29 +70,20 @@
 		<section id="content">
 			<div class="container">
 				<div class="row">
-								<div class="login">
-									<h1>Login to JB Cinema</h1>
-									<form method="post" action="index.html">
-										<p><input type="text" name="login" value="" placeholder="Username or Email"></p>
-										<p><input type="password" name="password" value="" placeholder="Password"></p>
-										<p class="remember_me">
-											<label>
-												<input type="checkbox" name="remember_me" id="remember_me">
-												아이디 저장하기
-											</label>
-										</p>
-										<p class="submit"><input type="submit" name="commit" value="Login"></p>
-									</form>
-								</div>
-
-								<div class="login-help">
-									<p>비밀번호를 잊으셨나요? <a href="index.html">여기를 클릭하세요</a>.</p>
-								</div>
-								<div class="login-help">
-									<p>회원이 아니신가요? <a href="sign_up.html" target="_blank">회원가입</a>.</p>
-								</div>
-
-					</div>
+								
+					<div class="login">
+						<h1>login to JB cinema</h1>
+						<form action="/" method="POST">
+						  <input type="text"  placeholder="Id" name="id"/><br><br>
+						  <input type="password"  placeholder="Password"  name="pwd" /><br><br>
+						  <button type="submit" class="login__submit">Sign in</button><br><br>
+						</form>
+						</div>
+						<div class="register">
+						<form action="/sign_up" method="GET" >
+						  <p class="login_signup" style="color: black; margin-bottom: 15px">Don't have an account? &nbsp;<input type="submit" value="Sign up" style="background-color:skyblue; border: 2px solid skyblue; color: #EEEEEF" /></p>
+						</form>
+						</div>
 			</div>
 		</section>
 		<footer>

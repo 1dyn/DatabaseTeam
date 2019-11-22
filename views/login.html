@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>JB Cinema</title>
+	<title>냉면에 엽떡 Cinema</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="description" content="" />
 	<!-- css -->
@@ -12,6 +12,7 @@
 	<link href="../css/jcarousel.css" rel="stylesheet" />
 	<link href="../css/flexslider.css" rel="stylesheet" />
 	<link href="../css/style.css" rel="stylesheet" />
+
 
 	<!-- Theme skin -->
 	<link href="../skins/default.css" rel="stylesheet" />
@@ -22,7 +23,22 @@
     Author: BootstrapMade
     Author URL: https://bootstrapmade.com
 	======================================================= -->
+	<script type="text/javascript">
+	function login(){
+		var loginForm = document.loginForm;
+		var userId = loginForm.userId.value;
+		var password = loginForm.password.value;
+		
+		if(!userId || !password){
+			alert("아이디와 비밀번호를 모두 입력해주세요.")
+		}else{
+			loginForm.submit();
+		}
+	}
+</script>
+<style>
 
+</style>
 </head>
 
 <body>
@@ -37,50 +53,78 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-						<a class="navbar-brand" href="index.html"><span>JB </span>Cinema</a>
+						<a class="navbar-brand" href="index.html"><span>냉면에 엽떡 </span>Cinema</a>
 					</div>
 					<div class="navbar-collapse collapse ">
 						<ul class="nav navbar-nav">
 							<li><a href="index.html">Home</a></li>
 							<li><a href="Movie_info.html">Movie info</a></li>
 							<li><a href="screen.html">Screen</a></li>
-							<li class="dropdown">
-								<a href="ticketing.html" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">TICKETING <b class=" icon-angle-down"></b></a>
-								<ul class="dropdown-menu"> 
-									<li><a href="ticketing1.html">날짜별</a></li>
-									<li><a href="ticketing2.html">좌석</a></li>
-									<li><a href="ticketing3.html">??</a></li>
-								</ul>
-							</li>
+							<li><a href="Ticketing.html">Ticketing </a></li>
 							<li class="active"><a href="login.html">login</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<body>
-					<div class="login_test">
-							<form method="POST" action="loginCheck.php">
-						<ul>
+		</header>
+		<section id="content">
+			<div class="container">
+				<div class="row">
 								
-								<table height="40" width="430"style="border:solid 4px black; margin-top:4%">
-										<tr>
-											 <td><input name="id" type="text" value="" style="height:40px; width:430px;"></td>
-										</tr>  
-								 </table>
-							 
-								 <table  height="40" width="430" style="border:solid 4px black; margin-top:1%"> 
-										<tr>
-											<td><input type="password" name="pw" value="" style="height:40px; width:430px"></td>
-										   </tr>  
-								</table>
-							<table height="40" style="margin-top:1%">
-							<tr>
-							  <td><input type="submit" name="login" value="로그인" style="height:50px; width:430px;  background-color:black; color:white; font-size:16px; border:solid 1px black; "></td>
-							 </tr> 
-							</table>
-						</ul>
-							</form>
-							<td><input type="button"  value="회원가입" oneclick = "location.href='join.php'" style="height:50px; width:430px;  background-color:black; color:white; font-size:16px; border:solid 1px black; "></td>
+					<div class="login">
+						<h1>login to JB cinema</h1>
+						<form action="/" method="POST">
+						  <input type="text"  placeholder="Id" name="id"/><br><br>
+						  <input type="password"  placeholder="Password"  name="pwd" /><br><br>
+						  <button type="submit" class="login__submit">Sign in</button><br><br>
+						</form>
+						</div>
+						<div class="register">
+						<form action="/sign_up" method="GET" >
+						  <p class="login_signup" style="color: black; margin-bottom: 15px">Don't have an account? &nbsp;<input type="submit" value="Sign up" style="background-color:skyblue; border: 2px solid skyblue; color: #EEEEEF" /></p>
+						</form>
+						</div>
+			</div>
+		</section>
+		<footer>
+			<div class="container">
+				<div class="widget">
+					<strong><p> Introduction </p> <br><p> 냉면에 엽떡 | 소프트웨어학부 | Database PBL Project </p></strong><br>
+					<div class = "left">
+						<p>경기도 안산시 상록구 사3동 한양대학로 55 </p>
+						<p> 박재현 | 안요한 | 위준범 | 정은지 | 한동연</p>
+						<strong><h3>ARS 0000 - 0000</h3></strong>
+					</div>
+					<div class="container">
+						<div class="row">
+							<div class="copyright">
+								<p>Moderna Theme. All right reserved.</p>
+								<div class="credits">
+									Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+								</div>
 							</div>
-							</body>
-							
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+	<!-- javascript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.easing.1.3.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/jquery.fancybox.pack.js"></script>
+	<script src="../js/jquery.fancybox-media.js"></script>
+	<script src="../js/google-code-prettify/prettify.js"></script>
+	<script src="../js/portfolio/jquery.quicksand.js"></script>
+	<script src="../js/portfolio/setting.js"></script>
+	<script src="../js/jquery.flexslider.js"></script>
+	<script src="../js/animate.js"></script>
+	<script src="../js/custom.js"></script>
+
+</body>
+
+</html>

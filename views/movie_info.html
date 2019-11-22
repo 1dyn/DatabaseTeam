@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>JB Cinema</title>
+	<title>냉면에 엽떡 Cinema</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="description" content="" />
 	<!-- css -->
@@ -22,6 +22,23 @@
     Author: BootstrapMade
     Author URL: https://bootstrapmade.com
 	======================================================= -->
+	<script>
+	var bDisplay = true;
+        function doDisplay(movie){
+            var con = document.getElementById(movie);
+            con.style.display = "block";//해당 id를 가진 div 보이기
+            var movies = ["all", "inter-conf", "inter-jour", "dom-conf", "dom-jour"];
+            for (let i = 0; i < movies.length; i++) {//나머지 모든 div의 내용 숨기기
+                if (movies[i]===movie) {
+                    continue;
+                }
+                else{
+                    con = document.getElementById(movies[i]);
+                    con.style.display = "none";
+                }
+            }
+        }
+		</script>
 
 </head>
 
@@ -37,21 +54,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-						<a class="navbar-brand" href="index.html"><span>JB </span>Cinema</a>
+						<a class="navbar-brand" href="index.html"><span>냉면에 엽떡 </span>Cinema</a>
 					</div>
 					<div class="navbar-collapse collapse ">
 						<ul class="nav navbar-nav">
 							<li><a href="index.html">Home</a></li>
 							<li class="active"><a href="Movie_info.html">Movie info</a></li>
 							<li><a href="screen.html">Screen</a></li>
-							<li class="dropdown">
-								<a href="ticketing.html" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">TICKETING <b class=" icon-angle-down"></b></a>
-								<ul class="dropdown-menu"> 
-									<li><a href="ticketing1.html">날짜별</a></li>
-									<li><a href="ticketing2.html">좌석</a></li>
-									<li><a href="ticketing3.html">??</a></li>
-								</ul>
-							</li>
+							<li><a href="Ticketing.html">Ticketing </a></li>
 							<li><a href="login.html">login</a></li>
 						</ul>
 					</div>
@@ -62,8 +72,8 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<ul class="breadcrumb">
-								<li><a href="index.html"><i class="fa fa-home"></i></a><i class="icon-angle-right"></i></li>
-								
+								<li ><a href="index.html"><i class="fa fa-home"></i></a><i class="icon-angle-right"></i></li>
+
 								<li class="active">Movie Info</li>
 							</ul>
 						</div>
@@ -73,97 +83,154 @@
 			<section id="content">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-4">
-							<h4>신의 한수</h4>
-							<img src="../img/1.jpg" alt="" class="align-left" width="400" height="200" />
-							<p>
-								신의 한수 소개
-							</p>
+						<div class="col-lg-5">
+							<div class = "movie">
+								<li style="list-style: none;" data-id="id-0" data-type="web">
+									<div class="item-thumbs1">
+										<a class="hover-wrap fancybox" data-fancybox-group="gallery"  title="<strong>TOP 1 신의 한수 : 귀수편 </strong> <br><br>감독 | 리건 <br> 배우 | 권상우, 김희원, 김성균, 허성태, 우도환 " href="../img/1.jpg" width="200px" height="100px" >
+											<span class="overlay-img"></span>
+										</a>
+										<img src="../img/1.jpg" alt=" " width="500" height="200">
+									</div>
+								</li>
+								<h4>신의 한수 : 귀수편 <a href='javascript:doDisplay("all");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown">신의 한수 소개 영상</span></button><br></a></h4>
+								<p class="sizedown1">
+									<strong ><a href="ticketing1.html">상영중</a> <br>
+									<em>The Divine Move 2: The Wrathful, 2019</em></strong> <br><br>
+									
+									범죄, 액션 |  2019.11.07. 개봉 | 106분 | 한국 | 15세 관람가 <br>
+								</p>
+								
+							</div>
 						</div>
-						<div class="col-lg-4">
-							<h4>블랙 머니</h4>
-							<img src="../img/2.jpg" alt="" class="align-left" width="500" height="200" />
-							<p>
-								블랙 머니 소개
-							</p>
+						
+						<div class="col-lg-5">
+							<div class = "movie">
+							
+							<li style="list-style: none;" data-id="id-0" data-type="web">
+								<div class="item-thumbs1">
+									<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="<strong>TOP 2 겨울왕국 2 </strong> <br><br>감독 | 크리스 벅 <br> 배우 | 크리스틴 벨, 이디나 멘젤, 조시 게드, 조나단 그로프, 스털링 k. 브라운" href="../img/4.jpg" width="200px" height="100px" >
+										<span class="overlay-img"></span>
+									</a>
+									<img src="../img/4.jpg" alt=" " width="500" height="200">
+								</div>
+							</li>
+							<h4>겨울왕국 2 <a href='javascript:doDisplay("inter-conf");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown">겨울왕국2 소개 영상</span></button><br></a></h4>
+							<p class="sizedown1">
+									<strong><a href="ticketing1.html">상영중</a><br>
+									<em>Frozen 2, 2019</em></strong> <br><br>
+									
+									애니메이션, 가족, 판타지, 뮤지컬 | 103분 | 미국| 전체 관람가 <br>
+								</p>				
+							</div>
+							<br>
 						</div>
-						<div class="col-lg-4">
-							<h4>터미네이터</h4>
-							<img src="../img/3.jpg" alt="" class="align-left" width="500" height="200" />
-							<p>
-								터미네이터 소개
+
+						<div class="col-lg-5">
+							<div class = "movie">
+							
+							<li style="list-style: none;" data-id="id-0" data-type="web">
+								<div class="item-thumbs1">
+									<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="<strong>TOP 3 알라딘편 </strong> <br><br> 감독 | 가이 리치 <br> 배우 | 메나 마수드, 윌 스미스, 나오미 스콧" href="../img/5.jpg" width="200px" height="100px" >
+										<span class="overlay-img"></span>
+									</a>
+									<img src="../img/5.jpg" alt=" " width="500" height="200">
+								</div>
+							</li>
+							<h4>알라딘 <a href='javascript:doDisplay("inter-jour");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown">알라딘 소개 영상</span></button><br></a></h4>
+							<p class="sizedown1">
+								<strong><a href="ticketing1.html">상영중</a><br>
+								<em>Aladdin, 2019</em> </strong><br><br>
+								
+								모험, 판타지 | 2019.05.23. 개봉 | 128분 | 미국 | 전체 관람가 <br>
 							</p>
+							
+							</div>
 						</div>
-					</div>
-					<!-- divider -->
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="solidline">
+						<div class="col-lg-5">
+							<div class = "movie">
+							
+							<li style="list-style: none;" data-id="id-0" data-type="web">
+								<div class="item-thumbs1">
+									<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="<strong>TOP 4 라이온 킹 </strong> <br><br>감독 | 존 파브로 <br> 배우 | 도날드 글로버, 비욘세, 제임스 얼 존스, 세스 로건, 치웨텔 에지오포" href="../img/6.jpg" width="200px" height="100px">
+										<span class="overlay-img"></span>
+									</a>
+									<img src="../img/6.jpg" alt=" " width="500" height="200">
+								</div>
+							</li>
+							<h4>라이온 킹 <a href='javascript:doDisplay("dom-conf");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown">라이온 킹 소개 영상</span></button><br></a></h4>
+							<p class="sizedown1">
+								<strong><a href="ticketing1.html">상영중</a> <br>
+								<em>The Lion King, 2019 </em></strong> <br><br>
+								
+								모험, 가족 | 2019.07.17. 개봉 | 118분 | 미국 | 전체 관람가 <br>
+							</p>
+							
 							</div>
 						</div>
 					</div>
-					<!-- end divider -->
-					<article class="row">
-						<div class="post-video">
-							<div class="post-heading">
-								<h3><a href="#">신의 한수 예고편</a></h3>
-							</div>
-							<div class="video-container">
-								<iframe src="https://movie.naver.com/movie/bi/mi/mediaView.nhn?code=179159&mid=44019" ></iframe>
-							</div>
+					<div class="article" style="padding-left: 40pt; background-color:white;">
+						<div id="all" style="display: none">
+							<br>
+							<h2><em>신의 한수 소개영상 <span class="sizedown1"> The Divine Move 2: The Wrathful, 2019</span></em></h2>
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/JPEOa01U_Ls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 						</div>
-						<p>
-							신의 한수 예고편
-						</p>			
-					</article>
+						<div id="inter-conf" style="display: none">
+							<br>
+							<h2><em>겨울 왕국 소개 영상 <span class="sizedown1"> Frozen 2, 2019</span></em></h2>
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/eSEs4B4H-EA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+						<div id="inter-jour" style="display: none">
+							<br>
+							<h2><em>알라딘 소개 영상 <span class="sizedown1"> Aladdin, 2019</span></em></h2>
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/KrM3vS5sy2w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+						<div id="dom-conf" style="display: none">
+							<br>
+							<h2><em>라이온킹 소개 영상 <span class="sizedown1"> The Lion King, 2019</span></em></h2>
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/SXMoaC3IJ3I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+					</div>
 				</div>
-			<footer>
-				<div id="sub-footer">
+				
+				<footer>
 					<div class="container">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="copyright">
-									<p>&copy; Moderna Theme. All right reserved.</p>
-									<div class="credits">
-										<!--
-						All the links in the footer should remain intact.
-						You can delete the links only if you purchased the pro version.
-						Licensing information: https://bootstrapmade.com/license/
-						Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Moderna
-					  -->
-										Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+						<div class="widget">
+							<strong><p> Introduction </p> <br><p> 냉면에 엽떡 | 소프트웨어학부 | Database PBL Project </p></strong><br>
+							<div class = "left">
+								<p>경기도 안산시 상록구 사3동 한양대학로 55 </p>
+								<p> 박재현 | 안요한 | 위준범 | 정은지 | 한동연</p>
+								<strong><h3>ARS 0000 - 0000</h3></strong>
+							</div>
+							<div class="container">
+								<div class="row">
+									<div class="copyright">
+										<p>Moderna Theme. All right reserved.</p>
+										<div class="credits">
+											Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6">
-								<ul class="social-network">
-									<li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-									<li><a href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-									<li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
-								</ul>
-							</div>
 						</div>
 					</div>
-				</div>
-			</footer>
-		</div>
-		<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
-		<!-- javascript
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="js/jquery.js"></script>
-		<script src="js/jquery.easing.1.3.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/jquery.fancybox.pack.js"></script>
-		<script src="js/jquery.fancybox-media.js"></script>
-		<script src="js/google-code-prettify/prettify.js"></script>
-		<script src="js/portfolio/jquery.quicksand.js"></script>
-		<script src="js/portfolio/setting.js"></script>
-		<script src="js/jquery.flexslider.js"></script>
-		<script src="js/animate.js"></script>
-		<script src="js/custom.js"></script>
-	
-	</body>
-	
+				</footer>
+			</div>
+			<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+			<!-- javascript
+			================================================== -->
+			<!-- Placed at the end of the document so the pages load faster -->
+			<script src="../js/jquery.js"></script>
+			<script src="../js/jquery.easing.1.3.js"></script>
+			<script src="../js/bootstrap.min.js"></script>
+			<script src="../js/jquery.fancybox.pack.js"></script>
+			<script src="../js/jquery.fancybox-media.js"></script>
+			<script src="../js/google-code-prettify/prettify.js"></script>
+			<script src="../js/portfolio/jquery.quicksand.js"></script>
+			<script src="../js/portfolio/setting.js"></script>
+			<script src="../js/jquery.flexslider.js"></script>
+			<script src="../js/animate.js"></script>
+			<script src="../js/custom.js"></script>
+
+		</body>
