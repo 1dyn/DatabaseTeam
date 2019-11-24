@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Page</title>
+</head>
+
+<body>
+    <h1>Movie List</h1>
+    <a href='/admin'>admin</a> &nbsp
+    <a href='/emp_insert'>emp_insert</a>&nbsp
+    <a href='/emp_list'>emp_list &amp delete</a> &nbsp
+    <a href='/mov_insert'>mov_insert</a>&nbsp
+    <hr />
+
+    <table width="100%" border="1">
+        <tr>
+            <th>DELETE</th>
+            <th>EDIT</th>
+
+            <th>mov_id</th>
+            <th>mov_name</th>
+            <th>open_date</th>
+            <th>genre</th>
+            <th>director</th>
+            <th>actor</th>
+            <th>director</th>
+
+        </tr>
+        <% prodList.forEach(function(item, index){ %>
+        <tr>
+            <td><a href='delete/<%= item.mov_id %>'>DELETE</a></td>
+            <td> <!-- <a href='/edit/<%= item.mov_id %>'>--> EDIT</a></td>  
+
+            <td><%= item.mov_id %></td>
+            <td><%= item.mov_name %></td>
+            <td><%= item.open_date %></td>
+            <td><%= item.genre %></td>
+            <td><%= item.grade %></td>
+            <td><%= item.director %></td>
+            <td><%= item.actor %></td>    
+        </tr>
+        <% }); %>
+    </table>
+</body>
+
+</html>

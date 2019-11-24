@@ -1,0 +1,49 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Page</title>
+</head>
+<body>
+	<h1>Movie Insert</h1>
+	<a href='/admin'>admin</a> &nbsp
+    <a href='/emp_insert'>emp_insert</a>&nbsp
+    <a href='/emp_list'>emp_list &amp delete</a> &nbsp
+    <a href='/mov_list'>mov_list &amp delete</a>
+	<form method='post'>
+		<fieldset>
+			<legend>MOVIE INFO</legend>
+			<table>
+				<tr>
+					<td><lable>mov_id</lable></td>
+					<td><input type="text" name="mov_id"/></td>
+				</tr>
+				<tr>
+					<td><lable>mov_name</lable></td>
+					<td><input type="text" name="mov_name"/></td>
+				</tr>
+				<tr>
+					<td><lable>open_date</lable></td>
+					<td><input type="text" name="open_date"/></td>
+				</tr>
+                <tr>
+					<td><lable>genre</lable></td>
+					<td><input type="text" name="genre"/></td>
+				</tr>
+				<tr>
+					<td><lable>grade</lable></td>
+					<td><input type="text" name="grade"/></td>
+				</tr>
+				<tr>
+					<td><lable>director</lable></td>
+					<td><input type="text" name="director"/></td>
+				</tr>
+				<tr>
+					<td><lable>actor</lable></td>
+					<td><input type="text" name="actor"/></td>
+				</tr>
+			</table>
+			<input type="submit" value="Insert"/>
+		</fieldset>
+	</form>
+</body>
+</html>

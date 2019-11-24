@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Page</title>
+</head>
+<body>
+	<h1>Movie Edit</h1>
+	<form method='post'>
+		<fieldset>
+			<legend>EDIT DATA</legend>
+			<table>
+				<tr>
+					<td><lable>movie_name</lable></td>
+					<td><input type="text" name="movie_name" value="<%= movie.movie_name  %>" disable/></td>
+				</tr>
+				<tr>
+					<td><lable>genre</lable></td>
+					<td><input type="text" name="genre" value="<%= movie.genre  %>"/></td>
+				</tr>
+				<tr>
+					<td><lable>movie_rated</lable></td>
+					<td><input type="text" name="movie_rated" value="<%= movie.movie_rated %>"/></td>
+				</tr>
+                <tr>
+					<td><lable>starring</lable></td>
+					<td><input type="text" name="starring" value="<%= movie.starring  %>"/></td>
+				</tr>
+				<tr>
+					<td><lable>director</lable></td>
+					<td><input type="text" name="director" value="<%= movie.director  %>"/></td>
+				</tr>
+                
+			</table>
+			<input type="submit" value="Update"/>
+		</fieldset>
+	</form>
+</body>
+</html>
