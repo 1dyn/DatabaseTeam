@@ -69,6 +69,15 @@ app.get( '/emp_list', function(req, res){
 					}));
 				}
 			});
+			// mySqlClient.query('select * from work', function(error, results){
+			// 	if(error){
+			// 		console.log('error : ', error.message);
+			// 	}else{
+			// 		res.send( ejs.render(data, {
+			// 			prodList : results
+			// 		}));
+			// 	}
+			// });
 		}
 	})
 });
@@ -85,7 +94,7 @@ app.get('/emp_list/delete/:emp_id', function(req, res){
 					res.redirect('/');				
 				}
 			});
-});
+});  // mov_list에 값이 하나라도 있으면 emp delete error 발생 
 
 app.get('/emp_insert', function(req, res){
 	fs.readFile('emp_insert.html', 'utf8', function(error, data){
@@ -126,6 +135,15 @@ app.post( '/emp_insert', function(req, res){
 					res.redirect('/');
 				}
 	});
+	// mySqlClient.query( 'insert into work(emp_id, go_work,off_work,work,work_day) values( ?, ?, ?, ?, ?)',
+	// 		[ body.emp_id, body.go_work, body.off_work, body.work ,body.work_day ], 
+	// 		function(error, result){
+	// 			if(error){
+	// 				console.log('insert error : ', error.message );
+	// 			}else{
+	// 				res.redirect('/');
+	// 			}
+	// });
 });
 
 //app.post( '/edit/:emp_id', function(req, res){
@@ -205,4 +223,60 @@ app.post( '/mov_insert', function(req, res){
 
 // ------------------------------------------------- 비품 관리 시작 
 
+app.get( '/sup_list', function(req, res){
+	
+	fs.readFile('sup_list.html', 'utf8', function(error, data){
+		if(error){
+			console.log('readFile Error');
+		}else{
+			mySqlClient.query('select * from supplies', function(error, results){
+				if(error){
+					console.log('error : ', error.message);
+				}else{
+					res.send( ejs.render(data, {
+						prodList : results
+					}));
+				}
+			});
+		}
+	})
+});
+
+app.get('/sup_list/delete/:sup_id', function(req, res){
+	mySqlClient.query('delete from supplies where sup_id = ?', [req.params.sup_id], 
+			function(error, result){
+				if(error){
+					console.log('delete Error');
+				}else{
+					console.log('delete sup_id = %s', req.params.sup_id);
+					res.redirect('/');				
+				}
+			});
+});
+
+
+app.get('/sup_insert', function(req, res){
+	fs.readFile('sup_insert.html', 'utf8', function(error, data){
+		if(error){
+			console.log('readFile Error');
+		}else{
+			res.send(data);
+		}
+	})
+});
+
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.post( '/sup_insert', function(req, res){
+	var body = req.body;
+	
+	mySqlClient.query( 'insert into supplies(sup_id, ci_id, sub_name, size, total, price, sup_in) values(?, ?, ?, ?, ?, ?, ?)',
+			[ body.sup_id, body.ci_id, body.sub_name, body.size, body.total, body.price, body.sup_in], 
+			function(error, result){
+				if(error){
+					console.log('insert error : ', error.message );
+				}else{
+					res.redirect('/');
+				}
+	});
+});
 

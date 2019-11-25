@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Page</title>
+</head>
+<body>
+	<h1>Employee Insert</h1>
+	<form method='post'>
+		<ul>
+	        <li>직원 관리</li>
+	            <ol><a href='/emp_insert'>emp_insert</a></ol>
+	            <ol><a href='/emp_list'>emp_list &amp delete</a></ol>
+	            <!-- <ol><a href='/emp_edit'>emp_edit</a></ol> -->
+	        <li>영화 관리</li>
+	            <ol><a href='/mov_insert'>mov_insert</a></ol>
+	            <ol><a href='/mov_list'>mov_list &amp delete</a></ol>
+	           <!--  <ol><a href='/mov_edit'>mov_edit</a></ol> -->
+	        <li>비품 관리</li>
+	            <ol><a href='/sup_insert'>sup_insert</a></ol>
+	            <ol><a href='/sup_list'>sup_list</a></ol> 
+	           <!--  <ol><a href='/sup_edit'>sup_edit</a></ol> -->
+	    </ul>
+		<fieldset>
+			<legend>SUPPLIES DATA</legend>
+			<table>
+				<tr>
+					<td><lable>sup_id</lable></td>
+					<td><input type="text" name="sup_id"/></td>
+				</tr>
+				<tr>
+					<td><lable>ci_id</lable></td>
+					<td><input type="text" name="ci_id"/></td>
+				</tr>
+				<tr>
+					<td><lable>sub_name</lable></td>
+					<td><input type="text" name="sub_name"/></td>
+				</tr>
+                <tr>
+					<td><lable>size</lable></td>
+					<td><input type="text" name="size"/></td>
+				</tr>
+				<tr>
+					<td><lable>total</lable></td>
+					<td><input type="text" name="total"/></td>
+				</tr>
+				<tr>
+					<td><lable>price</lable></td>
+					<td><input type="text" name="price"/></td>
+				</tr>
+                <tr>
+					<td><lable>sup_in</lable></td>
+					<td><input type="text" name="sup_in"/></td>
+				</tr>
+			</table>
+			<input type="submit" value="insert"/>
+		</fieldset>
+		<hr />
+
+	</form>
+</body>
+</html>
