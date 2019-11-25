@@ -137,7 +137,7 @@ app.post('/', function(req, res) {
             console.log(session);
             console.log("id: " + db_name);
             console.log("pw: " + db_pwd);
-            res.render('index_log.html', {session: req.session})
+            res.render('html_log.html', {session: req.session})
           })
         }
       });
