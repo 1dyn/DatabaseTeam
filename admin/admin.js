@@ -73,6 +73,18 @@ app.get( '/emp_list', function(req, res){
 	})
 });
 
+app.get('/delete/:mov_id', function(req, res){
+	mySqlClient.query('delete from movie where mov_id = ?', [req.params.mov_id], 
+			function(error, result){
+				if(error){
+					console.log('delete Error');
+				}else{
+					console.log('delete mov_id = %s', req.params.mov_id);
+					res.redirect('/');				
+				}
+			});
+});
+
 app.get('/delete/:emp_id', function(req, res){
 	mySqlClient.query('delete from employee where emp_id = ?', [req.params.emp_id], 
 			function(error, result){
