@@ -376,9 +376,9 @@ app.post( '/sup_edit/:sup_id', function(req, res){
 //	})
 //});
 
-app.get('ad_login', function(req, res){
-    res.render('ad_login.html');
-});
+//app.get('ad_login', function(req, res){
+//    res.render('ad_login.html');
+//});
 //app.post('/ad_login', function(req, res){
 //    var user_id = req.body.user_id;
 //    var user_password = req.body.user_password;
