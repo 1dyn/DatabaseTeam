@@ -26,7 +26,6 @@
         <tr>
             <th>DELETE</th>
             <th>EDIT</th>
-           
             <th>emp_id</th>
             <th>emp_name</th>
             <th>engname</th>
@@ -39,7 +38,7 @@
         <% prodList.forEach(function(item, index){ %>
         <tr>
             <td><a href='/emp_list/delete/<%= item.emp_id %>'>DELETE</a></td>
-            <td> <!-- <a href='/emp_list/edit/<%= item.emp_id %>'> --> EDIT</a></td>  
+            <td>  <a href='/emp_edit/<%= item.emp_id %>'>  EDIT</a></td>  
             
             <td><%= item.emp_id %></td>
             <td><%= item.emp_name %></td>

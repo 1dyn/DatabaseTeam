@@ -107,20 +107,20 @@ app.get('/emp_insert', function(req, res){
 });
 
 
-// app.get( '/edit/:emp_id', function(req, res){
-// 	fs.readFile( 'edit.html', 'utf8', function(error, data){
-// 		mySqlClient.query('select * from employee where emp_id = ?', [req.params.emp_id], 
-// 				function(error, result){
-// 					if(error){
-// 						console.log('readFile Error');
-// 					}else{
-// 						res.send( ejs.render(data, { 
-// 							employee : result[0] 
-// 						}));
-// 					}
-// 				});
-// 	});
-// });
+ app.get( '/emp_edit/:emp_id', function(req, res){
+ 	fs.readFile( 'emp_edit.html', 'utf8', function(error, data){
+ 		mySqlClient.query('select * from employee where emp_id = ?', [req.params.emp_id], 
+ 				function(error, result){
+ 					if(error){
+ 						console.log('readFile Error');
+ 					}else{
+ 						res.send( ejs.render(data, { 
+ 							employee : result[0] 
+ 						}));
+ 					}
+ 				});
+ 	});
+ });
 
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.post( '/emp_insert', function(req, res){
@@ -146,19 +146,19 @@ app.post( '/emp_insert', function(req, res){
 	// });
 });
 
-//app.post( '/edit/:emp_id', function(req, res){
-//	var body = req.body;
-//	
-//	mySqlClient.query( 'update employee set emp_id=?, emp_name=?, emp_eng_name=?,start_date=?, dept=?, rank=?, where salary=?',
-//			[ body.emp_id, body.emp_name, body.emp_eng_name, body.start_date ,body.dept ,body.rank, body.salary ], 
-//			function(error, result){
-//				if(error){
-//					console.log('update error : ', error.message );
-//				}else{
-//					res.redirect('/');
-//				}
-//	});
-//});
+app.post( '/emp_edit/:emp_id', function(req, res){
+	var body = req.body;
+	
+	mySqlClient.query( 'update employee set emp_id=?, emp_name=?, emp_eng_name=?,start_date=?, dept=?, rank=?, salary=? where emp_id =?',
+			[ body.emp_id, body.emp_name, body.emp_eng_name, body.start_date ,body.dept ,body.rank, body.salary, body.emp_id ], 
+			function(error, result){
+				if(error){
+					console.log('update error : ', error.message );
+				}else{
+					res.redirect('/');
+				}
+	});
+});
 
 // ------------------------------------------------  영화 정보 관리 시작
 // movie edit 구현
@@ -221,6 +221,34 @@ app.post( '/mov_insert', function(req, res){
 	});
 });
 
+ app.get( '/mov_edit/:mov_id', function(req, res){
+ 	fs.readFile( 'mov_edit.html', 'utf8', function(error, data){
+ 		mySqlClient.query('select * from movie where mov_id = ?', [req.params.mov_id], 
+ 				function(error, result){
+ 					if(error){
+ 						console.log('readFile Error');
+ 					}else{
+ 						res.send( ejs.render(data, { 
+ 							movie : result[0] 
+ 						}));
+ 					}
+ 				});
+ 	});
+ });
+
+app.post( '/mov_edit/:mov_id', function(req, res){
+	var body = req.body;
+	
+	mySqlClient.query( 'update movie set mov_id=?, mov_name=?, open_date=?, genre=?, grade=?, director=?, actor=? where mov_id =?',
+			[ body.mov_id, body.mov_name, body.open_date, body.genre ,body.grade ,body.director, body.actor, body.mov_id ], 
+			function(error, result){
+				if(error){
+					console.log('update error : ', error.message );
+				}else{
+					res.redirect('/');
+				}
+	});
+});
 // ------------------------------------------------- 비품 관리 시작 
 
 app.get( '/sup_list', function(req, res){
@@ -280,3 +308,31 @@ app.post( '/sup_insert', function(req, res){
 	});
 });
 
+app.get( '/sup_edit/:sup_id', function(req, res){
+ 	fs.readFile( 'sup_edit.html', 'utf8', function(error, data){
+ 		mySqlClient.query('select * from supplies where sup_id = ?', [req.params.sup_id], 
+ 				function(error, result){
+ 					if(error){
+ 						console.log('readFile Error');
+ 					}else{
+ 						res.send( ejs.render(data, { 
+ 							supplies : result[0] 
+ 						}));
+ 					}
+ 				});
+ 	});
+ });
+
+app.post( '/sup_edit/:sup_id', function(req, res){
+	var body = req.body;
+	
+	mySqlClient.query( 'update supplies set sup_id=?, ci_id=?, sup_name=?, size=?, total=?, price=?, sup_in=? where sup_id =?',
+			[ body.sup_id, body.ci_id, body.sup_name, body.size ,body.total, body.price, body.sup_in, body.sup_id ], 
+			function(error, result){
+				if(error){
+					console.log('update error : ', error.message );
+				}else{
+					res.redirect('/');
+				}
+	});
+});
