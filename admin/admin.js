@@ -3,9 +3,18 @@ var ejs = require('ejs');
 var http = require('http');
 var mysql = require('mysql');
 var express = require('express');
+var session = require('express-session');
+
 var bodyParser = require('body-parser');
 var app = express();
 
+app.use(session({
+  key: 'admin',
+  secret: 'admin',
+  resave: true,
+  saveUninitialized: true
+}));
+var crypto = require('crypto');
 
 var mySqlClient = mysql.createConnection({
   host: 'dbteam.cgkc5bv4txxd.us-east-1.rds.amazonaws.com',
@@ -29,11 +38,9 @@ mySqlClient.connect(function (err){
 });
 
 //----------------------------------------------------- 관리자 페이지 시작
-// 관리자 ID, PW를 통한 로그인 구현하기
-
 
 app.get( '/', function(req, res){
-	fs.readFile('admin.html', 'utf8', function(error, data){
+	fs.readFile('index.html', 'utf8', function(error, data){
 		if (error) {
 			console.log('readFile Error');
 		}else{
@@ -41,6 +48,78 @@ app.get( '/', function(req, res){
 		}
 	})
 });
+
+// app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+// app.post( '/login', function(req, res){
+// 	var id = req.body.id;  
+// 	var pw = req.body.pw; 
+
+// 	var adminid = 'SELECT * FROM admin WHERE ad_id = ?';
+// 	var adminpw = mySqlClient.query('select * from admin where ad_id=?',pw);
+// 	// var adminid = mySqlClient.query('select * from admin where ad_id=?',id, function(error,results){
+// 	// 	if (error) {
+// 	// 		console.log('select error : ', error.message );
+// 	// 	}else{
+// 	// 		console.log(adminid);
+// 	// 		return results;
+// 	// 	}
+// 	// });
+// 	// var adminpw = mySqlClient.query('select * from admin where ad_pw=?',pw, function(error,results){
+// 	// 	if (error) {
+// 	// 		console.log('select error : ', error.message );
+// 	// 	}else{
+// 	// 		return results;
+// 	// 	}
+// 	// });
+
+// 	if(id === adminid && pw === adminpw){
+// 		res.redirect('/admin');
+// 	}else {
+// 		res.redirect('/admin');
+// 	}
+// });
+
+app.get('/login', function(req, res){
+	fs.readFile('login.html', 'utf8', function(error, data){
+		if(error){
+			console.log('readFile Error');
+		}else{
+			res.send(data);
+		}
+	})
+});
+
+app.post('/login', function(req, res) {
+    var id = 'admin';
+    var pw = 'admin';
+
+    var sql = `SELECT * FROM admin WHERE ad_id = ?`;
+    mySqlClient.query(sql, [id], function(error, results, fields) {
+        if (results.length == 0) {
+          var session = req.session;
+          console.log("try again")
+          console.log(session)
+          res.sendFile('login.html');
+        } else {
+          var db_name = results[0].ad_id; 
+          var db_pwd = results[0].ad_pw; 
+
+          req.session.regenerate(function() {
+            req.session.logined = true;
+            req.session.ad_id = db_name;
+            req.session.ad_pw = db_pwd;
+            var session = req.session;
+            console.log("login success!");
+            console.log(session);
+            res.sendFile('admin.html', {session: req.session})
+          })
+        }
+    });
+});
+
+
+
+
 app.get('/admin', function(req, res){
 	fs.readFile('admin.html', 'utf8', function(error, data){
 		if(error){
@@ -52,7 +131,31 @@ app.get('/admin', function(req, res){
 });
 
 // -------------------------------------------------- 직원 관리 시작
-// 직원 수정 기능 추가
+
+app.get('/emp_insert', function(req, res){
+	fs.readFile('emp_insert.html', 'utf8', function(error, data){
+		if(error){
+			console.log('readFile Error');
+		}else{
+			res.send(data);
+		}
+	})
+});
+
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.post( '/emp_insert', function(req, res){
+	var body = req.body;
+	
+	mySqlClient.query( 'insert into employee(emp_id, emp_name,emp_eng_name, start_date, dept, rank, salary) values(?, ?, ?, ?, ?, ?, ?)',
+			[ body.emp_id, body.emp_name, body.emp_eng_name, body.start_date ,body.dept ,body.rank, body.salary ], 
+			function(error, result){
+				if(error){
+					console.log('insert error : ', error.message );
+				}else{
+					res.redirect('/');
+				}
+	});
+});
 
 app.get( '/emp_list', function(req, res){
 	
@@ -69,19 +172,9 @@ app.get( '/emp_list', function(req, res){
 					}));
 				}
 			});
-			// mySqlClient.query('select * from work', function(error, results){
-			// 	if(error){
-			// 		console.log('error : ', error.message);
-			// 	}else{
-			// 		res.send( ejs.render(data, {
-			// 			prodList : results
-			// 		}));
-			// 	}
-			// });
 		}
 	})
 });
-
 
 
 app.get('/emp_list/delete/:emp_id', function(req, res){
@@ -94,17 +187,8 @@ app.get('/emp_list/delete/:emp_id', function(req, res){
 					res.redirect('/');				
 				}
 			});
-});  // mov_list에 값이 하나라도 있으면 emp delete error 발생 
+});  
 
-app.get('/emp_insert', function(req, res){
-	fs.readFile('emp_insert.html', 'utf8', function(error, data){
-		if(error){
-			console.log('readFile Error');
-		}else{
-			res.send(data);
-		}
-	})
-});
 
 
  app.get( '/emp_edit/:emp_id', function(req, res){
@@ -122,29 +206,7 @@ app.get('/emp_insert', function(req, res){
  	});
  });
 
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-app.post( '/emp_insert', function(req, res){
-	var body = req.body;
-	
-	mySqlClient.query( 'insert into employee(emp_id, emp_name,emp_eng_name, start_date, dept, rank, salary) values(?, ?, ?, ?, ?, ?, ?)',
-			[ body.emp_id, body.emp_name, body.emp_eng_name, body.start_date ,body.dept ,body.rank, body.salary ], 
-			function(error, result){
-				if(error){
-					console.log('insert error : ', error.message );
-				}else{
-					res.redirect('/');
-				}
-	});
-	// mySqlClient.query( 'insert into work(emp_id, go_work,off_work,work,work_day) values( ?, ?, ?, ?, ?)',
-	// 		[ body.emp_id, body.go_work, body.off_work, body.work ,body.work_day ], 
-	// 		function(error, result){
-	// 			if(error){
-	// 				console.log('insert error : ', error.message );
-	// 			}else{
-	// 				res.redirect('/');
-	// 			}
-	// });
-});
+
 
 app.post( '/emp_edit/:emp_id', function(req, res){
 	var body = req.body;
@@ -161,8 +223,31 @@ app.post( '/emp_edit/:emp_id', function(req, res){
 });
 
 // ------------------------------------------------  영화 정보 관리 시작
-// movie edit 구현
-// emp delete 주석 처리 안하면 movie delete 작동 x
+
+app.get('/mov_insert', function(req, res){
+	fs.readFile('mov_insert.html', 'utf8', function(error, data){
+		if(error){
+			console.log('readFile Error');
+		}else{
+			res.send(data);
+		}
+	})
+});
+
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.post( '/mov_insert', function(req, res){
+	var body = req.body;
+	
+	mySqlClient.query( 'insert into movie(mov_id, mov_name, open_date, genre, grade, director, actor) values(?, ?, ?, ?, ?, ?, ?)',
+			[ body.mov_id, body.mov_name, body.open_date, body.genre, body.grade, body.director, body.actor], 
+			function(error, result){
+				if(error){
+					console.log('insert error : ', error.message );
+				}else{
+					res.redirect('/');
+				}
+	});
+});
 
 app.get( '/mov_list', function(req, res){
 	
@@ -196,31 +281,6 @@ app.get('/mov_list/delete/:mov_id', function(req, res){
 });
 
 
-app.get('/mov_insert', function(req, res){
-	fs.readFile('mov_insert.html', 'utf8', function(error, data){
-		if(error){
-			console.log('readFile Error');
-		}else{
-			res.send(data);
-		}
-	})
-});
-
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-app.post( '/mov_insert', function(req, res){
-	var body = req.body;
-	
-	mySqlClient.query( 'insert into movie(mov_id, mov_name, open_date, genre, grade, director, actor) values(?, ?, ?, ?, ?, ?, ?)',
-			[ body.mov_id, body.mov_name, body.open_date, body.genre, body.grade, body.director, body.actor], 
-			function(error, result){
-				if(error){
-					console.log('insert error : ', error.message );
-				}else{
-					res.redirect('/');
-				}
-	});
-});
-
  app.get( '/mov_edit/:mov_id', function(req, res){
  	fs.readFile( 'mov_edit.html', 'utf8', function(error, data){
  		mySqlClient.query('select * from movie where mov_id = ?', [req.params.mov_id], 
@@ -251,6 +311,31 @@ app.post( '/mov_edit/:mov_id', function(req, res){
 });
 // ------------------------------------------------- 비품 관리 시작 
 
+app.get('/sup_insert', function(req, res){
+	fs.readFile('sup_insert.html', 'utf8', function(error, data){
+		if(error){
+			console.log('readFile Error');
+		}else{
+			res.send(data);
+		}
+	})
+});
+
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.post( '/sup_insert', function(req, res){
+	var body = req.body;
+	
+	mySqlClient.query( 'insert into supplies(sup_id, ci_id, sub_name, size, total, price, sup_in) values(?, ?, ?, ?, ?, ?, ?)',
+			[ body.sup_id, body.ci_id, body.sub_name, body.size, body.total, body.price, body.sup_in], 
+			function(error, result){
+				if(error){
+					console.log('insert error : ', error.message );
+				}else{
+					res.redirect('/');
+				}
+	});
+});
+
 app.get( '/sup_list', function(req, res){
 	
 	fs.readFile('sup_list.html', 'utf8', function(error, data){
@@ -280,32 +365,6 @@ app.get('/sup_list/delete/:sup_id', function(req, res){
 					res.redirect('/');				
 				}
 			});
-});
-
-
-app.get('/sup_insert', function(req, res){
-	fs.readFile('sup_insert.html', 'utf8', function(error, data){
-		if(error){
-			console.log('readFile Error');
-		}else{
-			res.send(data);
-		}
-	})
-});
-
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-app.post( '/sup_insert', function(req, res){
-	var body = req.body;
-	
-	mySqlClient.query( 'insert into supplies(sup_id, ci_id, sub_name, size, total, price, sup_in) values(?, ?, ?, ?, ?, ?, ?)',
-			[ body.sup_id, body.ci_id, body.sub_name, body.size, body.total, body.price, body.sup_in], 
-			function(error, result){
-				if(error){
-					console.log('insert error : ', error.message );
-				}else{
-					res.redirect('/');
-				}
-	});
 });
 
 app.get( '/sup_edit/:sup_id', function(req, res){
