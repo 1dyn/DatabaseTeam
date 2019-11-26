@@ -14,7 +14,6 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-var crypto = require('crypto');
 
 var mySqlClient = mysql.createConnection({
   host: 'dbteam.cgkc5bv4txxd.us-east-1.rds.amazonaws.com',
@@ -51,35 +50,30 @@ app.get( '/', function(req, res){
 	})
 });
 
-// app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-// app.post( '/login', function(req, res){
-// 	var id = req.body.id;  
-// 	var pw = req.body.pw; 
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.post( '/login', function(req, res){
+	var id = req.body.id;  
+	var pw = req.body.pw; 
+	var adminid ='admin1';
+	var adminpw ='admin2';
 
-// 	var adminid = 'SELECT * FROM admin WHERE ad_id = ?';
-// 	var adminpw = mySqlClient.query('select * from admin where ad_id=?',pw);
-// 	// var adminid = mySqlClient.query('select * from admin where ad_id=?',id, function(error,results){
-// 	// 	if (error) {
-// 	// 		console.log('select error : ', error.message );
-// 	// 	}else{
-// 	// 		console.log(adminid);
-// 	// 		return results;
-// 	// 	}
-// 	// });
-// 	// var adminpw = mySqlClient.query('select * from admin where ad_pw=?',pw, function(error,results){
-// 	// 	if (error) {
-// 	// 		console.log('select error : ', error.message );
-// 	// 	}else{
-// 	// 		return results;
-// 	// 	}
-// 	// });
+	var adminlogin = mySqlClient.query('select * from admin where ad_id=?',[id], function(error,results){
+		if (error) {
+			console.log('select error : ', error.message );
+		}else{
+			var adminid = results[0].ad_id;
+			var adminpw = results[0].ad_pw;
+			console.log(adminid);
+			if(id === adminid && pw === adminpw){
+				res.redirect('/admin');
+			}else {
+				res.redirect('/login');
+			}
+				}
+	});
 
-// 	if(id === adminid && pw === adminpw){
-// 		res.redirect('/admin');
-// 	}else {
-// 		res.redirect('/admin');
-// 	}
-// });
+
+});
 
 app.get('/login', function(req, res){
 	fs.readFile('login.html', 'utf8', function(error, data){
@@ -90,36 +84,6 @@ app.get('/login', function(req, res){
 		}
 	})
 });
-
-app.post('/login', function(req, res) {
-    var id = 'admin';
-    var pw = 'admin';
-
-    var sql = `SELECT * FROM admin WHERE ad_id = ?`;
-    mySqlClient.query(sql, [id], function(error, results, fields) {
-        if (results.length == 0) {
-          var session = req.session;
-          console.log("try again")
-          console.log(session)
-          res.sendFile('login.html');
-        } else {
-          var db_name = results[0].ad_id; 
-          var db_pwd = results[0].ad_pw; 
-
-          req.session.regenerate(function() {
-            req.session.logined = true;
-            req.session.ad_id = db_name;
-            req.session.ad_pw = db_pwd;
-            var session = req.session;
-            console.log("login success!");
-            console.log(session);
-            res.sendFile('admin.html', {session: req.session})
-          })
-        }
-    });
-});
-
-
 
 
 app.get('/admin', function(req, res){
@@ -154,7 +118,7 @@ app.post( '/emp_insert', function(req, res){
 				if(error){
 					console.log('insert error : ', error.message );
 				}else{
-					res.redirect('/');
+					res.redirect('/admin');
 				}
 	});
 });
@@ -186,7 +150,7 @@ app.get('/emp_list/delete/:emp_id', function(req, res){
 					console.log('delete Error');
 				}else{
 					console.log('delete emp_id = %s', req.params.emp_id);
-					res.redirect('/');				
+					res.redirect('/admin');				
 				}
 			});
 });  
@@ -219,7 +183,7 @@ app.post( '/emp_edit/:emp_id', function(req, res){
 				if(error){
 					console.log('update error : ', error.message );
 				}else{
-					res.redirect('/');
+					res.redirect('/admin');
 				}
 	});
 });
@@ -246,7 +210,7 @@ app.post( '/mov_insert', function(req, res){
 				if(error){
 					console.log('insert error : ', error.message );
 				}else{
-					res.redirect('/');
+					res.redirect('/admin');
 				}
 	});
 });
@@ -277,7 +241,7 @@ app.get('/mov_list/delete/:mov_id', function(req, res){
 					console.log('delete Error');
 				}else{
 					console.log('delete mov_id = %s', req.params.mov_id);
-					res.redirect('/');				
+					res.redirect('/admin');				
 				}
 			});
 });
@@ -307,7 +271,7 @@ app.post( '/mov_edit/:mov_id', function(req, res){
 				if(error){
 					console.log('update error : ', error.message );
 				}else{
-					res.redirect('/');
+					res.redirect('/admin');
 				}
 	});
 });
@@ -333,7 +297,7 @@ app.post( '/sup_insert', function(req, res){
 				if(error){
 					console.log('insert error : ', error.message );
 				}else{
-					res.redirect('/');
+					res.redirect('/admin');
 				}
 	});
 });
@@ -364,7 +328,7 @@ app.get('/sup_list/delete/:sup_id', function(req, res){
 					console.log('delete Error');
 				}else{
 					console.log('delete sup_id = %s', req.params.sup_id);
-					res.redirect('/');				
+					res.redirect('/admin');				
 				}
 			});
 });
@@ -393,7 +357,7 @@ app.post( '/sup_edit/:sup_id', function(req, res){
 				if(error){
 					console.log('update error : ', error.message );
 				}else{
-					res.redirect('/');
+					res.redirect('/admin');
 				}
 	});
 });
