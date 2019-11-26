@@ -23,6 +23,8 @@ var mySqlClient = mysql.createConnection({
   database: 'dbTeam'
 });
 
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 
 app.listen(3300, function (){
     console.log('Example app listening on port 3300!');
@@ -395,3 +397,50 @@ app.post( '/sup_edit/:sup_id', function(req, res){
 				}
 	});
 });
+
+
+
+/*-------------------------login */
+
+//app.get('/ad_login', function(req, res){
+//	fs.readFile('ad_login.html', 'utf8', function(error, data){
+//		if(error){
+//			console.log('readFile Error');
+//		}else{
+//			res.send(data);
+//		}
+//	})
+//});
+
+app.get('ad_login', function(req, res){
+    res.render('ad_login.html');
+});
+//app.post('/ad_login', function(req, res){
+//    var user_id = req.body.user_id;
+//    var user_password = req.body.user_password;
+//
+//    var sql = 'SELECT * FROM user_info WHERE user_id = ?';
+//    mySqlClient.query(sql, [user_id], function (error, results, fields) {
+//        if (results.length == 0) {
+//            res.render('ad_login.html', { alert: true });
+//        } else {
+//            var db_pwd = results[0].user_password;
+//
+//            if (user_password == db_pwd) {
+//                //session
+//                req.session.user = {
+//                    logined: true,
+//                    user_name: results[0].user_name
+//                }
+//
+//                res.render('admin.html', {
+//                    logined: req.session.user.logined,
+//                    user_name: req.session.user.user_name
+//                });
+//            }
+//            else {
+//                res.render('ad_login.html', { alert: true });
+//            }
+//        }
+//    });
+//})
