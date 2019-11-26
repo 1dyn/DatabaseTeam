@@ -31,6 +31,7 @@ app.use(cookieParser());
 
 // resave 세션아이디를 접속할때마다 발급하지 않는다
 app.use(session({
+  key: 'sid',
   secret: 'my key',
   resave: true,
   saveUninitialized: true
@@ -115,6 +116,7 @@ app.get('/', function(req, res) {
   }
 });
 
+
 app.post('/', function(req, res) {
     var id = req.body.id;
     var pwd = req.body.pwd;
@@ -132,16 +134,27 @@ app.post('/', function(req, res) {
 
           req.session.regenerate(function() {
             req.session.logined = true;
+            req.session.user_id = db_name;
+            req.session.user_pw = db_pwd;
             var session = req.session;
             console.log("login success!");
             console.log(session);
-            console.log("id: " + db_name);
-            console.log("pw: " + db_pwd);
-            res.render('html_log.html', {session: req.session})
+            res.render('index_log.html', {session: req.session})
           })
         }
       });
     });
+
+// 로그아웃
+// exports.logout = function(req, res) {
+//   req.session.destroy(); // 세션 삭제
+//   res.clearCookie('sid'); // 세션 쿠키 삭제
+// }
+app.post('/logout', function(req, res) {
+  req.session.destroy();
+  console.log('logout complete!');
+  res.render('login.html');
+})
 
 // 회원가입 연동
 app.get('/sign_up', function(req, res) {
