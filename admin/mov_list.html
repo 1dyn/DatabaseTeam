@@ -32,6 +32,9 @@
             <th>director</th>
             <th>actor</th>
             <th>director</th>
+            <th>mov_eng_name</th>
+            <th>mov_age</th>
+            <th>mov_desc</th>
 
         </tr>
         <% prodList.forEach(function(item, index){ %>
@@ -45,7 +48,10 @@
             <td><%= item.genre %></td>
             <td><%= item.grade %></td>
             <td><%= item.director %></td>
-            <td><%= item.actor %></td>    
+            <td><%= item.actor %></td>  
+            <td><%= item.mov_eng_name %></td>
+            <td><%= item.mov_age %></td>
+            <td><%= item.mov_desc %></td>  
         </tr>
         <% }); %>
     </table>
