@@ -10,23 +10,19 @@
     <ul>
         <li>직원 관리</li>
             <ol><a href='/emp_insert'>emp_insert</a></ol>
-            <ol><a href='/emp_list'>emp_list &amp delete</a></ol>
-            <!-- <ol><a href='/emp_edit'>emp_edit</a></ol> -->
+            <ol><a href='/emp_list'>emp delete &amp edit</a></ol>
         <li>영화 관리</li>
             <ol><a href='/mov_insert'>mov_insert</a></ol>
-            <ol><a href='/mov_list'>mov_list &amp delete</a></ol>
-           <!--  <ol><a href='/mov_edit'>mov_edit</a></ol> -->
+            <ol><a href='/mov_list'>mov delete &amp edit</a></ol>
         <li>비품 관리</li>
             <ol><a href='/sup_insert'>sup_insert</a></ol>
-            <ol><a href='/sup_list'>sup_list</a></ol> 
-           <!--  <ol><a href='/sup_edit'>sup_edit</a></ol> -->
+            <ol><a href='/sup_list'>sup delete and edit</a></ol> 
     </ul>
     <hr />
     <table width="100%" border="1">
         <tr>
             <th>DELETE</th>
             <th>EDIT</th>
-           
             <th>emp_id</th>
             <th>emp_name</th>
             <th>engname</th>
@@ -39,7 +35,7 @@
         <% prodList.forEach(function(item, index){ %>
         <tr>
             <td><a href='/emp_list/delete/<%= item.emp_id %>'>DELETE</a></td>
-            <td> <!-- <a href='/emp_list/edit/<%= item.emp_id %>'> --> EDIT</a></td>  
+            <td>  <a href='/emp_edit/<%= item.emp_id %>'>  EDIT</a></td>  
             
             <td><%= item.emp_id %></td>
             <td><%= item.emp_name %></td>

@@ -6,18 +6,15 @@
 <body>
 	<h1>Movie Edit</h1>
 	<ul>
-        <li>직원 관리</li>
+         <li>직원 관리</li>
             <ol><a href='/emp_insert'>emp_insert</a></ol>
-            <ol><a href='/emp_list'>emp_list &amp delete</ a></ol>
-            <!-- <ol><a href='/emp_edit'>emp_edit</a></ol> -->
+            <ol><a href='/emp_list'>emp delete &amp edit</a></ol>
         <li>영화 관리</li>
             <ol><a href='/mov_insert'>mov_insert</a></ol>
-            <ol><a href='/mov_list'>mov_list &amp delete</a></ol>
-           <!--  <ol><a href='/mov_edit'>mov_edit</a></ol> -->
+            <ol><a href='/mov_list'>mov delete &amp edit</a></ol>
         <li>비품 관리</li>
             <ol><a href='/sup_insert'>sup_insert</a></ol>
-            <ol><a href='/sup_list'>sup_list</a></ol> 
-           <!--  <ol><a href='/sup_edit'>sup_edit</a></ol> -->
+            <ol><a href='/sup_list'>sup delete and edit</a></ol> 
     </ul>
 	<form method='post'>
 		<fieldset>
@@ -32,12 +29,12 @@
 					<td><input type="text" name="ci_id" value="<%= supplies.ci_id  %>"/></td>
 				</tr>
 				<tr>
-					<td><lable>sub_name</lable></td>
-					<td><input type="text" name="sub_name" value="<%= supplies.sub_name %>"/></td>
+					<td><lable>sup_name</lable></td>
+					<td><input type="text" name="sup_name" value="<%= supplies.sup_name %>"/></td>
 				</tr>
                 <tr>
-					<td><lable>sizd</lable></td>
-					<td><input type="text" name="sizd" value="<%= supplies.sizd  %>"/></td>
+					<td><lable>size</lable></td>
+					<td><input type="text" name="size" value="<%= supplies.size  %>"/></td>
 				</tr>
 				<tr>
 					<td><lable>total</lable></td>
