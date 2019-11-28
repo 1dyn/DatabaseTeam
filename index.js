@@ -139,7 +139,7 @@ app.post('/', function(req, res) {
             var session = req.session;
             console.log("login success!");
             console.log(session);
-            res.render('index_log.html', {session: req.session})
+            res.render('html_log.html', {session: req.session})
           })
         }
       });

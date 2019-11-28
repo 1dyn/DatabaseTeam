@@ -204,8 +204,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.post( '/mov_insert', function(req, res){
 	var body = req.body;
 	
-	mySqlClient.query( 'insert into movie(mov_id, mov_name, open_date, genre, grade, director, actor) values(?, ?, ?, ?, ?, ?, ?)',
-			[ body.mov_id, body.mov_name, body.open_date, body.genre, body.grade, body.director, body.actor], 
+	mySqlClient.query( 'insert into movie(mov_id, mov_name, open_date, genre, grade, director, actor, mov_eng_name, mov_age, mov_desc) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			[ body.mov_id, body.mov_name, body.open_date, body.genre, body.grade, body.director, body.actor, body.mov_eng_name, body.mov_age, body.mov_desc], 
 			function(error, result){
 				if(error){
 					console.log('insert error : ', error.message );
@@ -265,8 +265,8 @@ app.get('/mov_list/delete/:mov_id', function(req, res){
 app.post( '/mov_edit/:mov_id', function(req, res){
 	var body = req.body;
 	
-	mySqlClient.query( 'update movie set mov_id=?, mov_name=?, open_date=?, genre=?, grade=?, director=?, actor=? where mov_id =?',
-			[ body.mov_id, body.mov_name, body.open_date, body.genre ,body.grade ,body.director, body.actor, body.mov_id ], 
+	mySqlClient.query( 'update movie set mov_id=?, mov_name=?, open_date=?, genre=?, grade=?, director=?, actor=?, mov_eng_name=?, mov_age=?, mov_desc=? where mov_id =?',
+			[ body.mov_id, body.mov_name, body.open_date, body.genre ,body.grade ,body.director, body.actor, body.mov_id, body.mov_eng_name, body.mov_age, body.mov_desc ], 
 			function(error, result){
 				if(error){
 					console.log('update error : ', error.message );
