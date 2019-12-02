@@ -17,10 +17,10 @@ var path = require('path');
 // app.use(express.static(__dirname + '/public'));
 
 // ejs view와 렌더링 설정
-app.use(express.static('html_template'));
-app.use(express.static('html_template/html'));
-app.use('/html_template', express.static('./static/css'))
-app.use('/html_template', express.static('./static/js'))
+app.use(express.static('views'));
+app.use(express.static('views'));
+app.use('/views', express.static('./static/css'))
+app.use('/views', express.static('./static/js'))
 app.use(express.static('routes'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -56,27 +56,7 @@ connection.connect(function(err) {
   console.log('Success DB connection');
 });
 
-// 좌석 예매 gui
-var socketio = require('socket.io');
-var fs = require('fs');
-var seats = [
-  [1, 1, 0, 0, 1, 1],
-  [1, 1, 1, 1, 1, 1],
-  [1, 1, 1, 1, 1, 1]
-];
 
-
-app.get('/seats',
-  function(request, response) {
-    response.send(seats);
-  });
-
-app.get('/',
-  function(request, response) {
-    fs.readFile('HTMLPage.html', function(error, data) {
-      response.send(data.toString());
-    });
-  });
 
 
 // Express 서버 시작
@@ -89,21 +69,6 @@ server.listen(3307, function() {
 app.get('/', function(req, res) {
   res.render('index.html');
 });
-var io =
-  socketio.listen(server);
-io.sockets.on('connection',
-  function(socket) {
-    socket.on('reserve',
-      function(data) {
-        seats[data.y][data.x] = 2;
-        io.sockets.emit('reserve', data);
-      });
-    socket.on('reserveBak',
-      function(data) {
-        seats[data.y][data.x] = 1;
-        io.sockets.emit('reserveBak', data);
-      });
-  });
 
 //로그인 구현
 app.get('/', function(req, res) {

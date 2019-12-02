@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JB cinema</title>
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="../css/jquery.seat-charts.css">
+<style>
+body {
+	font-family: 'Roboto', sans-serif;
+  background-color:#fafafa;
+}
+a {
+	color: #b71a4c;
+	text-decoration: none;
+}
+.front-indicator {
+	width: 145px;
+	margin: 5px 32px 15px 32px;
+	background-color: #f6f6f6;	
+	color: black;
+	text-align: center;
+	padding: 3px;
+	border-radius: 5px;
+}
+.wrapper {
+	width: 100%;
+	text-align: center;
+  margin-top:150px;
+}
+.container {
+	margin: 0 auto;
+	width: 500px;
+	text-align: left;
+}
+.booking-details {
+	float: left;
+	text-align: left;
+	margin-left: 35px;
+	font-size: 12px;
+	position: relative;
+	height: 401px;
+}
+.booking-details h2 {
+	margin: 25px 0 20px 0;
+	font-size: 17px;
+}
+.booking-details h3 {
+	margin: 5px 5px 0 0;
+	font-size: 14px;
+}
+
+/* 좌석 하나하나 크기 지정 */
+div.seatCharts-cell {
+	color: #182C4E;
+	height: 25px;
+	width: 25px;
+	line-height: 25px;
+	
+}
+div.seatCharts-seat {
+	color: #FFFFFF;
+	cursor: pointer;	
+}
+div.seatCharts-row {
+	height: 40px;
+}
+div.seatCharts-seat.available {
+	background-color: skyblue;
+
+}
+div.seatCharts-seat.available.sweet_box {
+/* 	background: url(vip.png); */
+	background-color:pink;
+}
+div.seatCharts-seat.focused {
+	background-color: red;
+}
+div.seatCharts-seat.selected {
+	background-color:red;
+}
+div.seatCharts-seat.unavailable {
+	background-color: red;
+}
+div.seatCharts-container {
+	border-right: 1px dotted #adadad;
+	width: 200px;
+	padding: 20px;
+	float: left;
+}
+div.seatCharts-legend {
+	padding-left: 0px;
+	position: absolute;
+	bottom: 20px;
+}
+ul.seatCharts-legendList {
+	padding-left: 0px;
+
+}
+span.seatCharts-legendDescription {
+	margin-left: 5px;
+	line-height: 30px;
+}
+.checkout-button {
+	display: block;
+	margin: 10px 0;
+	font-size: 14px;
+	background-color: skyblue;
+	border: none;
+	color: white;
+}
+#selected-seats {
+	max-height: 90px;
+	overflow-y: scroll;
+	overflow-x: none;
+	width: 170px;
+}
+</style>
+</head>
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+<div class="wrapper">
+  <div class="container">
+  <h1>JB cinema booking system</h1>
+    <div id="seat-map">
+      <div class="front-indicator">Screen</div>
+    </div>
+    <div class="booking-details">
+      <h2>선택된 좌석목록</h2>
+      <h3> 선택된 좌석(<span id="counter">0</span>):</h3>
+      <ul id="selected-seats">
+      </ul>
+      총 가격: <b><span id="total">0</span>원</b>
+      <button class="checkout-button">결제하기 &raquo;</button>
+      <div id="legend"></div>
+    </div>
+  </div>
+</div>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> 
+<script src="../js/jquery.seat-charts.js"></script> 
+<script>
+			var firstSeatLabel = 1;
+		
+			$(document).ready(function() {
+				var $cart = $('#selected-seats'),
+					$counter = $('#counter'),
+					$total = $('#total'),
+					sc = $('#seat-map').seatCharts({
+					map: [
+					'eeeee',
+					'eeeee',
+					'eeeee',
+					'eeeee',
+					'eeeee',	
+					'_f_f_',
+					'_f_f_'
+					],
+					seats: {
+						f: {
+							price   : 20000,
+							classes : 'sweet_box', //your custom CSS class
+							category: 'sweet_box'
+						},
+						e: {
+							price   : 12000,
+							classes : 'normal_seat', //your custom CSS class
+							category: 'normal_seat'
+						}					
+					
+					},
+					naming : {
+						top : false,
+						getLabel : function (character, row, column) {
+							return firstSeatLabel++;
+						},
+					},
+					legend : {
+						node : $('#legend'),
+					    items : [
+							[ 'e', 'available',   'normal_seat' ],
+							[ 'f', 'available',   'Sweet_box'],
+							[ 'a', 'unavailable', 'Already_Booked']
+					    ]					
+					},
+					click: function () {
+						if (this.status() == 'available') {
+							//let's create a new <li> which we'll add to the cart items
+							$('<li>'+this.data().category+'#'+this.settings.label +'</b> <a href="#" class="cancel-cart-item">[취소하기]</a></li>')
+								.attr('id', 'cart-item-'+this.settings.id)
+								.data('seatId', this.settings.id)
+								.appendTo($cart);
+							
+							/*
+							 * Lets update the counter and total
+							 *
+							 * .find function will not find the current seat, because it will change its stauts only after return
+							 * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
+							 */
+							$counter.text(sc.find('selected').length+1);
+							$total.text(recalculateTotal(sc)+this.data().price);
+							
+							return 'selected';
+						} else if (this.status() == 'selected') {
+							//update the counter
+							$counter.text(sc.find('selected').length-1);
+							//and total
+							$total.text(recalculateTotal(sc)-this.data().price);
+						
+							//remove the item from our cart
+							$('#cart-item-'+this.settings.id).remove();
+						
+							//seat has been vacated
+							return 'available';
+						} else if (this.status() == 'unavailable') {
+							//seat has been already booked
+							return 'unavailable';
+						} else {
+							return this.style();
+						}
+					}
+				});
+
+				//this will handle "[cancel]" link clicks
+				$('#selected-seats').on('click', '.cancel-cart-item', function () {
+					//let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
+					sc.get($(this).parents('li:first').data('seatId')).click();
+				});
+
+				//let's pretend some seats have already been booked
+				sc.get([]).status('available');
+		
+		});
+
+		function recalculateTotal(sc) {
+			var total = 0;
+		
+			//basically find every selected seat and sum its price
+			sc.find('selected').each(function () {
+				total += this.data().price;
+			});
+			
+			return total;
+		}
+		
+		</script>
+</body>
+</html>
