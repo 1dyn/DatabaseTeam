@@ -1,455 +1,76 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-	<title>Ticketing</title>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../css/tablecss.css">
 	<style>
-.screen
-{
-			background-color:black;
-			color: white;
-			text-align: center;
-			font-size: 50px;
-			padding: 30px;
-			width: 565px;
-	
-
-}
-
-		.enable:hover {
-			color: red;
+		#container {
+			width: 80%;
+			margin: auto;
+			position: relative;
 		}
-
-		.seat {
-			margin: 2px;
-			float: left;
-			width: 100px;
-			height: 100px;
-			border-radius: 3px;
-		}
-
-		.line {
-			overflow: hidden;
-		}
-
-		.enable {
-			background: skyblue;
-		}
-
-		.disable {
-			background: red;
-		}
-
-		body {
-			margin: 0;
-			padding: 0;
-			font-family: "Open Sans", sans-serif;
-			background-color: #f1f1f1;
-			color: #555;
-		}
-
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6,
-		p {
-			margin: 0;
-			padding: 0;
-		}
-
-		ul {
-			margin: 0;
-			padding: 0;
-			list-style: none;
-		}
-
-		a {
-			text-decoration: none;
-		}
-
-		nav .gnb {
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 90px;
-			text-align: center;
-			background-color: skyblue;
-		}
-
-		nav .gnb li {
-			display: inline-block;
-		}
-
-		nav .gnb a {
-			display: block;
-			padding: 0 40px;
-			line-height: 90px;
-			color: white;
-			font-weight: bold;
-		}
-
-		nav .gnb a:hover {
-			text-decoration: underline;
-		}
-
-		nav .gnb.fixed {
-			position: fixed;
-			left: 0;
-			top: 0;
-			z-index: 100;
-			width: 100%;
-			background-color:skyblue;
-			-webkit-transform: translateY(-90px);
-			transform: translateY(-90px);
-			-webkit-transition: -webkit-transform 0.4s;
-			transition: transform 0.4s;
-		}
-
-		nav .gnb.fixed.active {
-			-webkit-transform: translateY(0);
-			transform: translateY(0);
-		}
-
-		section {
-			padding-top: 120px;
-			height: 900px;
-			border-bottom: 1px solid #999;
-			box-sizing: border-box;
-		}
-
-		section h2 {
-			margin: 0 0 10px 60px;
-			font-size: 2.4em;
-			font-weight: 300;
-			opacity: 0;
-			-webkit-transform: translateX(-100px);
-			transform: translateX(-100px);
-			-webkit-transition: opacity 0.4s, -webkit-transform 0.6s;
-			transition: opacity 0.4s, transform 0.6s;
-		}
-
-		section p {
-			margin: 8px 0 8px 60px;
-			color: #aaa;
-			opacity: 0;
-			-webkit-transform: translateX(-100px);
-			transform: translateX(-100px);
-			-webkit-transition: opacity 0.4s, -webkit-transform 0.6s;
-			transition: opacity 0.4s, transform 0.6s;
-			-webkit-transition-delay: 0.4s;
-			transition-delay: 0.4s;
-		}
-
-		section p.last {
-			-webkit-transition-delay: 0.8s;
-			transition-delay: 0.8s;
-		}
-
-		section.active h2,
-		section.active p {
-			opacity: 1;
-			-webkit-transform: translateX(0);
-			transform: translateX(0);
-		}
-
-		#movie {
-			text-align: center;
-			color: black;
-		}
-#page4
-{
-  margin-left: 390px;
-
-}
-img:hover
-{
-	border:4px solid red;
-}
-
-
 	</style>
-	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
-	<script>
-		$(function() {
-			var h; // 윈도우 크기를 지정하는 변수입니다.
-			var t; // 윈도우의 상단 좌표를 지정하는 변수입니다.
-			var num = 1; // 전체 위치를 관리하는 변수입니다.
-			var link = ""; // 페이지의 링크 경로를 지정하는 변수입니다.
-			var startFlag = false; // 시작을 지정하는 변수입니다.
-
-			setTimeout(function() {
-				$("body, html").animate({
-					scrollTop: 0
-				}, 400, function() {
-					$("section").removeClass("active");
-					$("#page1").addClass("active");
-					startFlag = true;
-				});
-			}, 150);
-
-			$(window).resize(function() {
-				h = $(window).height();
-				$("section").css({
-					height: h
-				});
-			});
-
-			$(window).scroll(function() {
-				if (startFlag == false) {
-					return false;
-				}
-
-				t = $(window).scrollTop();
-
-				if (t <= $("#page2").offset().top - 400) {
-					$("#page1").addClass("active");
-				} else if (t <= $("#page3").offset().top - 400) {
-					$("#page2").addClass("active");
-				} else if (t <= $("#page4").offset().top - 400) {
-					$("#page3").addClass("active");
-				} else if (t <= $("#page5").offset().top - 400) {
-					$("#page4").addClass("active");
-				} else if (t <= $("#page6").offset().top - 400) {
-					$("#page5").addClass("active");
-				} else {
-					$("#page6").addClass("active");
-				}
-
-				if (t > 150) {
-					$(".fixed").addClass("active");
-				} else {
-					$(".fixed").removeClass("active");
-				}
-			});
-
-			$("nav .gnb a").click(function() {
-				link = $(this).attr("href");
-				// console.log("top : "+$(link).offset().top);
-				$("body, html").animate({
-					scrollTop: $(link).offset().top
-				}, 400);
-
-				num = $(this).parent().index() + 1;
-
-				return false;
-			});
-			$("a").click(function() {
-				link = $(this).attr("href");
-				// console.log("top : "+$(link).offset().top);
-				$("body, html").animate({
-					scrollTop: $(link).offset().top
-				}, 400);
-
-				num = $(this).parent().index() + 1;
-
-				return false;
-			});
-			$("body, html").mousewheel(function(e, delta) {
-				if ($("body, html").is(":animated")) {
-					return false;
-				}
-				if (delta > 0) {
-					// console.log("up");
-					if (num > 1) {
-						num = num - 1;
-					}
-				} else {
-					// console.log("down");
-					if (num < 6) {
-						num = num + 1;
-					}
-				}
-				// console.log("num : "+num);
-
-				$("body, html").animate({
-					scrollTop: $("#page" + num).offset().top
-				}, 400);
-			});
-			$("body, html").keydown(function(e) {
-				// console.log("e.keyCode : "+e.keyCode);
-				if ($("body, html").is(":animated")) {
-					return false;
-				}
-				if (e.keyCode == 38) {
-					// console.log("up");
-					if (num > 1) {
-						num = num - 1;
-					}
-				} else if (e.keyCode == 40) {
-					// console.log("down");
-					if (num < 6) {
-						num = num + 1;
-					}
-				}
-				// console.log("num : "+num);
-
-				$("body, html").animate({
-					scrollTop: $("#page" + num).offset().top
-				}, 400);
-			});
-
-			$(window).trigger("resize");
-			$(window).trigger("scroll");
-		});
-		var socket = io.connect();
-
-		socket.on('reserve',
-			function(data) {
-				var $target =
-					$('div[data-x =' + data.x + '][data-y =' + data.y + ']');
-
-				$target.removeClass('enable');
-				$target.addClass('disable');
-
-
-			});
-
-		socket.on('reserveBak',
-			function(data) {
-
-				var $target =
-					$('div[data-x =' + data.x + '][data-y =' + data.y + ']');
-
-
-				$target.removeClass('disable');
-				$target.addClass('enable');
-			});
-	</script>
-
-	<script>
-		$(document).ready(function() {
-
-			var onClickSeat = function() {
-				var x = $(this).attr('data-x');
-				var y = $(this).attr('data-y');
-
-				if (confirm('확인 : 예약하기 / 취소 : 예약취소')) {
-					socket.emit('reserve', {
-						x: x,
-						y: y
-					});
-				} else {
-					socket.emit('reserveBak', {
-						x: x,
-						y: y
-					});
-				}
-			}
-
-
-
-			$.getJSON('/seats',
-				function(data) {
-					$.each(data,
-						function(index_Y, line) {
-							var $line = $('<div></div>').addClass('line');
-							$.each(line,
-								function(index_X, seat) {
-									var $output = $('<div></div>', {
-										'class': 'seat',
-										'data-x': index_X,
-										'data-y': index_Y
-									}).appendTo($line);
-
-									if (seat == 1)
-										$output.addClass('enable').on('click',
-											onClickSeat);
-
-								});
-
-
-							$line.appendTo('#page4');
-						}); // 첫번째 EACH
-
-				}); // GETjsON
-		}); //DOCUMENT
-		$("a").click(function() {
-
-			toggleClass(".active-color");
-		});
-		$(function() {
-			$("#cinema").click(function() {
-				$("#cinema").css("border", "none");
-				$(this).css("border", "4px solid red");
-			});
-		});
-		$(function() {
-			$("#movies").click(function() {
-				$("#movies").css("border", "none");
-				$(this).css("border", "4px solid red");
-			});
-		});
-		
-	</script>
 </head>
-
 <body>
-	<div class="container">
-		<header>
-			<nav>
-				<ul class="gnb">
-					<li><a href="index.html">HOME</a></li>
-					<li><a href="#page1">Cinema</a></li>
-					<li><a href="#page2">Movie</a></li>
-					<li><a href="#page3">Date</a></li>
-					<li><a href="#page4">Seat</a></li>
-				</ul>
-				<ul class="gnb fixed">
-					<li><a href="index.html">HOME</a></li>
-					<li><a href="#page1">Cinema</a></li>
-					<li><a href="#page2">Movie</a></li>
-					<li><a href="#page3">Date</a></li>
-					<li><a href="#page4">Seat</a></li>
-				</ul>
-			</nav>
-		</header>
-		<section id="page1">
-
-			<table>
-					<h1 id="movie">cinema</h1>
-					<tr>
-						<th><a href=#page2><img id ="cinema" src="../img/seoul.png" width="200" height="300" style="margin-top:50px;margin-left:380px; padding:5px; overflow: scroll; "></a></th> 
-						<th><a href=#page2><img id ="cinema" src="../img/ansan.png" width="200" height="300" style="margin-top:50px; padding:5px; overflow: scroll; "></a></th>
-						<th><a href=#page2><img id ="cinema" src="../img/gwang.png" width="200" height="300" style="margin-top:50px; padding:5px; overflow: scroll; "></a></th>
-						
-					</tr>
-				</table>
-		</section>
-		<section id="page2">
-			<table>
-				<h1 id="movie">MOVIE</h1>
-				<tr>
-					<th><a href=#page3><img id ="movies" src="../img/1.jpg" width="200" height="300" style="margin-top:50px;margin-left:280px; padding:5px; overflow: scroll; "></a></th>
-					<th><a href=#page3><img id ="movies" src="../img/4.jpg" width="200" height="300" style="margin-top:50px; padding:5px; overflow: scroll; "></a></th>
-					<th><a href=#page3><img id ="movies" src="../img/5.jpg" width="200" height="300" style="margin-top:50px; padding:5px; overflow: scroll; "></a></th>
-					<th><a href=#page3><img id ="movies"  src="../img/6.jpg" width="200" height="300" style="margin-top:50px; padding:5px; overflow: scroll; "></a></th>
-				</tr>
-			</table>
-		</section>
-		<section id="page3">
-				<h1 id="movie">DATE</h1>
-				<form id = "data">
-						<label for="dt">Date: </label>
-						 <input name="dt" type="date"/>
-						
-				</form>
-		</section>
-		<section id="page4">
-			<div class="screen">
-				SCREEN
+<h1>Time Table</h1>
+	<div id="container">
+		<div class="pricing-table basic">
+			<span class="table-head">
+				안산 중앙점
+			</span>
+			<span class="price">
+				Time Table
+			</span>
+			<span class="table-row">7:00 - 8:40</span>
+			<span class="table-row">9:00 - 10:40</span>
+			<span class="table-row">11:00 - 12:40</span>
+			<span class="table-row">13:00 - 14:40</span>
+			<span class="table-row">15:00 - 16:40</span>
+			<span class="table-row">17:00 - 18:40</span>
+			<div class="purchase">
+				<a href="tic_seat.html" class="buy">선택</a>
 			</div>
-		</section>
-	</div>
-</body>
+		</div>
 
+		<div class="pricing-table standard">
+			<span class="table-head">
+				서울 이수점 
+			</span>
+			<span class="price">
+				Time Table
+			</span>
+			<span class="table-row">7:00 - 8:40</span>
+			<span class="table-row">9:00 - 10:40</span>
+			<span class="table-row">11:00 - 12:40</span>
+			<span class="table-row">13:00 - 14:40</span>
+			<span class="table-row">15:00 - 16:40</span>
+			<span class="table-row">17:00 - 18:40</span>
+			<div class="purchase">
+				<a href="tic_seat.html" class="buy">선택</a>
+			</div>
+		</div>
+
+		<div class="pricing-table premium">
+			<span class="table-head">
+				경기 광명점
+			</span>
+			<span class="price">
+				Time Table
+			</span>
+			<span class="table-row">7:00 - 8:40</span>
+			<span class="table-row">9:00 - 10:40</span>
+			<span class="table-row">11:00 - 12:40</span>
+			<span class="table-row">13:00 - 14:40</span>
+			<span class="table-row">15:00 - 16:40</span>
+			<span class="table-row">17:00 - 18:40</span>
+			<div class="purchase">
+				<a href="tic_seat.html" class="buy">선택</a>
+			</div>
+		</div>
+	</div>
+	
+</body>
 </html>
