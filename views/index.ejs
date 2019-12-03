@@ -44,13 +44,14 @@
 							<li class="active"><a href="/">Home</a></li>
 							<li><a href="/movie_info">Movie info</a></li>
 							<li><a href="/screen">Screen</a></li>
-							<li><a href="/mega">Ticketing </a></li>
+							<li><a href="/mega">Ticketing</a></li>
 							<!-- <li><a href="login.html">login</a></li> -->
 							<% if(logined) { %>
-								<li><a><%= user_id %> 님, 어서오세요</a></li>
+								<li><a href="/logout">Logout</a></li>
+								<li><a>| <%= user_id %> 님, 어서오세요</a></li>
 							<% } else { %>
 								<li><a href="/login">login</a></li>
-							<% } %>            
+							<% } %>
 						</ul>
 					</div>
 				</div>
@@ -84,7 +85,7 @@
 				<!-- divider -->
 				<div class="row">
 					<div class="col-lg-12" >
-						
+
 					</div>
 				</div>
 				<!-- end divider -->
@@ -95,7 +96,7 @@
 						<div class="row">
 							<section id="projects">
 								<ul id="thumbs" class="portfolio">
-									
+
 									<li class="col-lg-3 design" data-id="id-0" data-type="web">
 										<div class="item-thumbs">
 											<a class="hover-wrap fancybox" data-fancybox-group="gallery" href="ticketing1.html">
@@ -105,18 +106,18 @@
 										</div>
 										<p class="cen">ㅁㅁㅁㅁ<br> <span class="sizedown">The Divine Move 2: The Wrathful, 2019</span></p>
 									</li>
-									
+
 
 									<li class="col-lg-3 design" data-id="id-1" data-type="icon">
 										<div class="item-thumbs">
 											<a class="hover-wrap fancybox" data-fancybox-group="gallery" href="ticketing1.html">
 												<span class="overlay-img"></span>
-											</a>	
+											</a>
 											<img src="../img/4.jpg" alt="" width="230px" height="180px">
-										</div>	
-										<p class="cen">겨울왕국 2 <br><span class="sizedown">Frozen 2, 2019</span></p>	
+										</div>
+										<p class="cen">겨울왕국 2 <br><span class="sizedown">Frozen 2, 2019</span></p>
 									</li>
-									
+
 
 									<li class=" col-lg-3 photography" data-id="id-2" data-type="illustrator">
 										<div class="item-thumbs">
@@ -127,7 +128,7 @@
 										</div>
 										<p class="cen">알라딘<br><span class="sizedown"> Aladdin, 2019</span></p>
 									</li>
-									
+
 
 									<li class="col-lg-3 photography" data-id="id-2" data-type="illustrator">
 										<div class="item-thumbs">
@@ -135,10 +136,10 @@
 												<span class="overlay-img"></span>
 											</a>
 											<img src="../img/6.jpg" alt="" width="230px" height="180px">
-										</div>	
+										</div>
 										<p class="cen">라이온 킹<br><span class="sizedown"> The Lion King, 2019</span></p>
 									</li>
-									
+
 								</ul>
 
 							</section>

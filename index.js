@@ -125,11 +125,14 @@ app.post('/', function(req, res) {
     });
 
 // 로그아웃
-app.post('/logout', function(req, res) {
+app.get('/logout', function(req, res) {
   req.session.destroy();
   res.clearCookie('id');
   console.log('logout complete!');
-  res.render('login.ejs');
+  res.render('index.ejs', {
+    logined : false,
+    user_id : null
+  });
 })
 
 // 회원가입 연동
