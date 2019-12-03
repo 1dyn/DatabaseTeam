@@ -266,7 +266,7 @@ app.post( '/mov_edit/:mov_id', function(req, res){
 	var body = req.body;
 	
 	mySqlClient.query( 'update movie set mov_id=?, mov_name=?, open_date=?, genre=?, grade=?, director=?, actor=?, mov_eng_name=?, mov_age=?, mov_desc=? where mov_id =?',
-			[ body.mov_id, body.mov_name, body.open_date, body.genre ,body.grade ,body.director, body.actor, body.mov_id, body.mov_eng_name, body.mov_age, body.mov_desc ], 
+			[ body.mov_id, body.mov_name, body.open_date, body.genre ,body.grade ,body.director, body.actor, body.mov_eng_name, body.mov_age, body.mov_desc, body.mov_id ], 
 			function(error, result){
 				if(error){
 					console.log('update error : ', error.message );
@@ -291,8 +291,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.post( '/sup_insert', function(req, res){
 	var body = req.body;
 	
-	mySqlClient.query( 'insert into supplies(sup_id, ci_id, sub_name, size, total, price, sup_in) values(?, ?, ?, ?, ?, ?, ?)',
-			[ body.sup_id, body.ci_id, body.sub_name, body.size, body.total, body.price, body.sup_in], 
+	mySqlClient.query( 'insert into supplies(sup_id, ci_id, sup_name, size, total, price, sup_in) values(?, ?, ?, ?, ?, ?, ?)',
+			[ body.sup_id, body.ci_id, body.sup_name, body.size, body.total, body.price, body.sup_in], 
 			function(error, result){
 				if(error){
 					console.log('insert error : ', error.message );
@@ -362,7 +362,93 @@ app.post( '/sup_edit/:sup_id', function(req, res){
 	});
 });
 
+//------------------------------------------------ 타임테이블 관리 시작
 
+
+app.get('/timetable_insert', function(req, res){
+	fs.readFile('timetable_insert.html', 'utf8', function(error, data){
+		if(error){
+			console.log('readFile Error');
+		}else{
+			res.send(data);
+		}
+	})
+});
+
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.post( '/timetable_insert', function(req, res){
+	var body = req.body;
+	
+	mySqlClient.query( 'insert into timetable(mov_id, mov_name, sc_id, tt_date, time) values(?, ?, ?, ?, ?)',
+			[ body.mov_id, body.mov_name, body.sc_id, body.tt_date, body. time], 
+			function(error, result){
+				if(error){
+					console.log('insert error : ', error.message );
+				}else{
+					res.redirect('/admin');
+				}
+	});
+});
+
+app.get( '/timetable_list', function(req, res){
+	
+	fs.readFile('timetable_list.html', 'utf8', function(error, data){
+		if(error){
+			console.log('readFile Error');
+		}else{
+			mySqlClient.query('select * from timetable', function(error, results){
+				if(error){
+					console.log('error : ', error.message);
+				}else{
+					res.send( ejs.render(data, {
+						prodList : results
+					}));
+				}
+			});
+		}
+	})
+});
+
+app.get('/timetable_list/delete/:tt_date', function(req, res){
+	mySqlClient.query('delete from timetable where tt_date = ?', [req.params.sup_id], 
+			function(error, result){
+				if(error){
+					console.log('delete Error');
+				}else{
+					console.log('delete tt_date = %s', req.params.sup_id);
+					res.redirect('/admin');				
+				}
+			});
+});
+
+app.get( '/timetable_edit/:tt_date', function(req, res){
+ 	fs.readFile( 'timetable_edit.html', 'utf8', function(error, data){
+ 		mySqlClient.query('select * from timetable where tt_date = ?', [req.params.sup_id], 
+ 				function(error, result){
+ 					if(error){
+ 						console.log('readFile Error');
+ 					}else{
+ 						res.send( ejs.render(data, { 
+ 							timetable : result[0] 
+ 						}));
+ 					}
+ 				});
+ 	});
+ });
+
+app.post( '/timetable_edit/:tt_date', function(req, res){
+	var body = req.body;
+	
+	mySqlClient.query( 'update timetable set mov_id=?, mov_name=?, sc_id=?, tt_date=?, time=? where tt_date =?',
+			[ body.mov_id, body.mov_name, body.sc_id, body.tt_date, body. time], 
+			function(error, result){
+				if(error){
+					console.log('update error : ', error.message );
+				}else{
+					res.redirect('/admin');
+				}
+	});
+});
 
 /*-------------------------login */
 

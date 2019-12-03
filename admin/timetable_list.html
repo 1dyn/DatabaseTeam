@@ -6,9 +6,9 @@
 </head>
 
 <body>
-    <h1>Movie List</h1>
+    <h1>Timetable List</h1>
     <ul>
-         <li>직원 관리</li>
+        <li>직원 관리</li>
             <ol><a href='/emp_insert'>emp_insert</a></ol>
             <ol><a href='/emp_list'>emp delete &amp edit</a></ol>
         <li>영화 관리</li>
@@ -16,45 +16,34 @@
             <ol><a href='/mov_list'>mov delete &amp edit</a></ol>
         <li>비품 관리</li>
             <ol><a href='/sup_insert'>sup_insert</a></ol>
-            <ol><a href='/sup_list'>sup delete and edit</a></ol>
+            <ol><a href='/sup_list'>sup delete &amp edit</a></ol>
         <li>타임 테이블 관리</li>
             <ol><a href='/timetable_insert'>timetable_insert</a></ol>
             <ol><a href='/timetable_list'>timetable delete and edit</a></ol>     
     </ul>
     <hr />
-
     <table width="100%" border="1">
         <tr>
             <th>DELETE</th>
             <th>EDIT</th>
-
+           
             <th>mov_id</th>
             <th>mov_name</th>
-            <th>open_date</th>
-            <th>genre</th>
-            <th>director</th>
-            <th>actor</th>
-            <th>director</th>
-            <th>mov_eng_name</th>
-            <th>mov_age</th>
-            <th>mov_desc</th>
+            <th>sc_id</th>
+            <th>tt_date</th>
+            <th>time</th>
 
         </tr>
         <% prodList.forEach(function(item, index){ %>
         <tr>
-            <td><a href='/mov_list/delete/<%= item.mov_id %>'>DELETE</a></td>
-            <td><a href='/mov_edit/<%= item.mov_id %>'> EDIT</a></td>  
-
+            <td><a href='/timetable_list/delete/<%= item.tt_date %>'>DELETE</a></td>
+            <td> <a href='/timetable_edit/<%= item.tt_date %>'> EDIT</a></td>  
+            
             <td><%= item.mov_id %></td>
             <td><%= item.mov_name %></td>
-            <td><%= item.open_date %></td>
-            <td><%= item.genre %></td>
-            <td><%= item.grade %></td>
-            <td><%= item.director %></td>
-            <td><%= item.actor %></td>  
-            <td><%= item.mov_eng_name %></td>
-            <td><%= item.mov_age %></td>
-            <td><%= item.mov_desc %></td>  
+            <td><%= item.sc_id %></td>
+            <td><%= item.tt_date %></td>
+            <td><%= item.time %></td>
         </tr>
         <% }); %>
     </table>

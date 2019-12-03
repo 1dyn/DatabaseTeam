@@ -4,7 +4,7 @@
 	<title>Admin Page</title>
 </head>
 <body>
-	<h1>Movie Edit</h1>
+	<h1>Timetable Edit</h1>
 	<ul>
          <li>직원 관리</li>
             <ol><a href='/emp_insert'>emp_insert</a></ol>
@@ -24,34 +24,25 @@
 			<legend>EDIT DATA</legend>
 			<table>
 				<tr>
-					<td><label>sup_id</label></td>
-					<td><input type="text" name="sup_id" value="<%= supplies.sup_id  %>" disable/></td>
+					<td><label>mov_id</label></td>
+					<td><input type="text" name="mov_id" value="<%= timetable.mov_id  %>" disable/></td>
 				</tr>
 				<tr>
-					<td><label>ci_id</label></td>
-					<td><input type="text" name="ci_id" value="<%= supplies.ci_id  %>"/></td>
+					<td><label>mov_name</label></td>
+					<td><input type="text" name="mov_name" value="<%= timetable.mov_name  %>"/></td>
 				</tr>
 				<tr>
-					<td><label>sup_name</label></td>
-					<td><input type="text" name="sup_name" value="<%= supplies.sup_name %>"/></td>
+					<td><label>sc_id</label></td>
+					<td><input type="text" name="sc_id" value="<%= timetable.sc_id %>"/></td>
 				</tr>
                 <tr>
-					<td><label>size</label></td>
-					<td><input type="text" name="size" value="<%= supplies.size  %>"/></td>
+					<td><label>tt_date</label></td>
+					<td><input type="text" name="tt_date" value="<%= timetable.tt_date  %>"/></td>
 				</tr>
 				<tr>
-					<td><label>total</label></td>
-					<td><input type="text" name="total" value="<%= supplies.total  %>"/></td>
+					<td><label>time</label></td>
+					<td><input type="text" name="time" value="<%= timetable.time  %>"/></td>
 				</tr>
-				 <tr>
-					<td><label>price</label></td>
-					<td><input type="text" name="price" value="<%= supplies.price  %>"/></td>
-				</tr>
-				<tr>
-					<td><label>sup_in</label></td>
-					<td><input type="text" name="sup_in" value="<%= supplies.sup_in  %>"/></td>
-				</tr>
-                
 			</table>
 			<input type="submit" value="Update"/>
 		</fieldset>

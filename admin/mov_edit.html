@@ -14,7 +14,10 @@
             <ol><a href='/mov_list'>mov delete &amp edit</a></ol>
         <li>비품 관리</li>
             <ol><a href='/sup_insert'>sup_insert</a></ol>
-            <ol><a href='/sup_list'>sup delete and edit</a></ol> 
+			<ol><a href='/sup_list'>sup delete and edit</a></ol> 
+		<li>타임 테이블 관리</li>
+            <ol><a href='/timetable_insert'>timetable_insert</a></ol>
+            <ol><a href='/timetable_list'>timetable delete and edit</a></ol>     
     </ul>
 	<form method='post'>
 		<fieldset>
@@ -55,13 +58,12 @@
 				</tr>
 				<tr>
 					<td><label>mov_age</label></td>
-					<td><input type="text" name="mov_age" value="<%= movie.mov_age%>"/></td>
+					<td><input type="text" name="mov_age" value="<%= movie.mov_age %>"/></td>
 				</tr>
 				<tr>
 					<td><label>mov_desc</label></td>
 					<td><input type="text" name="mov_desc" value="<%= movie.mov_desc  %>"/></td>
-				</tr>
-                
+				</tr>           
 			</table>
 			<input type="submit" value="Update"/>
 		</fieldset>

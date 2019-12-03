@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Page</title>
+</head>
+<body>
+	<h1>Timetable Insert</h1>
+	<form method='post'>
+		<ul>
+	        <li>직원 관리</li>
+                <ol><a href='/emp_insert'>emp_insert</a></ol>
+                <ol><a href='/emp_list'>emp delete &amp edit</a></ol>
+            <li>영화 관리</li>
+                <ol><a href='/mov_insert'>mov_insert</a></ol>
+                <ol><a href='/mov_list'>mov delete &amp edit</a></ol>
+            <li>비품 관리</li>
+                <ol><a href='/sup_insert'>sup_insert</a></ol>
+                <ol><a href='/sup_list'>sup delete and edit</a></ol> 
+            <li>타임 테이블 관리</li>
+                <ol><a href='/timetable_insert'>timetable_insert</a></ol>
+                <ol><a href='/timetable_list'>timetable delete and edit</a></ol>     
+	    </ul>
+		<fieldset>
+			<legend>TIMETABLE DATA</legend>
+			<table>
+				<tr>
+					<td><lable>mov_id</lable></td>
+					<td><input type="text" name="mov_id"/></td>
+				</tr>
+				<tr>
+					<td><lable>mov_name</lable></td>
+					<td><input type="text" name="mov_name"/></td>
+				</tr>
+				<tr>
+					<td><lable>sc_id</lable></td>
+					<td><input type="text" name="sc_id"/></td>
+				</tr>
+                <tr>
+					<td><lable>tt_date</lable></td>
+					<td><input type="text" name="tt_date"/></td>
+				</tr>
+				<tr>
+					<td><lable>time</lable></td>
+					<td><input type="text" name="time"/></td>
+				</tr>
+			</table>
+			<input type="submit" value="insert"/>
+		</fieldset>
+		<hr />
+
+	</form>
+</body>
+</html>
