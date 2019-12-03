@@ -40,7 +40,7 @@
 						<a class="navbar-brand" href="html_log.html"><span>냉면에 엽떡 </span>Cinema</a>
 					</div>
 					<div class="navbar-collapse collapse ">
-						<p id="login">회원님, 어서오세요.</p>
+						<p id="login"><%=session.user_id%>님, 어서오세요.</p>
 						<ul class="nav navbar-nav">
 							<form name="logout" method="post" action="/logout">
 							<li><button id ="logout">Logout</button></li>

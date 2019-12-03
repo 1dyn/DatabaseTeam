@@ -67,20 +67,23 @@ server.listen(3307, function() {
 // 라우팅 처리
 // '/'을 통해 들어온 요청 처리
 app.get('/', function(req, res) {
-  res.render('index.html');
-});
-
-//로그인 구현
-app.get('/', function(req, res) {
-  if (req.session.logined) {
-    res.render('index_log.html', {session: req.session})
-    console.log("login!!");
+  if (req.session.user) {
+    res.render('index.ejs', {
+      logined : req.session.user.logined,
+      user_id : req.session.user.user_id
+    });
   } else {
-    res.render('login.html', {session: req.session})
-    console.log("retry!!");
+    res.render('index.ejs', {
+      logined : false,
+      user_id : null
+    });
   }
 });
 
+//로그인 구현
+app.get('/login', function(req, res) {
+  res.render('login.ejs');
+});
 
 app.post('/', function(req, res) {
     var id = req.body.id;
@@ -90,23 +93,33 @@ app.post('/', function(req, res) {
     connection.query(sql, [id], function(error, results, fields) {
         if (results.length == 0) {
           var session = req.session;
-          console.log("try again~")
-          console.log(session)
-          res.render('login.html');
+          console.log("try again~");
+          console.log(session);
+          res.render('login.ejs');
         } else {
-          var db_name = results[0].log_id; //'username'는 데이터베이스 칼럼 이름
+          var db_name = results[0].log_id;
+          console.log(results[0]); //'username'는 데이터베이스 칼럼 이름
           var db_pwd = results[0].log_pw; //'pwd'또한 데이터베이스 칼럼 이름
 
-          req.session.regenerate(function() {
-            req.session.logined = true;
-            req.session.user_id = db_name;
-            req.session.user_pw = db_pwd;
-            var session = req.session;
-            console.log("login success!");
-            console.log(session);
-            res.cookie('id', db_name);
-            res.render('html_log.html', {session: req.session})
-          })
+          req.session.user = {
+            logined: true,
+            user_id: db_name
+          }
+
+          res.render('index.ejs', {
+            logined: req.session.user.logined,
+            user_id: req.session.user.user_id
+          });
+          // req.session.regenerate(function() {
+          //   req.session.user.logined = true;
+          //   req.session.user.user_id = db_name;
+          //   req.session.user.user_pw = db_pwd;
+          //   var session = req.session;
+          //   console.log("login success!");
+          //   console.log(session);
+          //   res.cookie('id', db_name);
+          //   res.redirect("/");
+          // })
         }
       });
     });
@@ -116,12 +129,12 @@ app.post('/logout', function(req, res) {
   req.session.destroy();
   res.clearCookie('id');
   console.log('logout complete!');
-  res.render('login.html');
+  res.render('login.ejs');
 })
 
 // 회원가입 연동
 app.get('/sign_up', function(req, res) {
-  res.render('sign_up.html');
+  res.render('sign_up.ejs');
 });
 
 app.post('/sign_up', function(req, res) {
@@ -143,7 +156,61 @@ app.post('/sign_up', function(req, res) {
     res.redirect('/');
   } else {
     res.render(alert("비밀번호 오류"));
-    res.render('sign.html');
+    res.render('sign.ejs');
   }
 });
+
+app.get('/mega',function(req, res){
+  res.render('mega.ejs');
+});
+
+app.get('/Ticketing', function(req,res){
+  res.render('Ticketing.ejs');
+});
+
+app.get('/movie_info', function(req, res) {
+  if (req.session.user) {
+    res.render('movie_info.ejs', {
+      logined : req.session.user.logined,
+      user_id : req.session.user.user_id
+    });
+  } else {
+    res.render('movie_info.ejs', {
+      logined : false,
+      user_id : null
+    });
+  }
+});
+app.get('/screen', function(req, res) {
+  if (req.session.user) {
+    res.render('screen.ejs', {
+      logined : req.session.user.logined,
+      user_id : req.session.user.user_id
+    });
+  } else {
+    res.render('screen.ejs', {
+      logined : false,
+      user_id : null
+    });
+  }
+});
+app.get('/seat_ticket', function(req,res){
+  res.render('seat_ticket.ejs');
+});
+// app.get('/sign_up', function(req,res){
+//   res.render('sign_up.ejs');
+// });
+
+app.get('/tic_date', function(req,res){
+  res.render('tic_date.ejs');
+});
+app.get('/tic_screen', function(req,res){
+  res.render('tic_screen.ejs');
+});
+
+app.get('/tic_seat', function(req,res){
+  res.render('tic_seat.ejs');
+});
+
+
 module.exports = app;
