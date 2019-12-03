@@ -104,6 +104,7 @@ app.post('/', function(req, res) {
             var session = req.session;
             console.log("login success!");
             console.log(session);
+            res.cookie('id', db_name);
             res.render('html_log.html', {session: req.session})
           })
         }
@@ -111,12 +112,9 @@ app.post('/', function(req, res) {
     });
 
 // 로그아웃
-// exports.logout = function(req, res) {
-//   req.session.destroy(); // 세션 삭제
-//   res.clearCookie('sid'); // 세션 쿠키 삭제
-// }
 app.post('/logout', function(req, res) {
   req.session.destroy();
+  res.clearCookie('id');
   console.log('logout complete!');
   res.render('login.html');
 })
