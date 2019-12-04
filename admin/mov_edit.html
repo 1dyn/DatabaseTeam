@@ -4,7 +4,7 @@
 	<title>Admin Page</title>
 </head>
 <body>
-	<h1>Movie Edit</h1>
+	<h1>MOVIE</h1>
 	<ul>
          <li>직원 관리</li>
             <ol><a href='/emp_insert'>emp_insert</a></ol>
@@ -21,7 +21,7 @@
     </ul>
 	<form method='post'>
 		<fieldset>
-			<legend>EDIT DATA</legend>
+			<legend>MOVIE EDIT</legend>
 
             <table>
 				<tr>
@@ -41,29 +41,29 @@
 					<td><input type="text" name="genre" value="<%= movie.genre  %>"/></td>
 				</tr>
 				<tr>
-					<td><label>grade</label></td>
-					<td><input type="text" name="grade" value="<%= movie.grade  %>"/></td>
-				</tr>
-				<tr>
-					<td><label>director</label></td>
-					<td><input type="text" name="director" value="<%= movie.director  %>"/></td>
-				</tr>
-				<tr>
-					<td><label>actor</label></td>
-					<td><input type="text" name="actor" value="<%= movie.actor  %>"/></td>
-				</tr>
-				<tr>
 					<td><label>mov_eng_name</label></td>
 					<td><input type="text" name="mov_eng_name" value="<%= movie.mov_eng_name  %>"/></td>
 				</tr>
 				<tr>
-					<td><label>mov_age</label></td>
-					<td><input type="text" name="mov_age" value="<%= movie.mov_age %>"/></td>
-				</tr>
-				<tr>
 					<td><label>mov_desc</label></td>
 					<td><input type="text" name="mov_desc" value="<%= movie.mov_desc  %>"/></td>
-				</tr>           
+				</tr>
+				<tr>
+					<td><label>mov_img</label></td>
+					<td><input type="text" name="mov_img" value="<%= movie.mov_img  %>"/></td>
+				</tr>
+				<tr>
+					<td><label>mov_runtime</label></td>
+					<td><input type="text" name="mov_runtime" value="<%= movie.mov_runtime %>"/></td>
+				</tr>  
+				<tr>
+					<td><label>mov_rated</label></td>
+					<td><input type="text" name="mov_rated" value="<%= movie.mov_rated  %>"/></td>
+				</tr>  
+				<tr>
+					<td><label>mov_country</label></td>
+					<td><input type="text" name="mov_country" value="<%= movie.mov_country  %>"/></td>
+				</tr>       
 			</table>
 			<input type="submit" value="Update"/>
 		</fieldset>

@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h1>Timetable List</h1>
+    <h1>TIMETABLE</h1>
     <ul>
         <li>직원 관리</li>
             <ol><a href='/emp_insert'>emp_insert</a></ol>
@@ -27,23 +27,23 @@
             <th>DELETE</th>
             <th>EDIT</th>
            
-            <th>mov_id</th>
+            <th>tt_id</th>
             <th>mov_name</th>
-            <th>sc_id</th>
-            <th>tt_date</th>
+            <th>sc_num</th>
             <th>time</th>
+            <th>ci_name</th>
 
         </tr>
         <% prodList.forEach(function(item, index){ %>
         <tr>
-            <td><a href='/timetable_list/delete/<%= item.tt_date %>'>DELETE</a></td>
-            <td> <a href='/timetable_edit/<%= item.tt_date %>'> EDIT</a></td>  
+            <td><a href='/timetable_list/delete/<%= item.tt_id %>'>DELETE</a></td>
+            <td> <a href='/timetable_edit/<%= item.tt_id %>'> EDIT</a></td>  
             
-            <td><%= item.mov_id %></td>
+            <td><%= item.tt_id %></td>
             <td><%= item.mov_name %></td>
-            <td><%= item.sc_id %></td>
-            <td><%= item.tt_date %></td>
+            <td><%= item.sc_num %></td>
             <td><%= item.time %></td>
+            <td><%= item.ci_name %></td>
         </tr>
         <% }); %>
     </table>

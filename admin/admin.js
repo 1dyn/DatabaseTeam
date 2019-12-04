@@ -162,17 +162,19 @@ app.get('/emp_list/delete/:emp_id', function(req, res){
  	fs.readFile( 'emp_edit.html', 'utf8', function(error, data){
  		mySqlClient.query('select * from employee where emp_id = ?', [req.params.emp_id], 
  				function(error, result){
+					var start_date =  dateFormat(result.start_date, "yyyy.mm.dd");
  					if(error){
  						console.log('readFile Error');
  					}else{
  						res.send( ejs.render(data, { 
- 							employee : result[0] 
+							 employee : result[0],
+							 emp_start_date : dateFormat(result.start_date, "yyyy.mm.dd")
+							  
  						}));
  					}
  				});
  	});
  });
-
 
 
 app.post( '/emp_edit/:emp_id', function(req, res){
@@ -205,8 +207,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.post( '/mov_insert', function(req, res){
 	var body = req.body;
 	
-	mySqlClient.query( 'insert into movie(mov_id, mov_name, open_date, genre, grade, director, actor, mov_eng_name, mov_age, mov_desc) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-			[ body.mov_id, body.mov_name, body.open_date, body.genre, body.grade, body.director, body.actor, body.mov_eng_name, body.mov_age, body.mov_desc], 
+	mySqlClient.query( 'insert into movie(mov_id, mov_name, open_date, genre, mov_eng_name, mov_desc, mov_rated, mov_img, mov_runtime, mov_country) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			[ body.mov_id, body.mov_name, body.open_date, body.genre, body.mov_eng_name, body.mov_desc, body.mov_rated, body.mov_img, body.mov_runtime, body.mov_country], 
 			function(error, result){
 				if(error){
 					console.log('insert error : ', error.message );
@@ -224,14 +226,14 @@ app.get( '/mov_list', function(req, res){
 			console.log('readFile Error');
 		}else{
 			mySqlClient.query(sql, function(error, results){
-				var open_date = dateFormat(results.open_date, "yyyy.mm.dd");
-				// var open_date = results[0].open_date;
-				console.log(open_date);
-				console.log(dateFormat(results.open_date, "yyyy.mm.dd"));
-				console.log(dateFormat(results[0].open_date, "yyyy.mm.dd"));
-				console.log(dateFormat(results[1].open_date, "yyyy.mm.dd"));
-				console.log(dateFormat(results[2].open_date, "yyyy.mm.dd"));
-				console.log(dateFormat(results[3].open_date, "yyyy.mm.dd"));
+				// var open_date = dateFormat(results.open_date, "yyyy.mm.dd");
+				// // var open_date = results[0].open_date;
+				// console.log(open_date);
+				// console.log(dateFormat(results.open_date, "yyyy.mm.dd"));
+				// console.log(dateFormat(results[0].open_date, "yyyy.mm.dd"));
+				// console.log(dateFormat(results[1].open_date, "yyyy.mm.dd"));
+				// console.log(dateFormat(results[2].open_date, "yyyy.mm.dd"));
+				// console.log(dateFormat(results[3].open_date, "yyyy.mm.dd"));
 				if(error){
 					console.log('error : ', error.message);
 				}else{
@@ -280,8 +282,8 @@ app.get('/mov_list/delete/:mov_id', function(req, res){
 app.post( '/mov_edit/:mov_id', function(req, res){
 	var body = req.body;
 	
-	mySqlClient.query( 'update movie set mov_id=?, mov_name=?, open_date=?, genre=?, grade=?, director=?, actor=?, mov_eng_name=?, mov_age=?, mov_desc=? where mov_id =?',
-			[ body.mov_id, body.mov_name, body.open_date, body.genre ,body.grade ,body.director, body.actor, body.mov_eng_name, body.mov_age, body.mov_desc, body.mov_id], 
+	mySqlClient.query( 'update movie set mov_id=?, mov_name=?, open_date=?, genre=?, mov_eng_name=?, mov_desc=?, mov_rated=?, mov_img=?, mov_runtime=?, mov_country=? where mov_id =?',
+			[ body.mov_id, body.mov_name, body.open_date, body.genre, body.mov_eng_name, body.mov_desc, body.mov_rated, body.mov_img, body.mov_runtime, body.mov_country , body.mov_id], 
 			function(error, result){
 				if(error){
 					console.log('update error : ', error.message );
@@ -352,11 +354,13 @@ app.get( '/sup_edit/:sup_id', function(req, res){
  	fs.readFile( 'sup_edit.html', 'utf8', function(error, data){
  		mySqlClient.query('select * from supplies where sup_id = ?', [req.params.sup_id], 
  				function(error, result){
+					var sup_in = dateFormat(result.sup_in, "yyyy.mm.dd");
  					if(error){
  						console.log('readFile Error');
  					}else{
  						res.send( ejs.render(data, { 
- 							supplies : result[0] 
+							 supplies : result[0],
+							 sup_in : dateFormat(result.sup_in, "yyyy.mm.dd")
  						}));
  					}
  				});
@@ -394,8 +398,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.post( '/timetable_insert', function(req, res){
 	var body = req.body;
 	
-	mySqlClient.query( 'insert into timetable(mov_id, mov_name, sc_id, tt_date, time) values(?, ?, ?, ?, ?)',
-			[ body.mov_id, body.mov_name, body.sc_id, body.tt_date, body. time], 
+	mySqlClient.query( 'insert into timetable( tt_id, mov_name, sc_num, time, ci_name) values(?, ?, ?, ?, ?)',
+			[ body.tt_id, body.mov_name, body.sc_num, body.time, body.ci_name], 
 			function(error, result){
 				if(error){
 					console.log('insert error : ', error.message );
@@ -424,21 +428,21 @@ app.get( '/timetable_list', function(req, res){
 	})
 });
 
-app.get('/timetable_list/delete/:tt_date', function(req, res){
-	mySqlClient.query('delete from timetable where tt_date = ?', [req.params.sup_id], 
+app.get('/timetable_list/delete/:tt_id', function(req, res){
+	mySqlClient.query('delete from timetable where tt_id = ?', [req.params.tt_id], 
 			function(error, result){
 				if(error){
 					console.log('delete Error');
 				}else{
-					console.log('delete tt_date = %s', req.params.sup_id);
+					console.log('delete tt_id = %s', req.params.tt_id);
 					res.redirect('/admin');				
 				}
 			});
 });
 
-app.get( '/timetable_edit/:tt_date', function(req, res){
+app.get( '/timetable_edit/:tt_id', function(req, res){
  	fs.readFile( 'timetable_edit.html', 'utf8', function(error, data){
- 		mySqlClient.query('select * from timetable where tt_date = ?', [req.params.sup_id], 
+ 		mySqlClient.query('select * from timetable where tt_id = ?', [req.params.tt_id], 
  				function(error, result){
  					if(error){
  						console.log('readFile Error');
@@ -451,11 +455,11 @@ app.get( '/timetable_edit/:tt_date', function(req, res){
  	});
  });
 
-app.post( '/timetable_edit/:tt_date', function(req, res){
+app.post( '/timetable_edit/:tt_id', function(req, res){
 	var body = req.body;
 	
-	mySqlClient.query( 'update timetable set mov_id=?, mov_name=?, sc_id=?, tt_date=?, time=? where tt_date =?',
-			[ body.mov_id, body.mov_name, body.sc_id, body.tt_date, body. time], 
+	mySqlClient.query( 'update timetable set tt_id=?, mov_name=?, sc_num=?, time=?, ci_name=? where tt_id=?',
+			[ body.tt_id, body.mov_name, body.sc_num, body.time, body.ci_name, body.tt_id], 
 			function(error, result){
 				if(error){
 					console.log('update error : ', error.message );

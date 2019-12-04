@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h1>Movie List</h1>
+    <h1>MOVIE</h1>
     <ul>
          <li>직원 관리</li>
             <ol><a href='/emp_insert'>emp_insert</a></ol>
@@ -32,12 +32,12 @@
             <th>mov_name</th>
             <th>open_date</th>
             <th>genre</th>
-            <th>director</th>
-            <th>actor</th>
-            <th>director</th>
             <th>mov_eng_name</th>
-            <th>mov_age</th>
             <th>mov_desc</th>
+            <th>mov_img</th>
+            <th>mov_runtime</th>
+            <th>mov_rated</th>
+            <th>mov_country</th>
 
         </tr>
         <% prodList.forEach(function(item, index){ %>
@@ -49,12 +49,12 @@
             <td><%= item.mov_name %></td>
             <td><%= item.open_date %></td>
             <td><%= item.genre %></td>
-            <td><%= item.grade %></td>
-            <td><%= item.director %></td>
-            <td><%= item.actor %></td>  
-            <td><%= item.mov_eng_name %></td>
-            <td><%= item.mov_age %></td>
-            <td><%= item.mov_desc %></td>  
+            <td><%= item.mov_eng_name  %></td>
+            <td><%= item.mov_desc %></td>
+            <td><%= item.mov_img %></td>
+            <td><%= item.mov_runtime %></td>  
+            <td><%= item.mov_rated %></td>
+            <td><%= item.mov_country %></td>  
         </tr>
         <% }); %>
     </table>

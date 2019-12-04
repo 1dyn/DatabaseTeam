@@ -4,7 +4,7 @@
 	<title>Admin Page</title>
 </head>
 <body>
-	<h1>Timetable Edit</h1>
+	<h1>TIMETABLE</h1>
 	<ul>
          <li>직원 관리</li>
             <ol><a href='/emp_insert'>emp_insert</a></ol>
@@ -21,27 +21,27 @@
     </ul>
 	<form method='post'>
 		<fieldset>
-			<legend>EDIT DATA</legend>
+			<legend>TIMETABLE EDIT</legend>
 			<table>
 				<tr>
-					<td><label>mov_id</label></td>
-					<td><input type="text" name="mov_id" value="<%= timetable.mov_id  %>" disable/></td>
+					<td><label>tt_id</label></td>
+					<td><input type="text" name="tt_id" value="<%= timetable.tt_id %>" disable/></td>
 				</tr>
 				<tr>
 					<td><label>mov_name</label></td>
 					<td><input type="text" name="mov_name" value="<%= timetable.mov_name  %>"/></td>
 				</tr>
 				<tr>
-					<td><label>sc_id</label></td>
-					<td><input type="text" name="sc_id" value="<%= timetable.sc_id %>"/></td>
-				</tr>
-                <tr>
-					<td><label>tt_date</label></td>
-					<td><input type="text" name="tt_date" value="<%= timetable.tt_date  %>"/></td>
+					<td><label>sc_num</label></td>
+					<td><input type="text" name="sc_num" value="<%= timetable.sc_num %>"/></td>
 				</tr>
 				<tr>
 					<td><label>time</label></td>
 					<td><input type="text" name="time" value="<%= timetable.time  %>"/></td>
+				</tr>
+				<tr>
+					<td><label>ci_name</label></td>
+					<td><input type="text" name="ci_name" value="<%= timetable.ci_name  %>"/></td>
 				</tr>
 			</table>
 			<input type="submit" value="Update"/>
