@@ -4,6 +4,7 @@ var http = require('http');
 var mysql = require('mysql');
 var express = require('express');
 var session = require('express-session');
+var dateFormat = require('dateformat');
 
 var bodyParser = require('body-parser');
 var app = express();
@@ -216,26 +217,32 @@ app.post( '/mov_insert', function(req, res){
 });
 
 app.get( '/mov_list', function(req, res){
-	
 	fs.readFile('mov_list.html', 'utf8', function(error, data){
-		var sql = 'SELECT date_format(date,'%Y.%m.%d') FROM movie';
+		var sql = 'SELECT * FROM movie';
 		
 		if(error){
 			console.log('readFile Error');
 		}else{
-			mySqlClient.query(sql,'select * from movie', function(error, results){
-				console.log(results[0].open_date);
-				//date_format(results.open_date, '%Y-%m-%d');
-				
+			mySqlClient.query(sql, function(error, results){
+				var open_date = dateFormat(results.open_date, "yyyy.mm.dd");
+				// var open_date = results[0].open_date;
+				console.log(open_date);
+				console.log(dateFormat(results.open_date, "yyyy.mm.dd"));
+				console.log(dateFormat(results[0].open_date, "yyyy.mm.dd"));
+				console.log(dateFormat(results[1].open_date, "yyyy.mm.dd"));
+				console.log(dateFormat(results[2].open_date, "yyyy.mm.dd"));
+				console.log(dateFormat(results[3].open_date, "yyyy.mm.dd"));
 				if(error){
 					console.log('error : ', error.message);
 				}else{
 					res.send( ejs.render(data, {
-						prodList : results
+						prodList : results,
+						// a : dateFormat(item.open_date, "yyyy.mm.dd")	 
+						// results.open_date
 					}));
 				}
 			});
-		}
+		} 
 	})
 });
 
@@ -254,13 +261,16 @@ app.get('/mov_list/delete/:mov_id', function(req, res){
 
  app.get( '/mov_edit/:mov_id', function(req, res){
  	fs.readFile( 'mov_edit.html', 'utf8', function(error, data){
- 		mySqlClient.query('select * from movie where mov_id = ?', [req.params.mov_id], 
+		 mySqlClient.query('select * from movie where mov_id = ?', [req.params.mov_id], 
+		 
  				function(error, result){
+					var open_date = dateFormat(result.open_date, "yyyy.mm.dd");
  					if(error){
  						console.log('readFile Error');
  					}else{
  						res.send( ejs.render(data, { 
- 							movie : result[0] 
+							 movie : result[0] ,
+							 mov_open_date : dateFormat(result[0].open_date, "yyyy.mm.dd")	 
  						}));
  					}
  				});
