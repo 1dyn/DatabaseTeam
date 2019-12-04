@@ -195,23 +195,23 @@ app.get('/movie_info', function(req, res) {
  
  connection.query(sql, function(error, results, fields) {
    console.log(results);
-   var open_date1 = dateFormat(results[0].open_date, "yyyy.mm.dd");
-   var open_date2 = dateFormat(results[1].open_date, "yyyy.mm.dd");
-   var open_date3 = dateFormat(results[2].open_date, "yyyy.mm.dd");
-   var open_date4 = dateFormat(results[3].open_date, "yyyy.mm.dd");
+   var open_date0 = dateFormat(results[0].open_date, "yyyy.mm.dd");
+   var open_date1 = dateFormat(results[1].open_date, "yyyy.mm.dd");
+   var open_date2 = dateFormat(results[2].open_date, "yyyy.mm.dd");
+   var open_date3 = dateFormat(results[3].open_date, "yyyy.mm.dd");
   if (req.session.user) {
     res.render('movie_info.ejs', {
       logined : req.session.user.logined,
       user_id : req.session.user.user_id,
       results,
-      open_date1,open_date2,open_date3,open_date4
+      open_date0,open_date1,open_date2,open_date3
     });
   } else {
     res.render('movie_info.ejs', {
       logined : false,
       user_id : null,
       results,
-      open_date1,open_date2,open_date3,open_date4
+      open_date0,open_date1,open_date2,open_date3
     });
   }
 });
