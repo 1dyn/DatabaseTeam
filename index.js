@@ -67,17 +67,26 @@ server.listen(3307, function() {
 // 라우팅 처리
 // '/'을 통해 들어온 요청 처리
 app.get('/', function(req, res) {
-  if (req.session.user) {
-    res.render('index.ejs', {
-      logined : req.session.user.logined,
-      user_id : req.session.user.user_id
-    });
-  } else {
-    res.render('index.ejs', {
-      logined : false,
-      user_id : null
-    });
-  }
+  var sql = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
+
+  connection.query(sql, function(error, results, fields){
+    console.log(results);
+    if (req.session.user) {
+      res.render('index.ejs', {
+        logined : req.session.user.logined,
+        user_id : req.session.user.user_id,
+        results
+      });
+    } else {
+      res.render('index.ejs', {
+        logined : false,
+        user_id : null,
+        results
+        
+      });
+    }
+  });
+  
 });
 
 //로그인 구현
@@ -90,6 +99,7 @@ app.post('/', function(req, res) {
     var pwd = req.body.pwd;
 
     var sql = `SELECT * FROM members WHERE log_id = ?`;
+    var sql2 = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
     connection.query(sql, [id], function(error, results, fields) {
         if (results.length == 0) {
           var session = req.session;
@@ -97,18 +107,21 @@ app.post('/', function(req, res) {
           console.log(session);
           res.render('login.ejs');
         } else {
+          console.log(results[0]);
           var db_name = results[0].log_id;
-          console.log(results[0]); //'username'는 데이터베이스 칼럼 이름
           var db_pwd = results[0].log_pw; //'pwd'또한 데이터베이스 칼럼 이름
 
           req.session.user = {
             logined: true,
             user_id: db_name
           }
-
+    connection.query(sql2, function(error, results, fields){
           res.render('index.ejs', {
             logined: req.session.user.logined,
-            user_id: req.session.user.user_id
+            user_id: req.session.user.user_id,
+            results
+
+          });
           });
           // req.session.regenerate(function() {
           //   req.session.user.logined = true;
@@ -129,11 +142,15 @@ app.get('/logout', function(req, res) {
   req.session.destroy();
   res.clearCookie('id');
   console.log('logout complete!');
+  var sql2 = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
+  connection.query(sql2, function(error, results, fields){
   res.render('index.ejs', {
     logined : false,
-    user_id : null
+    user_id : null,
+    results
   });
-})
+});
+});
 
 // 회원가입 연동
 app.get('/sign_up', function(req, res) {
@@ -172,17 +189,26 @@ app.get('/Ticketing', function(req,res){
 });
 
 app.get('/movie_info', function(req, res) {
+
+ var sql = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
+ 
+ connection.query(sql, function(error, results, fields) {
+   console.log(results);
   if (req.session.user) {
     res.render('movie_info.ejs', {
       logined : req.session.user.logined,
-      user_id : req.session.user.user_id
+      user_id : req.session.user.user_id,
+      results
     });
   } else {
     res.render('movie_info.ejs', {
       logined : false,
-      user_id : null
+      user_id : null,
+      results
     });
   }
+});
+
 });
 app.get('/screen', function(req, res) {
   if (req.session.user) {

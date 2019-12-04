@@ -218,10 +218,15 @@ app.post( '/mov_insert', function(req, res){
 app.get( '/mov_list', function(req, res){
 	
 	fs.readFile('mov_list.html', 'utf8', function(error, data){
+		var sql = 'SELECT date_format(date,'%Y.%m.%d') FROM movie';
+		
 		if(error){
 			console.log('readFile Error');
 		}else{
-			mySqlClient.query('select * from movie', function(error, results){
+			mySqlClient.query(sql,'select * from movie', function(error, results){
+				console.log(results[0].open_date);
+				//date_format(results.open_date, '%Y-%m-%d');
+				
 				if(error){
 					console.log('error : ', error.message);
 				}else{
@@ -266,7 +271,7 @@ app.post( '/mov_edit/:mov_id', function(req, res){
 	var body = req.body;
 	
 	mySqlClient.query( 'update movie set mov_id=?, mov_name=?, open_date=?, genre=?, grade=?, director=?, actor=?, mov_eng_name=?, mov_age=?, mov_desc=? where mov_id =?',
-			[ body.mov_id, body.mov_name, body.open_date, body.genre ,body.grade ,body.director, body.actor, body.mov_eng_name, body.mov_age, body.mov_desc, body.mov_id ], 
+			[ body.mov_id, body.mov_name, body.open_date, body.genre ,body.grade ,body.director, body.actor, body.mov_eng_name, body.mov_age, body.mov_desc, body.mov_id], 
 			function(error, result){
 				if(error){
 					console.log('update error : ', error.message );
