@@ -47,7 +47,8 @@
 							<li><a href="/Ticketing">Ticketing </a></li>
 							<!-- <li><a href="/login">login</a></li> -->
 							<% if(logined) { %>
-								<li><a><%= user_id %> 님, 어서오세요</a></li>
+								<li><a href="/logout">Logout</a></li>
+								<li><a>| <%= user_id %> 님, 어서오세요</a></li>
 							<% } else { %>
 								<li><a href="/login">login</a></li>
 							<% } %>

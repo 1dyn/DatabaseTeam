@@ -92,18 +92,15 @@
 							<div class = "movie">
 								<li style="list-style: none;" data-id="id-0" data-type="web">
 									<div class="item-thumbs1">
-										<a class="hover-wrap fancybox" data-fancybox-group="gallery"  title="<strong>TOP 1 신의 한수 : 귀수편 </strong> <br><br>감독 | 리건 <br> 배우 | 권상우, 김희원, 김성균, 허성태, 우도환 " href="../img/1.jpg" width="200px" height="100px" >
-											<span class="overlay-img"></span>
-										</a>
 										<img src="../img/1.jpg" alt=" " width="500" height="200">
 									</div>
 								</li>
-								<h4><%=results[0].mov_name%><a href='javascript:doDisplay("all");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown">신의 한수 소개 영상</span></button><br></a></h4>
+								<h4><%=results[0].mov_name%><a href='javascript:doDisplay("all");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown"><%=results[0].mov_name%> 소개 영상</span></button><br></a></h4>
 								<p class="sizedown1">
 									<strong ><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<a href="/Ticketing">[예매하기]</a><br> 
 									<em><%=results[0].mov_eng_name%></em></strong> <br><br>
 									
-									범죄, 액션 |  2019.11.07. 개봉 | 106분 | 한국 | 15세 관람가 <br>
+									<%=results[0].genre%> |  <%=open_date1%>. 개봉 | <%=results[0].mov_runtime%>분 | <%=results[0].mov_country%> | <%=results[0].mov_rated%> <br>
 								</p>
 								
 							</div>
@@ -114,18 +111,16 @@
 							
 							<li style="list-style: none;" data-id="id-0" data-type="web">
 								<div class="item-thumbs1">
-									<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="<strong>TOP 2 겨울왕국 2 </strong> <br><br>감독 | 크리스 벅 <br> 배우 | 크리스틴 벨, 이디나 멘젤, 조시 게드, 조나단 그로프, 스털링 k. 브라운" href="../img/4.jpg" width="200px" height="100px" >
-										<span class="overlay-img"></span>
-									</a>
 									<img src="../img/4.jpg" alt=" " width="500" height="200">
 								</div>
-							</li>
-							<h4><%=results[1].mov_name%><a href='javascript:doDisplay("inter-conf");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown">겨울왕국2 소개 영상</span></button><br></a></h4>
+		
+						</li>
+							<h4><%=results[1].mov_name%><a href='javascript:doDisplay("inter-conf");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown"><%=results[1].mov_name%> 소개 영상</span></button><br></a></h4>
 							<p class="sizedown1">
 									<strong><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<a href="/Ticketing">[예매하기]</a><br> <br>
 									<em><%=results[1].mov_eng_name%></em></strong> <br><br>
 									
-									애니메이션, 가족, 판타지, 뮤지컬 | 103분 | 미국| 전체 관람가 <br>
+									<%=results[1].genre%> |  <%=open_date2%>. 개봉 | <%=results[1].mov_runtime%>분 | <%=results[1].mov_country%> | <%=results[1].mov_rated%> <br>
 								</p>				
 							</div>
 							<br>
@@ -136,18 +131,15 @@
 							
 							<li style="list-style: none;" data-id="id-0" data-type="web">
 								<div class="item-thumbs1">
-									<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="<strong>TOP 3 알라딘편 </strong> <br><br> 감독 | 가이 리치 <br> 배우 | 메나 마수드, 윌 스미스, 나오미 스콧" href="../img/5.jpg" width="200px" height="100px" >
-										<span class="overlay-img"></span>
-									</a>
 									<img src="../img/5.jpg" alt=" " width="500" height="200">
 								</div>
 							</li>
-							<h4><%=results[2].mov_name%><a href='javascript:doDisplay("inter-jour");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown">알라딘 소개 영상</span></button><br></a></h4>
+							<h4><%=results[2].mov_name%><a href='javascript:doDisplay("inter-jour");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown"><%=results[2].mov_name%> 소개 영상</span></button><br></a></h4>
 							<p class="sizedown1">
 								<strong><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<a href="/Ticketing">[예매하기]</a><br> <br>
 								<em><%=results[2].mov_eng_name%></em> </strong><br><br>
 								
-								모험, 판타지 | 2019.05.23. 개봉 | 128분 | 미국 | 전체 관람가 <br>
+								<%=results[2].genre%> |  <%=open_date3%>. 개봉 | <%=results[2].mov_runtime%>분 | <%=results[2].mov_country%> | <%=results[2].mov_rated%> <br>
 							</p>
 							
 							</div>
@@ -157,18 +149,16 @@
 							
 							<li style="list-style: none;" data-id="id-0" data-type="web">
 								<div class="item-thumbs1">
-									<a class="hover-wrap fancybox" data-fancybox-group="gallery" title="<strong>TOP 4 라이온 킹 </strong> <br><br>감독 | 존 파브로 <br> 배우 | 도날드 글로버, 비욘세, 제임스 얼 존스, 세스 로건, 치웨텔 에지오포" href="../img/6.jpg" width="200px" height="100px">
-										<span class="overlay-img"></span>
-									</a>
+
 									<img src="../img/6.jpg" alt=" " width="500" height="200">
 								</div>
 							</li>
-							<h4><%=results[3].mov_name%><a href='javascript:doDisplay("dom-conf");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown">라이온 킹 소개 영상</span></button><br></a></h4>
+							<h4><%=results[3].mov_name%><a href='javascript:doDisplay("dom-conf");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown"><%=results[3].mov_name%> 소개 영상</span></button><br></a></h4>
 							<p class="sizedown1">
 								<strong><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<a href="/Ticketing">[예매하기]</a><br><br>
 								<em><%=results[3].mov_eng_name%></em></strong> <br><br>
 								
-								모험, 가족 | 2019.07.17. 개봉 | 118분 | 미국 | 전체 관람가 <br>
+								<%=results[3].genre%> |  <%=open_date4%>. 개봉 | <%=results[3].mov_runtime%>분 | <%=results[3].mov_country%> | <%=results[3].mov_rated%> <br>
 							</p>
 							
 							</div>

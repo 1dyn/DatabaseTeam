@@ -11,6 +11,7 @@ var server = http.createServer(app);
 var cookieParser = require('cookie-parser');
 var router = express.Router();
 var path = require('path');
+var dateFormat = require('dateformat');
 
 // ejs
 // app.set("view engine", "ejs");
@@ -190,21 +191,27 @@ app.get('/Ticketing', function(req,res){
 
 app.get('/movie_info', function(req, res) {
 
- var sql = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
+ var sql = `SELECT * FROM movie`;
  
  connection.query(sql, function(error, results, fields) {
    console.log(results);
+   var open_date1 = dateFormat(results[0].open_date, "yyyy.mm.dd");
+   var open_date2 = dateFormat(results[1].open_date, "yyyy.mm.dd");
+   var open_date3 = dateFormat(results[2].open_date, "yyyy.mm.dd");
+   var open_date4 = dateFormat(results[3].open_date, "yyyy.mm.dd");
   if (req.session.user) {
     res.render('movie_info.ejs', {
       logined : req.session.user.logined,
       user_id : req.session.user.user_id,
-      results
+      results,
+      open_date1,open_date2,open_date3,open_date4
     });
   } else {
     res.render('movie_info.ejs', {
       logined : false,
       user_id : null,
-      results
+      results,
+      open_date1,open_date2,open_date3,open_date4
     });
   }
 });
