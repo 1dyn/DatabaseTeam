@@ -58,7 +58,7 @@ app.post( '/login', function(req, res){
 	var adminid ='admin1';
 	var adminpw ='admin2';
 
-	var adminlogin = mySqlClient.query('select * from admin where ad_id=?',[id], function(error,results){
+	var adminlogin = mySqlClient.query('select * from admin where ad_num=?',1, function(error,results){
 		if (error) {
 			console.log('select error : ', error.message );
 		}else{
