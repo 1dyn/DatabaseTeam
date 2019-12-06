@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>냉면에 엽떡 Cinema</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="" />
+	<!-- css -->
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/fancybox/jquery.fancybox.css" rel="stylesheet">
+	<link href="../css/jcarousel.css" rel="stylesheet" />
+	<link href="../css/flexslider.css" rel="stylesheet" />
+	<link href="../css/style.css" rel="stylesheet" />
+
+	<!-- Theme skin -->
+	<link href="../skins/default.css" rel="stylesheet" />
+
+	<!-- =======================================================
+    Theme Name: Moderna
+    Theme URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
+    Author: BootstrapMade
+    Author URL: https://bootstrapmade.com
+	======================================================= -->
+	<script>
+	var bDisplay = true;
+        function doDisplay(movie){
+            var con = document.getElementById(movie);
+            con.style.display = "block";//해당 id를 가진 div 보이기
+            var movies = ["all", "inter-conf", "inter-jour", "dom-conf", "dom-jour"];
+            for (let i = 0; i < movies.length; i++) {//나머지 모든 div의 내용 숨기기
+                if (movies[i]===movie) {
+                    continue;
+                }
+                else{
+                    con = document.getElementById(movies[i]);
+                    con.style.display = "none";
+                }
+            }
+        }
+		</script>
+
+</head>
+
+<body>
+	<div id="wrapper">
+		<!-- start header -->
+		<header>
+			<div class="navbar navbar-default navbar-static-top">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+						<a class="navbar-brand" href="/"><span>냉면에 엽떡 </span>Cinema</a>
+					</div>
+					<div class="navbar-collapse collapse ">
+						<ul class="nav navbar-nav">
+							<li><a href="/">Home</a></li>
+							<li class="active"><a href="/movie_info">Movie info</a></li>
+							<li><a href="/screen">Screen</a></li>
+							<li><a href="/Ticketing">Ticketing </a></li>
+							<!-- <li><a href="/login">login</a></li> -->
+							<% if(logined) { %>
+								<li><a><%= user_id %> 님, 어서오세요</a></li>
+							<% } else { %>
+								<li><a href="/login">login</a></li>
+							<% } %>     
+						</ul>
+					</div>
+				</div>
+			</div>
+			<section id="inner-headline">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<ul class="breadcrumb">
+								<li ><a href="/"><i class="fa fa-home"></i></a><i class="icon-angle-right"></i></li>
+                                <li class="active">Movie Info</li>
+                                <li class="active">Timetable</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+            </section>
+            <section>
+				<h1>안산중앙점</h1>
+                <ul>
+                    <li><%=results[0].time%></li> <%=results[0].sc_num%>관
+					<li><%=results[5].time%></li> <%=results[5].sc_num%>관
+					<li><%=results[8].time%></li> <%=results[8].sc_num%>관
+				</ul>
+				<h1>서울이수점</h1>
+				<ul>
+					<li><%=results[15].time%></li> <%=results[15].sc_num%>관
+					<li><%=results[17].time%></li> <%=results[17].sc_num%>관
+					<li><%=results[21].time%></li> <%=results[21].sc_num%>관
+				</ul>
+				<h1>경기광명점</h1>
+				<ul>
+					<li><%=results[27].time%></li> <%=results[27].sc_num%>관
+					<li><%=results[32].time%></li> <%=results[32].sc_num%>관
+					<li><%=results[36].time%></li> <%=results[36].sc_num%>관
+				</ul>
+            </section>

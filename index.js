@@ -248,5 +248,90 @@ app.get('/tic_seat', function(req,res){
   res.render('tic_seat.ejs');
 });
 
+//영화1
+app.get('/timetable',function(req,res){
+  var sql3 = 'SELECT * FROM timetable';
+  connection.query(sql3,function(error,results,fields){
+    console.log(results);
+    if (req.session.user) {
+      res.render('timetable.ejs', {
+        logined : req.session.user.logined,
+        user_id : req.session.user.user_id,
+        results, 
+      });
+    } else {
+      res.render('timetable.ejs', {
+        logined : false,
+        user_id : null,
+        results,
+      });
+    }
+  });
+});
+
+//영화2
+app.get('/timetable2',function(req,res){
+  var sql3 = 'SELECT * FROM timetable';
+  connection.query(sql3,function(error,results,fields){
+    console.log(results);
+    if (req.session.user) {
+      res.render('timetable2.ejs', {
+        logined : req.session.user.logined,
+        user_id : req.session.user.user_id,
+        results, 
+      });
+    } else {
+      res.render('timetable2.ejs', {
+        logined : false,
+        user_id : null,
+        results,
+      });
+    }
+  });
+});
+
+//영화3
+app.get('/timetable3',function(req,res){
+  var sql3 = 'SELECT * FROM timetable';
+  connection.query(sql3,function(error,results,fields){
+    console.log(results);
+    if (req.session.user) {
+      res.render('timetable3.ejs', {
+        logined : req.session.user.logined,
+        user_id : req.session.user.user_id,
+        results, 
+      });
+    } else {
+      res.render('timetable3.ejs', {
+        logined : false,
+        user_id : null,
+        results,
+      });
+    }
+  });
+});
+
+//영화4
+app.get('/timetable4',function(req,res){
+  var sql3 = 'SELECT * FROM timetable';
+  connection.query(sql3,function(error,results,fields){
+    console.log(results);
+    if (req.session.user) {
+      res.render('timetable4.ejs', {
+        logined : req.session.user.logined,
+        user_id : req.session.user.user_id,
+        results, 
+      });
+    } else {
+      res.render('timetable4.ejs', {
+        logined : false,
+        user_id : null,
+        results,
+      });
+    }
+  });
+});
+
+
 
 module.exports = app;
