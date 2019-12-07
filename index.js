@@ -245,8 +245,234 @@ app.get('/tic_screen', function(req,res){
 });
 
 app.get('/tic_seat', function(req,res){
-  res.render('tic_seat.ejs');
+    var sql3 = 'SELECT * FROM timetable';
+    connection.query(sql3,function(error,results,fields){
+      console.log(results);
+      if (req.session.user) {
+        res.render('tic_seat.ejs', {
+          logined : req.session.user.logined,
+          user_id : req.session.user.user_id,
+          results, 
+        });
+      } else {
+        res.render('tic_seat.ejs', {
+          logined : false,
+          user_id : null,
+          results,
+        });
+      }
+    });
+  });
+  app.get('/tic_seat1-2', function(req,res){
+    var sql3 = 'SELECT * FROM timetable';
+    connection.query(sql3,function(error,results,fields){
+      console.log(results);
+      if (req.session.user) {
+        res.render('tic_seat1-2.ejs', {
+          logined : req.session.user.logined,
+          user_id : req.session.user.user_id,
+          results, 
+        });
+      } else {
+        res.render('tic_seat1-2.ejs', {
+          logined : false,
+          user_id : null,
+          results,
+        });
+      }
+    });
+  });
+  app.get('/tic_seat1-3', function(req,res){
+    var sql3 = 'SELECT * FROM timetable';
+    connection.query(sql3,function(error,results,fields){
+      console.log(results);
+      if (req.session.user) {
+        res.render('tic_seat1-3.ejs', {
+          logined : req.session.user.logined,
+          user_id : req.session.user.user_id,
+          results, 
+        });
+      } else {
+        res.render('tic_seat1-3.ejs', {
+          logined : false,
+          user_id : null,
+          results,
+        });
+      }
+    });
+  });
+  app.get('/tic_seat2', function(req,res){
+    var sql3 = 'SELECT * FROM timetable';
+    connection.query(sql3,function(error,results,fields){
+      console.log(results);
+      if (req.session.user) {
+        res.render('tic_seat2.ejs', {
+          logined : req.session.user.logined,
+          user_id : req.session.user.user_id,
+          results, 
+        });
+      } else {
+        res.render('tic_seat2.ejs', {
+          logined : false,
+          user_id : null,
+          results,
+        });
+      }
+    });
+  });
+  app.get('/tic_seat2-1', function(req,res){
+    var sql3 = 'SELECT * FROM timetable';
+    connection.query(sql3,function(error,results,fields){
+      console.log(results);
+      if (req.session.user) {
+        res.render('tic_seat2-1.ejs', {
+          logined : req.session.user.logined,
+          user_id : req.session.user.user_id,
+          results, 
+        });
+      } else {
+        res.render('tic_seat2-1.ejs', {
+          logined : false,
+          user_id : null,
+          results,
+        });
+      }
+    });
+  });
+  app.get('/tic_seat2-3', function(req,res){
+    var sql3 = 'SELECT * FROM timetable';
+    connection.query(sql3,function(error,results,fields){
+      console.log(results);
+      if (req.session.user) {
+        res.render('tic_seat2-3.ejs', {
+          logined : req.session.user.logined,
+          user_id : req.session.user.user_id,
+          results, 
+        });
+      } else {
+        res.render('tic_seat2-3.ejs', {
+          logined : false,
+          user_id : null,
+          results,
+        });
+      }
+    });
+  });
+  app.get('/tic_seat3', function(req,res){
+    var sql3 = 'SELECT * FROM timetable';
+    connection.query(sql3,function(error,results,fields){
+      console.log(results);
+      if (req.session.user) {
+        res.render('tic_seat3.ejs', {
+          logined : req.session.user.logined,
+          user_id : req.session.user.user_id,
+          results, 
+        });
+      } else {
+        res.render('tic_seat3.ejs', {
+          logined : false,
+          user_id : null,
+          results,
+        });
+      }
+    });
+  });
+  app.get('/tic_seat3-1', function(req,res){
+    var sql3 = 'SELECT * FROM timetable';
+    connection.query(sql3,function(error,results,fields){
+      console.log(results);
+      if (req.session.user) {
+        res.render('tic_seat3-1.ejs', {
+          logined : req.session.user.logined,
+          user_id : req.session.user.user_id,
+          results, 
+        });
+      } else {
+        res.render('tic_seat3-1.ejs', {
+          logined : false,
+          user_id : null,
+          results,
+        });
+      }
+    });
+  });app.get('/tic_seat3-2', function(req,res){
+    var sql3 = 'SELECT * FROM timetable';
+    connection.query(sql3,function(error,results,fields){
+      console.log(results);
+      if (req.session.user) {
+        res.render('tic_seat3-2.ejs', {
+          logined : req.session.user.logined,
+          user_id : req.session.user.user_id,
+          results, 
+        });
+      } else {
+        res.render('tic_seat3-2.ejs', {
+          logined : false,
+          user_id : null,
+          results,
+        });
+      }
+    });
+  });
+app.get('/tic_seat4', function(req,res){
+  var sql3 = 'SELECT * FROM timetable';
+  connection.query(sql3,function(error,results,fields){
+    console.log(results);
+    if (req.session.user) {
+      res.render('tic_seat4.ejs', {
+        logined : req.session.user.logined,
+        user_id : req.session.user.user_id,
+        results, 
+      });
+    } else {
+      res.render('tic_seat4.ejs', {
+        logined : false,
+        user_id : null,
+        results,
+      });
+    }
+  });
 });
+app.get('/tic_seat4-1', function(req,res){
+  var sql3 = 'SELECT * FROM timetable';
+  connection.query(sql3,function(error,results,fields){
+    console.log(results);
+    if (req.session.user) {
+      res.render('tic_seat4-1.ejs', {
+        logined : req.session.user.logined,
+        user_id : req.session.user.user_id,
+        results, 
+      });
+    } else {
+      res.render('tic_seat4-1.ejs', {
+        logined : false,
+        user_id : null,
+        results,
+      });
+    }
+  });
+});
+app.get('/tic_seat4-2', function(req,res){
+  var sql3 = 'SELECT * FROM timetable';
+  connection.query(sql3,function(error,results,fields){
+    console.log(results);
+    if (req.session.user) {
+      res.render('tic_seat4-2.ejs', {
+        logined : req.session.user.logined,
+        user_id : req.session.user.user_id,
+        results, 
+      });
+    } else {
+      res.render('tic_seat4-2.ejs', {
+        logined : false,
+        user_id : null,
+        results,
+      });
+    }
+  });
+});
+
+
 
 //영화1
 app.get('/timetable',function(req,res){
@@ -273,7 +499,6 @@ app.get('/timetable',function(req,res){
 app.get('/timetable2',function(req,res){
   var sql3 = 'SELECT * FROM timetable';
   connection.query(sql3,function(error,results,fields){
-    console.log(results);
     if (req.session.user) {
       res.render('timetable2.ejs', {
         logined : req.session.user.logined,
