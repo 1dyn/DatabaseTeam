@@ -170,15 +170,7 @@ span.seatCharts-legendDescription {
 </head>
 <body>
 		<h2>시간을 선택하세요 [안산 중앙점 요한이와 동연이]</h2>
-<div class="box">
-		<select>
-		  <option><%=results[0].time%></option>
-		  <option><%=results[5].time%></option>
-		  <option><%=results[8].time%></option>
 
-		</select>
-	  </div>
-	  
 	  
 </body>
 <div class="jquery-script-clear"></div>
@@ -195,17 +187,22 @@ span.seatCharts-legendDescription {
       <h3> 선택된 좌석(<span id="counter">0</span>):</h3>
       <ul id="selected-seats">
       </ul>
-      총 가격: <b><span id="total">0</span>원</b>
-      <button class="checkout-button">결제하기 &raquo;</button>
+	  총 가격: <b><span id="total">0</span>원</b>
+	  
+	  <form action="/tic_seat" method="post" >
+		<input id= "onseat" name= "onseat" value = "" />
+	  <button class="checkout-button">결제하기 &raquo;</button>
+	</form>
       <div id="legend"></div>
-    </div>
+	</div>
+	
   </div>
 </div>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> 
 <script src="../js/jquery.seat-charts.js"></script> 
 <script>
 			var firstSeatLabel = 1;
-		
+			var onseat = new Array(); 
 			$(document).ready(function() {
 				var $cart = $('#selected-seats'),
 					$counter = $('#counter'),
@@ -243,8 +240,10 @@ span.seatCharts-legendDescription {
 						node : $('#legend'),
 					    items : [
 							[ 'e', 'available',   'normal_seat' ],
+						//	[ 'x'  'aunavailable', 'already_booked'],
 							[ 'f', 'available',   'Sweet_box'],
-							[ 'a', 'unavailable', 'Already_Booked']
+							[ 'a', 'unavailable', 'selected']
+
 					    ]					
 					},
 					click: function () {
@@ -254,7 +253,13 @@ span.seatCharts-legendDescription {
 								.attr('id', 'cart-item-'+this.settings.id)
 								.data('seatId', this.settings.id)
 								.appendTo($cart);
-							
+								onseat.push(this.settings.id);
+								
+								console.log(onseat);
+
+								document.getElementById("onseat").value = onseat;
+
+
 							/*
 							 * Lets update the counter and total
 							 *
@@ -263,7 +268,7 @@ span.seatCharts-legendDescription {
 							 */
 							$counter.text(sc.find('selected').length+1);
 							$total.text(recalculateTotal(sc)+this.data().price);
-							
+							var pay = document.getElementById("pay").value = "g"
 							return 'selected';
 						} else if (this.status() == 'selected') {
 							//update the counter
@@ -273,7 +278,7 @@ span.seatCharts-legendDescription {
 						
 							//remove the item from our cart
 							$('#cart-item-'+this.settings.id).remove();
-						
+							
 							//seat has been vacated
 							return 'available';
 						} else if (this.status() == 'unavailable') {
@@ -306,6 +311,7 @@ span.seatCharts-legendDescription {
 			
 			return total;
 		}
+
 		
 		</script>
 </body>

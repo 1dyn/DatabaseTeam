@@ -246,23 +246,45 @@ app.get('/tic_screen', function(req,res){
 
 app.get('/tic_seat', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
+    
     connection.query(sql3,function(error,results,fields){
       console.log(results);
+      
       if (req.session.user) {
         res.render('tic_seat.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
-          results, 
+          results 
+          
         });
       } else {
         res.render('tic_seat.ejs', {
           logined : false,
           user_id : null,
-          results,
+          results
         });
       }
-    });
+    })
+  
   });
+
+  app.post('/tic_seat', function(req,res){
+    var body = req.body;
+    var onseat = req.body.onseat;
+
+
+    
+    var sql4 = 'select *from booking';
+    console.log(onseat);
+    
+    connection.query(sql4,[body.seat, body.price], function(error,resultsbk,fields){
+      
+			res.render('tic_seat.ejs',{
+        resultsbk
+      });
+    })
+  });
+  
   app.get('/tic_seat1-2', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     connection.query(sql3,function(error,results,fields){
