@@ -837,25 +837,28 @@ app.get('/tic_complete', function(req, res) {
 
 app.get('/mem_info',function(req,res){
   var sql10 = 'SELECT * FROM members where log_id = ?';
+  var sql11 = 'SELECT * FROM ticket where mem_id = ?'
   console.log(req.session);
   connection.query(sql10,[req.session.user.user_id],function(error,ikuoit,fields){
-    console.log(error);
-    if (req.session.user) {
-      res.render('mem_info.ejs', {
-        logined : req.session.user.logined,
-        user_id : req.session.user.user_id,
-        ikuoit,
-      });
-
-    } else {
-      res.render('mem_info.ejs', {
-        logined : false,
-        user_id : null,
-        ikuoit,
-      });
-    }
+    connection.query(sql11,[req.session.user.user_id],function(error,gandait,fields){
+      if (req.session.user) {
+        res.render('mem_info.ejs', {
+          logined : req.session.user.logined,
+          user_id : req.session.user.user_id,
+          ikuoit,
+          gandait,
+        });
+      
+      } else {
+        res.render('mem_info.ejs', {
+          logined : false,
+          user_id : null,
+          ikuoit,
+          gandait,
+        });
+      }
+    });
   });
-
 });
 
 module.exports = app;
