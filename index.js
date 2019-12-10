@@ -1,7 +1,6 @@
 // body-parser 기본 모듈 불러오기 및 설정 (POST req 해석)
 var bodyParser = require('body-parser'); // POST 방식 전송을 위해서 필요함
-var favicon = require('serve-favicon');
-
+var JSAlert = require("js-alert");
 // Express 기본 모듈 불러오기
 var express = require('express');
 var session = require('express-session');
@@ -19,7 +18,6 @@ var dateFormat = require('dateformat');
 // app.use(express.static(__dirname + '/public'));
 
 // ejs view와 렌더링 설정
-app.use(favicon(path.join(__dirname,'views/img','icon.ico')));
 app.use(express.static('views'));
 app.use(express.static('views'));
 app.use('/views', express.static('./static/css'))
@@ -201,12 +199,11 @@ app.post('/sign_up', function(req, res) {
   var mem_id = req.body.mem_id;
   var phone_num = req.body.phone_num;
   var email = req.body.email;
-  var mem_name = req.body.mem_name;
   if (log_pw === pwdconf) {
 
     //DB에 쿼리 알리기
-    var sql = `INSERT INTO members (mem_id,log_id,log_pw,pwdconf,gender,phone_num,email,mem_name) VALUES(?, ?, ?, ?, ?, ?, ?,?)`;
-    connection.query(sql, [mem_id, log_id, log_pw, pwdconf, gender, phone_num, email,mem_name], function(error, results, fields) {
+    var sql = `INSERT INTO members (mem_id,log_id,log_pw,pwdconf,gender,phone_num,email) VALUES(?, ?, ?, ?, ?, ?, ?)`;
+    connection.query(sql, [mem_id, log_id, log_pw, pwdconf, gender, phone_num, email], function(error, results, fields) {
       console.log(error);
     });
     res.redirect('/');
@@ -289,8 +286,6 @@ app.get('/tic_screen', function(req,res){
 app.get('/tic_seat', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     var sql4 = 'SELECT * FROM seats';
-    var sql5 = 'SELECT * FROM movie';
-    connection.query(sql5, function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring,fields){
 
@@ -299,8 +294,7 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-          results_gimoring,
-          result_movie
+          results_gimoring
 
 
         });
@@ -309,13 +303,12 @@ app.get('/tic_seat', function(req,res){
           logined : false,
           user_id : null,
           results,
-          results_gimoring,
-          result_movie
+          results_gimoring
         });
       }
     })
   })
-})
+
   });
 
 // 예매완료
@@ -327,6 +320,13 @@ app.get('/tic_seat', function(req,res){
     var os ;
     var mem_id = req.body.mem_id;
     var phone_num= req.body.phone_num;
+    //
+    var ti_id;
+    var mov_name;
+    var ci_name;
+    var sc_num;
+    var seat;
+
 
     if(onseat.length==2){
       os= onseat;
@@ -369,20 +369,42 @@ app.get('/tic_seat', function(req,res){
       var param1 = [seats,1];
       connection.query('update seats set seat = ? where seats_id = ?',param1);
     var sql5 = 'insert into booking(seat,price) values(?,?)';
+
+    // ticket에 정보 넣기 ~~ yamete!!
+    var yamete_pr = ['YhDy', 'Jungang', 1, onseats];
+    var sql7 = 'insert into ticket (mov_name, ci_name, sc_num, seat) values(?, ?, ?, ?)';
+    connection.query(sql7, yamete_pr);
+
+    // ticket 정보 꺼내와서 tic_complete.ejs로 보내주기 ~~ gudasai!!
+    var sql6 = 'select * from ticket where seat = ?';
+    connection.query(sql6, onseats, function(error, gudasai, fields) {
+      ti_id = gudasai[0].ti_id;
+      mov_name = gudasai[0].mov_name;
+      ci_name = gudasai[0].ci_name;
+      sc_num = gudasai[0].sc_num;
+      seat = gudasai[0].seat;
+    });
+
     connection.query(sql5 , [onseats,parseInt(price)],function(){
       console.log(onseats);
       // res.redirect('/');
       // 진행중
-      res.render('tic_complete.ejs')
+      res.render('tic_complete.ejs', {
+        ti: ti_id,
+        mov: mov_name,
+        ci: ci_name,
+        sc: sc_num,
+        st: seat,
+        logined: false,
+        user_id: null
+      })
     })
     })
   });
 
   app.get('/tic_seat1-2', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    var sql4 = 'SELECT * FROM seats';
-    var sql5 = 'SELECT * FROM movie';
-    connection.query(sql5, function(error,result_movie,fields){
+    var sql4 = 'SELECT * FROM seats'
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring2,fields){
 
@@ -391,22 +413,18 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-          results_gimoring2,
-          result_movie
+          results_gimoring2
 
-          
         });
       } else {
         res.render('tic_seat1-2.ejs', {
           logined : false,
           user_id : null,
           results,
-          results_gimoring2,
-          result_movie
+          results_gimoring2
         });
       }
     })
-  })
   })
 });
   app.post('/tic_seat1-2', function(req,res){
@@ -462,9 +480,7 @@ app.get('/tic_seat', function(req,res){
 
   app.get('/tic_seat1-3', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    var sql4 = 'SELECT * FROM seats';
-    var sql5 = 'SELECT * FROM movie';
-    connection.query(sql5, function(error,result_movie,fields){
+    var sql4 = 'SELECT * FROM seats'
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring3,fields){
 
@@ -473,20 +489,17 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-          results_gimoring3,
-          result_movie
-          
+          results_gimoring3
+
         });
       } else {
         res.render('tic_seat1-3.ejs', {
           logined : false,
           user_id : null,
           results,
-          results_gimoring3,
-          result_movie
+          results_gimoring3
         });
       }
-    })
     })
   })
   });
@@ -810,7 +823,5 @@ app.get('/mem_info', function(req, res) {
     user_id: null
   })
 })
-
-
 
 module.exports = app;
