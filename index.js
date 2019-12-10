@@ -312,6 +312,7 @@ app.get('/tic_seat', function(req,res){
       }
     })
   })
+})
   });
 
 // 예매완료
