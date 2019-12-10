@@ -269,6 +269,8 @@ app.get('/tic_screen', function(req,res){
 app.get('/tic_seat', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     var sql4 = 'SELECT * FROM seats';
+    var sql5 = 'SELECT * FROM movie';
+    connection.query(sql5, function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring,fields){
         
@@ -277,7 +279,8 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-          results_gimoring
+          results_gimoring,
+          result_movie
          
           
         });
@@ -286,11 +289,13 @@ app.get('/tic_seat', function(req,res){
           logined : false,
           user_id : null,
           results,
-          results_gimoring
+          results_gimoring,
+          result_movie
         });
       }
     })
   })
+})
   
   });
 
@@ -353,7 +358,9 @@ app.get('/tic_seat', function(req,res){
 
   app.get('/tic_seat1-2', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    var sql4 = 'SELECT * FROM seats'
+    var sql4 = 'SELECT * FROM seats';
+    var sql5 = 'SELECT * FROM movie';
+    connection.query(sql5, function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring2,fields){
         
@@ -362,7 +369,9 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-          results_gimoring2
+          results_gimoring2,
+          result_movie
+
           
         });
       } else {
@@ -370,10 +379,12 @@ app.get('/tic_seat', function(req,res){
           logined : false,
           user_id : null,
           results,
-          results_gimoring2
+          results_gimoring2,
+          result_movie
         });
       }
     })
+  })
   })
 });
   app.post('/tic_seat1-2', function(req,res){
@@ -429,7 +440,9 @@ app.get('/tic_seat', function(req,res){
 
   app.get('/tic_seat1-3', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    var sql4 = 'SELECT * FROM seats'
+    var sql4 = 'SELECT * FROM seats';
+    var sql5 = 'SELECT * FROM movie';
+    connection.query(sql5, function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring3,fields){
         
@@ -438,7 +451,8 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-          results_gimoring3
+          results_gimoring3,
+          result_movie
           
         });
       } else {
@@ -446,9 +460,11 @@ app.get('/tic_seat', function(req,res){
           logined : false,
           user_id : null,
           results,
-          results_gimoring3
+          results_gimoring3,
+          result_movie
         });
       }
+    })
     })
   })
   });
