@@ -124,6 +124,9 @@ div.seatCharts-seat.available.sweet_box {
 /* 	background: url(vip.png); */
 	background-color:pink;
 }
+div.seatChars-seat.unavailable.selected{
+	background-color:gray;
+}
 div.seatCharts-seat.focused {
 	background-color: red;
 }
@@ -248,7 +251,11 @@ span.seatCharts-legendDescription {
 							classes : 'normal_seat', //your custom CSS class
 							category: 'normal_seat'
 						},				
-					
+						a:{
+							price : 0,
+							classes : 'selected',
+							category : 'selected'
+						}
 					},
 					naming : {
 						top : false,
