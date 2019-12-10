@@ -267,7 +267,7 @@ app.get('/screen', function(req, res) {
       });
     }
   });
- 
+
 });
 app.get('/seat_ticket', function(req,res){
   res.render('seat_ticket.ejs');
@@ -331,6 +331,7 @@ app.get('/tic_seat', function(req,res){
     var ci_name;
     var sc_num;
     var seat;
+    var id;
 
 
     if(onseat.length==2){
@@ -376,8 +377,8 @@ app.get('/tic_seat', function(req,res){
     var sql5 = 'insert into booking(seat,price) values(?,?)';
 
     // ticket에 정보 넣기 ~~ yamete!!
-    var yamete_pr = ['YhDy', 'Jungang', 1, onseats];
-    var sql7 = 'insert into ticket (mov_name, ci_name, sc_num, seat) values(?, ?, ?, ?)';
+    var yamete_pr = ['YhDy', 'Jungang', 1, onseats, req.session.user.user_id];
+    var sql7 = 'insert into ticket (mov_name, ci_name, sc_num, seat, mem_id) values(?, ?, ?, ?, ?)';
     connection.query(sql7, yamete_pr);
 
     // ticket 정보 꺼내와서 tic_complete.ejs로 보내주기 ~~ gudasai!!
@@ -388,6 +389,7 @@ app.get('/tic_seat', function(req,res){
       ci_name = gudasai[0].ci_name;
       sc_num = gudasai[0].sc_num;
       seat = gudasai[0].seat;
+      id = gudasai[0].mem_id;
     });
 
     connection.query(sql5 , [onseats,parseInt(price)],function(){
@@ -400,8 +402,8 @@ app.get('/tic_seat', function(req,res){
         ci: ci_name,
         sc: sc_num,
         st: seat,
-        logined: false,
-        user_id: null
+        logined: true,
+        user_id: id
       })
     })
     })
@@ -842,9 +844,9 @@ app.get('/mem_info',function(req,res){
       res.render('mem_info.ejs', {
         logined : req.session.user.logined,
         user_id : req.session.user.user_id,
-        ikuoit, 
+        ikuoit,
       });
-    
+
     } else {
       res.render('mem_info.ejs', {
         logined : false,
@@ -853,7 +855,7 @@ app.get('/mem_info',function(req,res){
       });
     }
   });
-  
+
 });
 
 module.exports = app;

@@ -41,14 +41,14 @@
 					</div>
 					<div class="navbar-collapse collapse ">
 							<ul class="nav navbar-nav">
-								<li class="active"><a href="/">Home</a></li>
+								<li><a href="/">Home</a></li>
 								<li><a href="/movie_info">Movie info & booking</a></li>
 								<li><a href="/screen">Screen</a></li>
-					
+
 								<!-- <li><a href="login.html">login</a></li> -->
 								<% if(logined) { %>
+									<li class="active"><a href="/mem_info">My page</a></li>
 									<li><a href="/logout">Logout</a></li>
-									<li><a href="/mem_info">My page</a></li>
 									<li><a>| <%= user_id %> 님, 어서오세요</a></li>
 								<% } else { %>
 									<li><a href="/login">login</a></li>
