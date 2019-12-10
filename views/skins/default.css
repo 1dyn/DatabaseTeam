@@ -218,6 +218,11 @@ ul.clients li:hover {
 footer{
 	background:black;
 }
+
+div#tic footer {
+	background:#BDBDBD;
+}
+
 #sub-footer{
 	background:#68A4C4;
 }

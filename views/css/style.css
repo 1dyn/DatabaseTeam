@@ -2212,3 +2212,53 @@ button{
 {
 	margin-top: 10px;
 }
+
+div#tic {
+	padding: 20px;
+	padding-top:30px;
+	padding-bottom:30px;
+	background:#D8D8D8;
+}
+
+div#tic img {
+	width: 370px;
+	height: 280px;
+	float: left;
+}
+
+div#tic p {
+	color: black;
+	margin-left: 30%;
+}
+
+div#ntc p {
+	margin-left: 10%;
+	color: #585858;
+}
+
+div#mem {
+	padding: 20px;
+	padding-top:30px;
+	padding-bottom:30px;
+}
+
+div#mem_tic {
+	padding: 20px;
+	padding-top:30px;
+	padding-bottom:30px;
+	background:#D8D8D8;
+}
+
+div#mem p {
+	color: black;
+	margin-left: 12%;
+}
+
+div#mem_tic p {
+	color: black;
+	margin-left: 11%;
+}
+
+div#mem_tic h2 {
+	color: black;
+}
