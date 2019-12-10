@@ -170,7 +170,7 @@ span.seatCharts-legendDescription {
 </head>
 <body>
 		<h2>시간을 선택하세요 [안산 중앙점 요한이와 동연이]</h2>
-
+	
 	  
 </body>
 <div class="jquery-script-clear"></div>
@@ -217,6 +217,7 @@ span.seatCharts-legendDescription {
 					'_f_f_',
 					'_f_f_'
 					],
+					
 					seats: {
 						f: {
 							price   : 20000,
@@ -228,7 +229,7 @@ span.seatCharts-legendDescription {
 							classes : 'normal_seat', //your custom CSS class
 							category: 'normal_seat'
 						}					
-					
+						
 					},
 					naming : {
 						top : false,
@@ -254,12 +255,13 @@ span.seatCharts-legendDescription {
 								.data('seatId', this.settings.id)
 								.appendTo($cart);
 								onseat.push(this.settings.id);
+							// 있으면 빼고	
 								
-								console.log(onseat);
-
+							// 취소하면 지워지는거 체크 
 								document.getElementById("onseat").value = onseat;
-
-
+								//console.log(onseat);
+								
+								
 							/*
 							 * Lets update the counter and total
 							 *
@@ -268,7 +270,7 @@ span.seatCharts-legendDescription {
 							 */
 							$counter.text(sc.find('selected').length+1);
 							$total.text(recalculateTotal(sc)+this.data().price);
-							var pay = document.getElementById("pay").value = "g"
+							// var pay = document.getElementById("pay").value = "g"
 							return 'selected';
 						} else if (this.status() == 'selected') {
 							//update the counter
@@ -278,7 +280,10 @@ span.seatCharts-legendDescription {
 						
 							//remove the item from our cart
 							$('#cart-item-'+this.settings.id).remove();
-							
+							onseat.splice(onseat.indexOf(this.settings.id),1);
+							document.getElementById("onseat").value = onseat;
+
+
 							//seat has been vacated
 							return 'available';
 						} else if (this.status() == 'unavailable') {

@@ -247,7 +247,7 @@ app.get('/tic_screen', function(req,res){
 app.get('/tic_seat', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     
-    connection.query(sql3,function(error,results,fields){
+    connection.query(sql3, function(error,results,fields){
       console.log(results);
       
       if (req.session.user) {
@@ -273,12 +273,12 @@ app.get('/tic_seat', function(req,res){
     var onseat = req.body.onseat;
 
 
-    
-    var sql4 = 'select *from booking';
+    var sql4 = 'select *from seats';
+    // var sql5 = 'insert into booking values('
     console.log(onseat);
     
-    connection.query(sql4,[body.seat, body.price], function(error,resultsbk,fields){
-      
+    connection.query(sql4,[body.seats_id, body.seats], function(error,resultsbk,fields){
+      console.log(resultsbk);
 			res.render('tic_seat.ejs',{
         resultsbk
       });
