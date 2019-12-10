@@ -296,16 +296,10 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-<<<<<<< HEAD
           results_gimoring,
           result_movie
-         
-          
-=======
-          results_gimoring
 
 
->>>>>>> master
         });
       } else {
         res.render('tic_seat.ejs', {
@@ -318,12 +312,6 @@ app.get('/tic_seat', function(req,res){
       }
     })
   })
-<<<<<<< HEAD
-})
-  
-=======
-
->>>>>>> master
   });
 
 // 예매완료
