@@ -268,7 +268,7 @@ app.get('/tic_screen', function(req,res){
 
 app.get('/tic_seat', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    var sql4 = 'SELECT * FROM seats'
+    var sql4 = 'SELECT * FROM seats';
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring,fields){
         
@@ -278,6 +278,7 @@ app.get('/tic_seat', function(req,res){
           user_id : req.session.user.user_id,
           results,
           results_gimoring
+         
           
         });
       } else {
@@ -299,6 +300,9 @@ app.get('/tic_seat', function(req,res){
     var onseat = req.body.onseat.split("_");
     var k = 0 ;
     var os ;
+    var mem_id = req.body.mem_id;
+    var phone_num= req.body.phone_num;
+    
     if(onseat.length==2){
       os= onseat;
     }else {
@@ -309,9 +313,15 @@ app.get('/tic_seat', function(req,res){
       }
     }
     var gimotin = parseInt(req.body.anggimo);
+    
     var price = req.body.p;
     var sql4 = 'select seat from seats where seats_id = ? ';
+    var sql5 = 'select * from member where mem_id = ?'
     connection.query(sql4,[gimotin],function(error,result_gimoring,fields){
+      // connection.query(sql5, function(result_mem){
+      //   result_mem
+      // })
+      // console.log(result_mem);
       seat = result_gimoring[0].seat.split('|')
       if(k==1){
         for(let i = 0 ; i < onseat.length;i++){
@@ -327,8 +337,6 @@ app.get('/tic_seat', function(req,res){
         seat[osr]  = seat[osr].substr(0,osc).concat("a", seat[osr].substr(osc+1) ); ;
 
       }
-
-
         seats = seat[0];
       for(let i = 1 ; i < seat.length;i++){
         seats = seats.concat("|",seat[i]);
