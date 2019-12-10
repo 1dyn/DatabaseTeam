@@ -273,6 +273,7 @@ app.get('/tic_seat', function(req,res){
 
   app.post('/tic_seat', function(req,res){
     var body = req.body;
+    var onseats =req.body.onseat;
     var onseat = req.body.onseat.split("_");
     var k = 0 ;
     var os ;
@@ -286,7 +287,7 @@ app.get('/tic_seat', function(req,res){
       }
     }
     var gimotin = parseInt(req.body.anggimo);
-    var price = req.body.price_gimoring;
+    var price = req.body.p;
     var sql4 = 'select seat from seats where seats_id = ? ';
     connection.query(sql4,[gimotin],function(error,result_gimoring,fields){
       seat = result_gimoring[0].seat.split('|')
@@ -310,11 +311,11 @@ app.get('/tic_seat', function(req,res){
       for(let i = 1 ; i < seat.length;i++){
         seats = seats.concat("|",seat[i]);
       }
-      console.log(seats);
+   
       connection.query('update seats set seat = ?',[seats]);
-    var sql5 = 'insert into booking(seat, price) values(?,?)';
-    connection.query(sql5 , [onseat,parseInt(price)],function(){;
-      
+    var sql5 = 'insert into booking(seat,price) values(?,?)';
+    connection.query(sql5 , [onseats,parseInt(price)],function(){
+      console.log(onseats);
       res.redirect('/');
     })
     })
