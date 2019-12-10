@@ -44,7 +44,7 @@
 							<li><a href="/">Home</a></li>
 							<li><a href="/movie_info">Movie info & booking</a></li>
 							<li class="active"><a href="/screen">Screen</a></li>
-						
+
 							<!-- <li><a href="/login">login</a></li> -->
 							<% if(logined) { %>
 								<li><a href="/logout">Logout</a></li>
@@ -76,78 +76,74 @@
 							<article>
 								<div class="post-slider">
 									<div class="post-heading">
-										<h3><a href="#">안산 중앙점</a></h3>
+										<h3><a href="/timetable">안산 중앙점</a></h3>
 									</div>
-									<img src ="../img/ansan.png" height="400px">
+									<img src ="../img/ansan.png" height="400px" style="margin-bottom : 20px;">
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3173.9695885393676!2d126.8341926670861!3d37.29585458069418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b6ef2f5a7cb73%3A0x26b59cb3d9af4a46!2z7ZWc7JaR64yA7ZWZ6rWQIEVSSUNB7Lqg7Y287Iqk!5e0!3m2!1sko!2skr!4v1575990319829!5m2!1sko!2skr" width="743px" height="400px" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 								</div>
 								<p>
 									경기도 안산시 상록구 사3동 한양대학로 55 제 4공학관
 								</p>
 								<div class="bottom-article">
 									<ul class="meta-post">
-										
+
 									</ul>
 								</div>
 							</article>
 							<article>
 								<div class="post-slider">
 									<div class="post-heading">
-										<h3><a href="#">서울 이수점</a></h3>
+										<h3><a href="/timetable">서울 이수점</a></h3>
 									</div>
-									<img src ="../img/seoul.png" height="400px">
+									<img src ="../img/seoul.png" height="300px" style="margin-bottom : 20px;">
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.9080893108953!2d126.97968731524452!3d37.48649523646586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca1b3e26dcf3d%3A0xa16abe6619550e35!2z7J207IiY7Jet!5e0!3m2!1sko!2skr!4v1575990806775!5m2!1sko!2skr"  width="743px" height="400px" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 								</div>
 								<p>
 									서울특별시 동작대로 29길
 								</p>
 								<div class="bottom-article">
 									<ul class="meta-post">
-										
+
 									</ul>
 								</div>
 							</article>
 							<article>
 								<div class="post-slider">
 									<div class="post-heading">
-										<h3><a href="#">경기 광명점</a></h3>
+										<h3><a href="/timetable">경기도 광명점</a></h3>
 									</div>
-									<img src ="../img/gwang.png" height="400px">
+									<img src ="../img/gwang.png" height="400px" style="margin-bottom : 20px;">
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.870899438244!2d126.88260031524278!3d37.41652624046273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61460d3eb51f%3A0x3642a68a7dfad030!2z6rSR66qF7Jet!5e0!3m2!1sko!2skr!4v1575990851826!5m2!1sko!2skr" width="743px" height="400px" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 								</div>
 								<p>
-									경기도 광명시 
+									경기도 광명시 철산동
 								</p>
 								<div class="bottom-article">
 									<ul class="meta-post">
-										
+
 									</ul>
 								</div>
 							</article>
 						</div>
 						<div class="col-lg-4">
 							<aside class="right-sidebar">
-								<div class="widget">
-									<h5 class="widgetheading">Genre</h5>
-									<ul class="cat">
-										<li><i class="icon-angle-right"></i><a href="#">Action</a><span> (1)</span></li>
-										<li><i class="icon-angle-right"></i><a href="#">Romance</a><span> (1)</span></li>
-										<li><i class="icon-angle-right"></i><a href="#">Fantasy</a><span> (1)</span></li>
-									</ul>
-								</div>
+								<div class="widget"></div>
 								<div class="widget">
 									<h5 class="widgetheading">Movies</h5>
 									<ul class="recent">
 										<li>
-											<img src="../img/1.jpg" class="pull-left" alt="" />
-											<h6><a href="#">신의 한수</a></h6>
+											<img src="<%=results[0].mov_img%>" class="pull-left" alt="" style="width: 300px; height: 180px;" />
+											<h6><a href="/movie_info"><%=results[0].mov_name%></a></h6>
 										</li>
 										<li>
-											<a href="#"><img src="../img/4.jpg" class="pull-left" alt="" /></a>
-											<h6><a href="#">겨울왕국2</a></h6>
+											<img src="../img/4.jpg" class="pull-left" alt="" style="width: 300px; height: 180px;"/>
+											<h6><a href="/movie_info"><%=results[1].mov_name%></a></h6>
 										</li>
-										<a href="#"><img src="../img/5.jpg" class="pull-left" alt="" /></a>
-											<h6><a href="#">알라딘</a></h6>
+											<img src="../img/5.jpg" alt="" style="width: 300px; height: 180px;"/>
+											<h6><a href="/movie_info"><%=results[2].mov_name%></a></h6>
 										<li>
-											<a href="#"><img src="../img/6.jpg" class="pull-left" alt="" /></a>
-											<h6><a href="#">라이온 킹</a></h6>
+											<img src="../img/6.jpg" class="pull-left" alt="" style="width: 300px; height: 180px;"/>
+											<h6><a href="/movie_info"><%=results[3].mov_name%></a></h6>
 										</li>
 									</ul>
 								</div>
