@@ -124,6 +124,9 @@ div.seatCharts-seat.available.sweet_box {
 /* 	background: url(vip.png); */
 	background-color:pink;
 }
+div.seatChars-seat.unavailable.selected{
+	background-color:gray;
+}
 div.seatCharts-seat.focused {
 	background-color: red;
 }
@@ -169,16 +172,8 @@ span.seatCharts-legendDescription {
 </style>
 </head>
 <body>
-		<h2>시간을 선택하세요 [서울 이수점 요한이와 동연이]</h2>
-<div class="box">
-		<select>
-		  <option><%=results[15].time%></option>
-		  <option><%=results[17].time%></option>
-		  <option><%=results[21].time%></option>
-
-		</select>
-	  </div>
-	  
+		<h2>시간을 선택하세요 [안산 중앙점 요한이와 동연이]</h2>
+	
 	  
 </body>
 <div class="jquery-script-clear"></div>
@@ -195,31 +190,56 @@ span.seatCharts-legendDescription {
       <h3> 선택된 좌석(<span id="counter">0</span>):</h3>
       <ul id="selected-seats">
       </ul>
-      총 가격: <b><span id="total">0</span>원</b>
-      <button class="checkout-button">결제하기 &raquo;</button>
+	  총 가격: <b><span id="total">0</span>원</b>
+	  
+	  <form action="/tic_seat1-2" method="post" >
+		<input type = "hidden" id= "onseat2" name= "onseat2" value = "" />
+		<input type ="hidden" id ="anggimo2" name = "anggimo2" value = ""/>
+		<input type = "hidden" id = "p" name ="p" value="" />
+ 	  <button class="checkout-button">결제하기 &raquo;</button>
+	</form>
       <div id="legend"></div>
-    </div>
+	</div>
+	
   </div>
 </div>
+
+
+
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> 
 <script src="../js/jquery.seat-charts.js"></script> 
 <script>
+			
+			const gimoring = <%- JSON.stringify(results_gimoring2) %>;
+			var map = String(gimoring[1].seat).split("|");
+			document.getElementById("anggimo2").value = gimoring[1].seats_id ;
 			var firstSeatLabel = 1;
-		
+			var onseat2 = new Array(); 
 			$(document).ready(function() {
 				var $cart = $('#selected-seats'),
 					$counter = $('#counter'),
 					$total = $('#total'),
 					sc = $('#seat-map').seatCharts({
-					map: [
-					'eeeee',
-					'eeeee',
-					'eeeee',
-					'eeeee',
-					'eeeee',	
-					'_f_f_',
-					'_f_f_'
-					],
+					// map: [
+					// 'eeeee',
+					// 'eeeee',
+					// 'eeeee',
+					// 'eeeee',
+					// 'eeeee',	
+					// '_f_f_',
+					// '_f_f_'
+					// ],
+					// map: [
+					// '[a,e,e,e,e]',
+					// '[e,e,e,e,e]',	
+					// '[e,e,e,e,e]',
+					// '[e,e,e,e,e]',
+					// '[e,e,e,e,e]'
+
+					// ],
+			
+				map,
+				
 					seats: {
 						f: {
 							price   : 20000,
@@ -230,8 +250,12 @@ span.seatCharts-legendDescription {
 							price   : 12000,
 							classes : 'normal_seat', //your custom CSS class
 							category: 'normal_seat'
-						}					
-					
+						},				
+						a:{
+							price : 0,
+							classes : 'selected',
+							category : 'selected'
+						}
 					},
 					naming : {
 						top : false,
@@ -243,9 +267,12 @@ span.seatCharts-legendDescription {
 						node : $('#legend'),
 					    items : [
 							[ 'e', 'available',   'normal_seat' ],
+						//	[ 'x'  'aunavailable', 'already_booked'],
 							[ 'f', 'available',   'Sweet_box'],
-							[ 'a', 'unavailable', 'Already_Booked']
-					    ]					
+							[ 'a', 'unavailable', 'selected']
+
+						]				
+						
 					},
 					click: function () {
 						if (this.status() == 'available') {
@@ -254,7 +281,15 @@ span.seatCharts-legendDescription {
 								.attr('id', 'cart-item-'+this.settings.id)
 								.data('seatId', this.settings.id)
 								.appendTo($cart);
-							
+								onseat2.push(this.settings.id);
+							// 있으면 빼고	
+								
+							// 취소하면 지워지는거 체크 
+								document.getElementById("onseat2").value = onseat2;
+
+								//console.log(onseat2);
+								
+								
 							/*
 							 * Lets update the counter and total
 							 *
@@ -263,17 +298,22 @@ span.seatCharts-legendDescription {
 							 */
 							$counter.text(sc.find('selected').length+1);
 							$total.text(recalculateTotal(sc)+this.data().price);
-							
+							document.getElementById("p").value = recalculateTotal(sc)+this.data().price;
+							// var pay = document.getElementById("pay").value = "g"
 							return 'selected';
 						} else if (this.status() == 'selected') {
 							//update the counter
 							$counter.text(sc.find('selected').length-1);
 							//and total
 							$total.text(recalculateTotal(sc)-this.data().price);
-						
+							document.getElementById("p").value = recalculateTotal(sc)-this.data().price;
+
 							//remove the item from our cart
 							$('#cart-item-'+this.settings.id).remove();
-						
+							onseat2.splice(onseat2.indexOf(this.settings.id),1);
+							document.getElementById("onseat2").value = onseat2;
+
+
 							//seat has been vacated
 							return 'available';
 						} else if (this.status() == 'unavailable') {
@@ -282,6 +322,7 @@ span.seatCharts-legendDescription {
 						} else {
 							return this.style();
 						}
+
 					}
 				});
 
@@ -306,6 +347,7 @@ span.seatCharts-legendDescription {
 			
 			return total;
 		}
+
 		
 		</script>
 </body>

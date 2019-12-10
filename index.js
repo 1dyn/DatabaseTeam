@@ -341,8 +341,8 @@ app.get('/tic_seat', function(req,res){
       for(let i = 1 ; i < seat.length;i++){
         seats = seats.concat("|",seat[i]);
       }
-   
-      connection.query('update seats set seat = ?',[seats]);
+      var param1 = [seats,1];
+      connection.query('update seats set seat = ? where seats_id = ?',param1);
     var sql5 = 'insert into booking(seat,price) values(?,?)';
     connection.query(sql5 , [onseats,parseInt(price)],function(){
       console.log(onseats);
@@ -353,42 +353,156 @@ app.get('/tic_seat', function(req,res){
 
   app.get('/tic_seat1-2', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    connection.query(sql3,function(error,results,fields){
-      console.log(results);
+    var sql4 = 'SELECT * FROM seats'
+    connection.query(sql3, function(error,results,fields){
+      connection.query(sql4,function(error,results_gimoring2,fields){
+        
       if (req.session.user) {
         res.render('tic_seat1-2.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
-          results, 
+          results,
+          results_gimoring2
+          
         });
       } else {
         res.render('tic_seat1-2.ejs', {
           logined : false,
           user_id : null,
           results,
+          results_gimoring2
         });
       }
-    });
+    })
+  })
+});
+  app.post('/tic_seat1-2', function(req,res){
+    var body = req.body;
+    var onseats2 = req.body.onseat2;
+    var onseat2 = req.body.onseat2.split("_");
+    var k = 0 ;
+    var os ;
+    if(onseat2.length==2){
+      os= onseat2;
+    }else {
+      k = 1;// 여러개 예매
+      onseat2 = req.body.onseat2.split(',');
+      for(let i = 0 ; i < onseat2.length;i++){
+        onseat2[i]= onseat2[i].split('_');
+      }
+    }
+    var gimotin = parseInt(req.body.anggimo2);
+    var price = req.body.p;
+    var sql4 = 'select seat from seats where seats_id = ? ';
+    connection.query(sql4,[gimotin],function(error,result_gimoring2,fields){
+      seat = result_gimoring2[0].seat.split('|')
+      if(k==1){
+        for(let i = 0 ; i < onseat2.length;i++){
+          osr = parseInt(onseat2[i][0])-1;
+          osc = parseInt(onseat2[i][1])-1;
+          seat[osr]  = seat[osr].substr(0,osc).concat("a", seat[osr].substr(osc+1) ); ;
+
+        }
+      }
+      else {
+        osr = parseInt(os[0])-1;
+        osc = parseInt(os[1])-1;
+        seat[osr]  = seat[osr].substr(0,osc).concat("a", seat[osr].substr(osc+1) ); ;
+
+      }
+
+
+        seats = seat[0];
+      for(let i = 1 ; i < seat.length;i++){
+        seats = seats.concat("|",seat[i]);
+      }
+      console.log(onseats2);
+      var param2 = [seats,4];
+      connection.query('update seats set seat = ? where seats_id =?',param2);
+    var sql5 = 'insert into booking(seat,price) values(?,?)';
+    connection.query(sql5 , [onseats2,parseInt(price)],function(){
+     
+      res.redirect('/');
+    })
+    })
   });
+
   app.get('/tic_seat1-3', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    connection.query(sql3,function(error,results,fields){
-      console.log(results);
+    var sql4 = 'SELECT * FROM seats'
+    connection.query(sql3, function(error,results,fields){
+      connection.query(sql4,function(error,results_gimoring3,fields){
+        
       if (req.session.user) {
         res.render('tic_seat1-3.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
-          results, 
+          results,
+          results_gimoring3
+          
         });
       } else {
         res.render('tic_seat1-3.ejs', {
           logined : false,
           user_id : null,
           results,
+          results_gimoring3
         });
       }
-    });
+    })
+  })
   });
+  app.post('/tic_seat1-3', function(req,res){
+    var body = req.body;
+    var onseats3 = req.body.onseat3;
+    var onseat3 = req.body.onseat3.split("_");
+    var k = 0 ;
+    var os ;
+    if(onseat3.length==2){
+      os= onseat3;
+    }else {
+      k = 1;// 여러개 예매
+      onseat3 = req.body.onseat3.split(',');
+      for(let i = 0 ; i < onseat3.length;i++){
+        onseat3[i]= onseat3[i].split('_');
+      }
+    }
+    var gimotin = parseInt(req.body.anggimo3);
+    var price = req.body.p;
+    var sql4 = 'select seat from seats where seats_id = ? ';
+    connection.query(sql4,[gimotin],function(error,result_gimoring3,fields){
+      seat = result_gimoring3[0].seat.split('|')
+      if(k==1){
+        for(let i = 0 ; i < onseat3.length;i++){
+          osr = parseInt(onseat3[i][0])-1;
+          osc = parseInt(onseat3[i][1])-1;
+          seat[osr]  = seat[osr].substr(0,osc).concat("a", seat[osr].substr(osc+1) ); ;
+
+        }
+      }
+      else {
+        osr = parseInt(os[0])-1;
+        osc = parseInt(os[1])-1;
+        seat[osr]  = seat[osr].substr(0,osc).concat("a", seat[osr].substr(osc+1) ); ;
+
+      }
+
+
+        seats = seat[0];
+      for(let i = 1 ; i < seat.length;i++){
+        seats = seats.concat("|",seat[i]);
+      }
+      console.log(onseats3);
+      var param3 = [seats,5];
+      connection.query('update seats set seat = ? where seats_id =?',param3);
+    var sql5 = 'insert into booking(seat,price) values(?,?)';
+    connection.query(sql5 , [onseats3,parseInt(price)],function(){
+    
+      res.redirect('/');
+    })
+    })
+  });
+  
   app.get('/tic_seat2', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     connection.query(sql3,function(error,results,fields){
