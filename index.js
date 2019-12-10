@@ -90,6 +90,16 @@ app.get('/', function(req, res) {
   
 });
 
+app.get('/login_rv', function(req, res) {
+  res.send(`
+  <script>
+   alert("로그인 후 이용 가능합니다.");
+  location.href='http://localhost:3307/login';
+ </script>
+`);
+});
+
+
 //로그인 구현
 app.get('/login', function(req, res) {
   res.render('login.ejs');
@@ -269,7 +279,9 @@ app.get('/tic_screen', function(req,res){
 
 app.get('/tic_seat', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    var sql4 = 'SELECT * FROM seats';
+    var sql4 = 'SELECT * FROM seats'
+    var sql5 = 'SELECT * FROM movie';
+    connection.query(sql5,function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring,fields){
         
@@ -278,14 +290,16 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-          results_gimoring
+          results_gimoring,
+          result_movie
         });
       } else {
         res.render('tic_seat.ejs', {
           logined : false,
           user_id : null,
           results,
-          results_gimoring
+          results_gimoring,
+          result_movie
         });
       }
     })
@@ -347,12 +361,15 @@ app.get('/tic_seat', function(req,res){
       console.log(onseats);
       res.redirect('/');
     })
+  })
     })
   });
 
   app.get('/tic_seat1-2', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     var sql4 = 'SELECT * FROM seats'
+    var sql5 = 'SELECT * FROM movie';
+    connection.query(sql5,function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring2,fields){
         
@@ -361,7 +378,8 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-          results_gimoring2
+          results_gimoring2,
+          result_movie
           
         });
       } else {
@@ -369,9 +387,11 @@ app.get('/tic_seat', function(req,res){
           logined : false,
           user_id : null,
           results,
-          results_gimoring2
+          results_gimoring2,
+          result_movie
         });
       }
+    })
     })
   })
 });
@@ -429,6 +449,8 @@ app.get('/tic_seat', function(req,res){
   app.get('/tic_seat1-3', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     var sql4 = 'SELECT * FROM seats'
+    var sql5 = 'SELECT * FROM movie';
+    connection.query(sql5,function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring3,fields){
         
@@ -437,7 +459,8 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-          results_gimoring3
+          results_gimoring3,
+          result_movie
           
         });
       } else {
@@ -445,9 +468,11 @@ app.get('/tic_seat', function(req,res){
           logined : false,
           user_id : null,
           results,
-          results_gimoring3
+          results_gimoring3,
+          result_movie
         });
       }
+    })
     })
   })
   });
