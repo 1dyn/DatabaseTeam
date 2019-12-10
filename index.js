@@ -399,15 +399,10 @@ app.get('/tic_seat', function(req,res){
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
-<<<<<<< HEAD
           results_gimoring2,
           result_movie
 
           
-=======
-          results_gimoring2
-
->>>>>>> master
         });
       } else {
         res.render('tic_seat1-2.ejs', {
