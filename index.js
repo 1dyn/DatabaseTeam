@@ -768,7 +768,6 @@ app.get('/tic_complete', function(req, res) {
 
 app.get('/mem_info',function(req,res){
   var sql10 = 'SELECT * FROM members where log_id = ?';
-  var sql11 = 'SElECT * FROM ticket where '
   console.log(req.session);
   connection.query(sql10,[req.session.user.user_id],function(error,ikuoit,fields){
     console.log(error);
