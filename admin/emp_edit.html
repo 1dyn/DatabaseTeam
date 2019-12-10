@@ -2,28 +2,33 @@
 <html>
 <head>
 	<title>Admin Page</title>
+	<link href="../css/admin.css" rel="stylesheet"/>
 </head>
 <body>
 	<h1>EMPLOYEE</h1>
-	<ul>
-         <li>직원 관리</li>
-            <ol><a href='/emp_insert'>emp_insert</a></ol>
-            <ol><a href='/emp_list'>emp delete &amp edit</a></ol>
-        <li>영화 관리</li>
-            <ol><a href='/mov_insert'>mov_insert</a></ol>
-            <ol><a href='/mov_list'>mov delete &amp edit</a></ol>
-        <li>비품 관리</li>
-            <ol><a href='/sup_insert'>sup_insert</a></ol>
-			<ol><a href='/sup_list'>sup delete and edit</a></ol> 
-		<li>타임 테이블 관리</li>
-            <ol><a href='/timetable_insert'>timetable_insert</a></ol>
-            <ol><a href='/timetable_list'>timetable delete and edit</a></ol>     
-    </ul>
-	<form method='post'>
-		<fieldset>
+	<div class="left">
+		<nav class="menutable">
+			<ul>
+				<li>직원 관리</li>
+					<ol><a href='/emp_insert'>emp_insert</a></ol>
+					<ol><a href='/emp_list'>emp delete &amp edit</a></ol>
+				<li>영화 관리</li>
+					<ol><a href='/mov_insert'>mov_insert</a></ol>
+					<ol><a href='/mov_list'>mov delete &amp edit</a></ol>
+				<li>비품 관리</li>
+					<ol><a href='/sup_insert'>sup_insert</a></ol>
+					<ol><a href='/sup_list'>sup delete and edit</a></ol> 
+				<li>타임 테이블 관리</li>
+					<ol><a href='/timetable_insert'>timetable_insert</a></ol>
+					<ol><a href='/timetable_list'>timetable delete and edit</a></ol>     
+			</ul>
+		</nav>
+	</div>
+	<form method='post' >
+		<fieldset class="table" style="height: 350px; width: 500px; ">
 			<legend>EMPLOYEE EDIT</legend>
-			<table>
-				<tr>
+			<table style="padding-left : 120px; padding-top: 50px;">
+				<tr >
 					<td><label>emp_id</label></td>
 					<td><input type="text" name="emp_id" value="<%= employee.emp_id  %>" disable/></td>
 				</tr>

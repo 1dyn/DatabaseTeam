@@ -23,6 +23,7 @@ var mySqlClient = mysql.createConnection({
   database: 'dbTeam'
 });
 
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 

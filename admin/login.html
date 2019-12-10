@@ -2,20 +2,22 @@
 <html>
 <head>
 	<title>Admin Page</title>
+
+	<link href="../css/admin.css" rel="stylesheet" />
 </head>
 <body>
 	<h1>Login</h1>
 
 	<form action="/login" method='post'>
 		<fieldset>
-			<legend>Login</legend>
-			<table>
+			<legend>로그인</legend>
+			<table class="table">
 				<tr>
-					<td><lable>ad_id</lable></td>
+					<td><lable>Id</lable></td>
 					<td><input type="text" name="id" required/></td>
 				</tr>
 				<tr>
-					<td><lable>ad_pw</lable></td>
+					<td><lable>Password</lable></td>
 					<td><input type="password" name="pw" required /></td>
 				</tr>
 			</table>

@@ -3,27 +3,39 @@
 
 <head>
     <title>Admin Page</title>
+    <link href="../css/admin.css" rel="stylesheet"/>
 </head>
 
 <body>
     <h1>MOVIE</h1>
-    <ul>
-         <li>직원 관리</li>
-            <ol><a href='/emp_insert'>emp_insert</a></ol>
-            <ol><a href='/emp_list'>emp delete &amp edit</a></ol>
-        <li>영화 관리</li>
-            <ol><a href='/mov_insert'>mov_insert</a></ol>
-            <ol><a href='/mov_list'>mov delete &amp edit</a></ol>
-        <li>비품 관리</li>
-            <ol><a href='/sup_insert'>sup_insert</a></ol>
-            <ol><a href='/sup_list'>sup delete and edit</a></ol>
-        <li>타임 테이블 관리</li>
-            <ol><a href='/timetable_insert'>timetable_insert</a></ol>
-            <ol><a href='/timetable_list'>timetable delete and edit</a></ol>     
-    </ul>
-    <hr />
+    <div>
+            <nav class="menutable">
+                <ul style="margin-left: 200px;">
+                    <div class="menuleft">
+                        <li>직원 관리</li>
+                            <ol><a href='/emp_insert'>emp_insert</a></ol>
+                            <ol><a href='/emp_list'>emp delete &amp edit</a></ol>
+                    </div>
+                   <div class="menuleft">
+                        <li>영화 관리</li>
+                            <ol><a href='/mov_insert'>mov_insert</a></ol>
+                            <ol><a href='/mov_list'>mov delete &amp edit</a></ol>
+                   </div>
+                   <div class="menuleft">
+                        <li>비품 관리</li>
+                            <ol><a href='/sup_insert'>sup_insert</a></ol>
+                            <ol><a href='/sup_list'>sup delete and edit</a></ol>
+                   </div>
+                   <div class="menuleft">   
+                        <li>타임 테이블 관리</li>
+                            <ol><a href='/timetable_insert'>timetable_insert</a></ol>
+                            <ol><a href='/timetable_list'>timetable delete and edit</a></ol> 
+                   </div>    
+                </ul>
+            </nav>
+        </div>
 
-    <table width="100%" border="1">
+    <table width="100%" border="1" class="none">
         <tr>
             <th>DELETE</th>
             <th>EDIT</th>
