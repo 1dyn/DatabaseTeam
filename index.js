@@ -832,12 +832,6 @@ app.get('/tic_complete', function(req, res) {
   })
 })
 
-app.get('/mem_info', function(req, res) {
-  res.render('mem_info.ejs', {
-    logined: false,
-    user_id: null
-  })
-})
 
 app.get('/mem_info',function(req,res){
   var sql10 = 'SELECT * FROM members where log_id = ?';
