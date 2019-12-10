@@ -1,6 +1,7 @@
 // body-parser 기본 모듈 불러오기 및 설정 (POST req 해석)
 var bodyParser = require('body-parser'); // POST 방식 전송을 위해서 필요함
-var JSAlert = require("js-alert");
+var favicon = require('serve-favicon');
+
 // Express 기본 모듈 불러오기
 var express = require('express');
 var session = require('express-session');
@@ -18,6 +19,7 @@ var dateFormat = require('dateformat');
 // app.use(express.static(__dirname + '/public'));
 
 // ejs view와 렌더링 설정
+app.use(favicon(path.join(__dirname,'views/img','icon.ico')));
 app.use(express.static('views'));
 app.use(express.static('views'));
 app.use('/views', express.static('./static/css'))
@@ -199,11 +201,12 @@ app.post('/sign_up', function(req, res) {
   var mem_id = req.body.mem_id;
   var phone_num = req.body.phone_num;
   var email = req.body.email;
+  var mem_name = req.body.mem_name;
   if (log_pw === pwdconf) {
 
     //DB에 쿼리 알리기
-    var sql = `INSERT INTO members (mem_id,log_id,log_pw,pwdconf,gender,phone_num,email) VALUES(?, ?, ?, ?, ?, ?, ?)`;
-    connection.query(sql, [mem_id, log_id, log_pw, pwdconf, gender, phone_num, email], function(error, results, fields) {
+    var sql = `INSERT INTO members (mem_id,log_id,log_pw,pwdconf,gender,phone_num,email,mem_name) VALUES(?, ?, ?, ?, ?, ?, ?,?)`;
+    connection.query(sql, [mem_id, log_id, log_pw, pwdconf, gender, phone_num, email,mem_name], function(error, results, fields) {
       console.log(error);
     });
     res.redirect('/');
@@ -807,5 +810,7 @@ app.get('/mem_info', function(req, res) {
     user_id: null
   })
 })
+
+
 
 module.exports = app;
