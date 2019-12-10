@@ -253,7 +253,7 @@ app.get('/screen', function(req, res) {
   var sql = `SELECT * FROM movie`;
   connection.query(sql, function(error,results,fields){
     console.log(results);
-     if (req.session.user) {
+    if (req.session.user) {
       res.render('screen.ejs', {
         logined : req.session.user.logined,
         user_id : req.session.user.user_id,
@@ -267,7 +267,7 @@ app.get('/screen', function(req, res) {
       });
     }
   });
-
+ 
 });
 app.get('/seat_ticket', function(req,res){
   res.render('seat_ticket.ejs');
