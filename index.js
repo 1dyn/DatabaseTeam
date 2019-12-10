@@ -287,7 +287,7 @@ app.get('/tic_seat', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     var sql4 = 'SELECT * FROM seats';
     var sql5 = 'SELECT * FROM movie';
-    connection.equery(sql5,function(error,result_movie,fields){
+    connection.query(sql5,function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring,fields){
 
@@ -297,7 +297,7 @@ app.get('/tic_seat', function(req,res){
           user_id : req.session.user.user_id,
           results,
           results_gimoring,
-          movie
+          result_movie
 
 
         });
@@ -421,7 +421,7 @@ app.get('/tic_seat', function(req,res){
           user_id : req.session.user.user_id,
           results,
           results_gimoring2,
-          movie
+          result_movie
 
         });
       } else {
@@ -430,7 +430,7 @@ app.get('/tic_seat', function(req,res){
           user_id : null,
           results,
           results_gimoring2,
-          movie
+          result_movie
         });
       }
     })
@@ -490,7 +490,7 @@ app.get('/tic_seat', function(req,res){
 
   app.get('/tic_seat1-3', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    var sql4 = 'SELECT * FROM seats';
+    var sql4 = 'SELECT * FROM seats'
     var sql5 = 'SELECT * FROM movie';
     connection.equery(sql5,function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
@@ -502,7 +502,7 @@ app.get('/tic_seat', function(req,res){
           user_id : req.session.user.user_id,
           results,
           results_gimoring3,
-          movie
+          result_movie
 
         });
       } else {
@@ -511,9 +511,10 @@ app.get('/tic_seat', function(req,res){
           user_id : null,
           results,
           results_gimoring3,
-          movie
+          result_movie
         });
       }
+    })
     })
   })
   });
@@ -840,7 +841,6 @@ app.get('/mem_info', function(req, res) {
 
 app.get('/mem_info',function(req,res){
   var sql10 = 'SELECT * FROM members where log_id = ?';
-  var sql11 = 'SElECT * FROM ticket where '
   console.log(req.session);
   connection.query(sql10,[req.session.user.user_id],function(error,ikuoit,fields){
     console.log(error);
