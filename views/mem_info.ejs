@@ -40,19 +40,20 @@
 						<a class="navbar-brand" href="/"><span>냉면에 엽떡 </span>Cinema</a>
 					</div>
 					<div class="navbar-collapse collapse ">
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="/">Home</a></li>
-							<li><a href="/movie_info">Movie info</a></li>
-							<li><a href="/screen">Screen</a></li>
-							<li><a href="/Ticketing">Ticketing</a></li>
-							<!-- <li><a href="login.html">login</a></li> -->
-							<% if(logined) { %>
-								<li><a href="/logout">Logout</a></li>
-								<li><a>| <%= user_id %> 님, 어서오세요</a></li>
-							<% } else { %>
-								<li><a href="/login">login</a></li>
-							<% } %>
-						</ul>
+							<ul class="nav navbar-nav">
+								<li class="active"><a href="/">Home</a></li>
+								<li><a href="/movie_info">Movie info & booking</a></li>
+								<li><a href="/screen">Screen</a></li>
+					
+								<!-- <li><a href="login.html">login</a></li> -->
+								<% if(logined) { %>
+									<li><a href="/logout">Logout</a></li>
+									<li><a href="/mem_info">My page</a></li>
+									<li><a>| <%= user_id %> 님, 어서오세요</a></li>
+								<% } else { %>
+									<li><a href="/login">login</a></li>
+								<% } %>
+							</ul>
 					</div>
 				</div>
 			</div>
