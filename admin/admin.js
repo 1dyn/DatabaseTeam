@@ -108,7 +108,6 @@ app.get('/emp_insert', function(req, res){
 		}
 	})
 });
-
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.post( '/emp_insert', function(req, res){
 	var body = req.body;
