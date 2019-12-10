@@ -190,17 +190,26 @@ span.seatCharts-legendDescription {
 	  총 가격: <b><span id="total">0</span>원</b>
 	  
 	  <form action="/tic_seat" method="post" >
-		<input id= "onseat" name= "onseat" value = "" />
-	  <button class="checkout-button">결제하기 &raquo;</button>
+		<input type = "hidden" id= "onseat" name= "onseat" value = "" />
+		<input type ="hidden" id ="anggimo" name = "anggimo" value = ""/>
+		<input type = "hidden" id = "p" name ="p" value="" />
+ 	  <button class="checkout-button">결제하기 &raquo;</button>
 	</form>
       <div id="legend"></div>
 	</div>
 	
   </div>
 </div>
+
+
+
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> 
 <script src="../js/jquery.seat-charts.js"></script> 
 <script>
+			
+			const gimoring = <%- JSON.stringify(results_gimoring) %>;
+			var map = String(gimoring[0].seat).split("|");
+			document.getElementById("anggimo").value = gimoring[0].seats_id ;
 			var firstSeatLabel = 1;
 			var onseat = new Array(); 
 			$(document).ready(function() {
@@ -208,16 +217,26 @@ span.seatCharts-legendDescription {
 					$counter = $('#counter'),
 					$total = $('#total'),
 					sc = $('#seat-map').seatCharts({
-					map: [
-					'eeeee',
-					'eeeee',
-					'eeeee',
-					'eeeee',
-					'eeeee',	
-					'_f_f_',
-					'_f_f_'
-					],
-					
+					// map: [
+					// 'eeeee',
+					// 'eeeee',
+					// 'eeeee',
+					// 'eeeee',
+					// 'eeeee',	
+					// '_f_f_',
+					// '_f_f_'
+					// ],
+					// map: [
+					// '[a,e,e,e,e]',
+					// '[e,e,e,e,e]',	
+					// '[e,e,e,e,e]',
+					// '[e,e,e,e,e]',
+					// '[e,e,e,e,e]'
+
+					// ],
+			
+				map,
+				
 					seats: {
 						f: {
 							price   : 20000,
@@ -228,8 +247,8 @@ span.seatCharts-legendDescription {
 							price   : 12000,
 							classes : 'normal_seat', //your custom CSS class
 							category: 'normal_seat'
-						}					
-						
+						},				
+					
 					},
 					naming : {
 						top : false,
@@ -245,7 +264,8 @@ span.seatCharts-legendDescription {
 							[ 'f', 'available',   'Sweet_box'],
 							[ 'a', 'unavailable', 'selected']
 
-					    ]					
+						]				
+						
 					},
 					click: function () {
 						if (this.status() == 'available') {
@@ -259,6 +279,7 @@ span.seatCharts-legendDescription {
 								
 							// 취소하면 지워지는거 체크 
 								document.getElementById("onseat").value = onseat;
+
 								//console.log(onseat);
 								
 								
@@ -270,6 +291,7 @@ span.seatCharts-legendDescription {
 							 */
 							$counter.text(sc.find('selected').length+1);
 							$total.text(recalculateTotal(sc)+this.data().price);
+							document.getElementById("p").value = recalculateTotal(sc)+this.data().price;
 							// var pay = document.getElementById("pay").value = "g"
 							return 'selected';
 						} else if (this.status() == 'selected') {
@@ -277,7 +299,8 @@ span.seatCharts-legendDescription {
 							$counter.text(sc.find('selected').length-1);
 							//and total
 							$total.text(recalculateTotal(sc)-this.data().price);
-						
+							document.getElementById("p").value = recalculateTotal(sc)-this.data().price;
+
 							//remove the item from our cart
 							$('#cart-item-'+this.settings.id).remove();
 							onseat.splice(onseat.indexOf(this.settings.id),1);
@@ -292,6 +315,7 @@ span.seatCharts-legendDescription {
 						} else {
 							return this.style();
 						}
+
 					}
 				});
 
