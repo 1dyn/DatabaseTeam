@@ -645,6 +645,18 @@ app.get('/timetable4',function(req,res){
   });
 });
 
+app.get('/tic_complete', function(req, res) {
+  res.render('tic_complete.ejs', {
+    logined: false,
+    user_id: null
+  })
+})
 
+app.get('/mem_info', function(req, res) {
+  res.render('mem_info.ejs', {
+    logined: false,
+    user_id: null
+  })
+})
 
 module.exports = app;
