@@ -83,13 +83,14 @@ app.get('/', function(req, res) {
         logined : false,
         user_id : null,
         results
-        
+
       });
     }
   });
-  
+
 });
 
+//로그인 구현
 app.get('/login_rv', function(req, res) {
   res.send(`
   <script>
@@ -100,7 +101,6 @@ app.get('/login_rv', function(req, res) {
 });
 
 
-//로그인 구현
 app.get('/login', function(req, res) {
   res.render('login.ejs');
 });
@@ -121,9 +121,9 @@ app.post('/', function(req, res) {
          </script>
         `);
           console.log(session);
- 
+
          // res.render('login.ejs');
-         
+
         } else {
           console.log(results[0]);
           var db_name = results[0].log_id;
@@ -132,7 +132,7 @@ app.post('/', function(req, res) {
           req.session.user = {
             logined: true,
             user_id: db_name
-            
+
           }
           res.send(`
           <script>
@@ -145,8 +145,8 @@ app.post('/', function(req, res) {
             logined: req.session.user.logined,
             user_id: req.session.user.user_id,
             results
-            
-            
+
+
 
           });
           });
@@ -192,7 +192,6 @@ app.get('/sign_up', function(req, res) {
 });
 
 app.post('/sign_up', function(req, res) {
-  var mem_name = req.body.mem_name;
   var log_id = req.body.log_id;
   var log_pw = req.body.log_pw;
   var pwdconf = req.body.pwdconf;
@@ -203,8 +202,8 @@ app.post('/sign_up', function(req, res) {
   if (log_pw === pwdconf) {
 
     //DB에 쿼리 알리기
-    var sql = `INSERT INTO members (mem_id,mem_name,log_id,log_pw,pwdconf,gender,phone_num,email) VALUES(?, ?, ?, ?, ?, ?, ?, ?)`;
-    connection.query(sql, [mem_id, mem_name,log_id, log_pw, pwdconf, gender, phone_num, email], function(error, results, fields) {
+    var sql = `INSERT INTO members (mem_id,log_id,log_pw,pwdconf,gender,phone_num,email) VALUES(?, ?, ?, ?, ?, ?, ?)`;
+    connection.query(sql, [mem_id, log_id, log_pw, pwdconf, gender, phone_num, email], function(error, results, fields) {
       console.log(error);
     });
     res.redirect('/');
@@ -225,7 +224,7 @@ app.get('/Ticketing', function(req,res){
 app.get('/movie_info', function(req, res) {
 
  var sql = `SELECT * FROM movie`;
- 
+
  connection.query(sql, function(error, results, fields) {
    console.log(results);
    var open_date0 = dateFormat(results[0].open_date, "yyyy.mm.dd");
@@ -251,17 +250,24 @@ app.get('/movie_info', function(req, res) {
 
 });
 app.get('/screen', function(req, res) {
-  if (req.session.user) {
-    res.render('screen.ejs', {
-      logined : req.session.user.logined,
-      user_id : req.session.user.user_id
-    });
-  } else {
-    res.render('screen.ejs', {
-      logined : false,
-      user_id : null
-    });
-  }
+  var sql = `SELECT * FROM movie`;
+  connection.query(sql, function(error,results,fields){
+    console.log(results);
+     if (req.session.user) {
+      res.render('screen.ejs', {
+        logined : req.session.user.logined,
+        user_id : req.session.user.user_id,
+        results
+      });
+    } else {
+      res.render('screen.ejs', {
+        logined : false,
+        user_id : null,
+        results
+      });
+    }
+  });
+
 });
 app.get('/seat_ticket', function(req,res){
   res.render('seat_ticket.ejs');
@@ -279,19 +285,21 @@ app.get('/tic_screen', function(req,res){
 
 app.get('/tic_seat', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    var sql4 = 'SELECT * FROM seats'
+    var sql4 = 'SELECT * FROM seats';
     var sql5 = 'SELECT * FROM movie';
-    connection.query(sql5,function(error,result_movie,fields){
+    connection.equery(sql5,function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring,fields){
-        
+
       if (req.session.user) {
         res.render('tic_seat.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
           results_gimoring,
-          result_movie
+          movie
+
+
         });
       } else {
         res.render('tic_seat.ejs', {
@@ -299,14 +307,16 @@ app.get('/tic_seat', function(req,res){
           user_id : null,
           results,
           results_gimoring,
-          result_movie
+          movie
         });
       }
     })
+    })
   })
-  
+
   });
 
+// 예매완료
   app.post('/tic_seat', function(req,res){
     var body = req.body;
     var onseats =req.body.onseat;
@@ -315,7 +325,14 @@ app.get('/tic_seat', function(req,res){
     var os ;
     var mem_id = req.body.mem_id;
     var phone_num= req.body.phone_num;
-    
+    //
+    var ti_id;
+    var mov_name;
+    var ci_name;
+    var sc_num;
+    var seat;
+
+
     if(onseat.length==2){
       os= onseat;
     }else {
@@ -326,7 +343,7 @@ app.get('/tic_seat', function(req,res){
       }
     }
     var gimotin = parseInt(req.body.anggimo);
-    
+
     var price = req.body.p;
     var sql4 = 'select seat from seats where seats_id = ? ';
     var sql5 = 'select * from member where mem_id = ?'
@@ -357,30 +374,55 @@ app.get('/tic_seat', function(req,res){
       var param1 = [seats,1];
       connection.query('update seats set seat = ? where seats_id = ?',param1);
     var sql5 = 'insert into booking(seat,price) values(?,?)';
+
+    // ticket에 정보 넣기 ~~ yamete!!
+    var yamete_pr = ['YhDy', 'Jungang', 1, onseats];
+    var sql7 = 'insert into ticket (mov_name, ci_name, sc_num, seat) values(?, ?, ?, ?)';
+    connection.query(sql7, yamete_pr);
+
+    // ticket 정보 꺼내와서 tic_complete.ejs로 보내주기 ~~ gudasai!!
+    var sql6 = 'select * from ticket where seat = ?';
+    connection.query(sql6, onseats, function(error, gudasai, fields) {
+      ti_id = gudasai[0].ti_id;
+      mov_name = gudasai[0].mov_name;
+      ci_name = gudasai[0].ci_name;
+      sc_num = gudasai[0].sc_num;
+      seat = gudasai[0].seat;
+    });
+
     connection.query(sql5 , [onseats,parseInt(price)],function(){
       console.log(onseats);
-      res.redirect('/');
+      // res.redirect('/');
+      // 진행중
+      res.render('tic_complete.ejs', {
+        ti: ti_id,
+        mov: mov_name,
+        ci: ci_name,
+        sc: sc_num,
+        st: seat,
+        logined: false,
+        user_id: null
+      })
     })
-  })
     })
   });
 
   app.get('/tic_seat1-2', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    var sql4 = 'SELECT * FROM seats'
+    var sql4 = 'SELECT * FROM seats';
     var sql5 = 'SELECT * FROM movie';
-    connection.query(sql5,function(error,result_movie,fields){
+    connection.equery(sql5,function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring2,fields){
-        
+
       if (req.session.user) {
         res.render('tic_seat1-2.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
           results_gimoring2,
-          result_movie
-          
+          movie
+
         });
       } else {
         res.render('tic_seat1-2.ejs', {
@@ -388,7 +430,7 @@ app.get('/tic_seat', function(req,res){
           user_id : null,
           results,
           results_gimoring2,
-          result_movie
+          movie
         });
       }
     })
@@ -440,7 +482,7 @@ app.get('/tic_seat', function(req,res){
       connection.query('update seats set seat = ? where seats_id =?',param2);
     var sql5 = 'insert into booking(seat,price) values(?,?)';
     connection.query(sql5 , [onseats2,parseInt(price)],function(){
-     
+
       res.redirect('/');
     })
     })
@@ -448,20 +490,20 @@ app.get('/tic_seat', function(req,res){
 
   app.get('/tic_seat1-3', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
-    var sql4 = 'SELECT * FROM seats'
+    var sql4 = 'SELECT * FROM seats';
     var sql5 = 'SELECT * FROM movie';
-    connection.query(sql5,function(error,result_movie,fields){
+    connection.equery(sql5,function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring3,fields){
-        
+
       if (req.session.user) {
         res.render('tic_seat1-3.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
           results,
           results_gimoring3,
-          result_movie
-          
+          movie
+
         });
       } else {
         res.render('tic_seat1-3.ejs', {
@@ -469,10 +511,9 @@ app.get('/tic_seat', function(req,res){
           user_id : null,
           results,
           results_gimoring3,
-          result_movie
+          movie
         });
       }
-    })
     })
   })
   });
@@ -521,12 +562,12 @@ app.get('/tic_seat', function(req,res){
       connection.query('update seats set seat = ? where seats_id =?',param3);
     var sql5 = 'insert into booking(seat,price) values(?,?)';
     connection.query(sql5 , [onseats3,parseInt(price)],function(){
-    
+
       res.redirect('/');
     })
     })
   });
-  
+
   app.get('/tic_seat2', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     connection.query(sql3,function(error,results,fields){
@@ -535,7 +576,7 @@ app.get('/tic_seat', function(req,res){
         res.render('tic_seat2.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
-          results, 
+          results,
         });
       } else {
         res.render('tic_seat2.ejs', {
@@ -554,7 +595,7 @@ app.get('/tic_seat', function(req,res){
         res.render('tic_seat2-1.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
-          results, 
+          results,
         });
       } else {
         res.render('tic_seat2-1.ejs', {
@@ -573,7 +614,7 @@ app.get('/tic_seat', function(req,res){
         res.render('tic_seat2-3.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
-          results, 
+          results,
         });
       } else {
         res.render('tic_seat2-3.ejs', {
@@ -592,7 +633,7 @@ app.get('/tic_seat', function(req,res){
         res.render('tic_seat3.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
-          results, 
+          results,
         });
       } else {
         res.render('tic_seat3.ejs', {
@@ -611,7 +652,7 @@ app.get('/tic_seat', function(req,res){
         res.render('tic_seat3-1.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
-          results, 
+          results,
         });
       } else {
         res.render('tic_seat3-1.ejs', {
@@ -629,7 +670,7 @@ app.get('/tic_seat', function(req,res){
         res.render('tic_seat3-2.ejs', {
           logined : req.session.user.logined,
           user_id : req.session.user.user_id,
-          results, 
+          results,
         });
       } else {
         res.render('tic_seat3-2.ejs', {
@@ -648,7 +689,7 @@ app.get('/tic_seat4', function(req,res){
       res.render('tic_seat4.ejs', {
         logined : req.session.user.logined,
         user_id : req.session.user.user_id,
-        results, 
+        results,
       });
     } else {
       res.render('tic_seat4.ejs', {
@@ -667,7 +708,7 @@ app.get('/tic_seat4-1', function(req,res){
       res.render('tic_seat4-1.ejs', {
         logined : req.session.user.logined,
         user_id : req.session.user.user_id,
-        results, 
+        results,
       });
     } else {
       res.render('tic_seat4-1.ejs', {
@@ -686,7 +727,7 @@ app.get('/tic_seat4-2', function(req,res){
       res.render('tic_seat4-2.ejs', {
         logined : req.session.user.logined,
         user_id : req.session.user.user_id,
-        results, 
+        results,
       });
     } else {
       res.render('tic_seat4-2.ejs', {
@@ -709,7 +750,7 @@ app.get('/timetable',function(req,res){
       res.render('timetable.ejs', {
         logined : req.session.user.logined,
         user_id : req.session.user.user_id,
-        results, 
+        results,
       });
     } else {
       res.render('timetable.ejs', {
@@ -729,7 +770,7 @@ app.get('/timetable2',function(req,res){
       res.render('timetable2.ejs', {
         logined : req.session.user.logined,
         user_id : req.session.user.user_id,
-        results, 
+        results,
       });
     } else {
       res.render('timetable2.ejs', {
@@ -750,7 +791,7 @@ app.get('/timetable3',function(req,res){
       res.render('timetable3.ejs', {
         logined : req.session.user.logined,
         user_id : req.session.user.user_id,
-        results, 
+        results,
       });
     } else {
       res.render('timetable3.ejs', {
@@ -771,7 +812,7 @@ app.get('/timetable4',function(req,res){
       res.render('timetable4.ejs', {
         logined : req.session.user.logined,
         user_id : req.session.user.user_id,
-        results, 
+        results,
       });
     } else {
       res.render('timetable4.ejs', {
@@ -790,9 +831,16 @@ app.get('/tic_complete', function(req, res) {
   })
 })
 
+app.get('/mem_info', function(req, res) {
+  res.render('mem_info.ejs', {
+    logined: false,
+    user_id: null
+  })
+})
 
 app.get('/mem_info',function(req,res){
   var sql10 = 'SELECT * FROM members where log_id = ?';
+  var sql11 = 'SElECT * FROM ticket where '
   console.log(req.session);
   connection.query(sql10,[req.session.user.user_id],function(error,ikuoit,fields){
     console.log(error);
@@ -813,6 +861,5 @@ app.get('/mem_info',function(req,res){
   });
   
 });
-
 
 module.exports = app;
