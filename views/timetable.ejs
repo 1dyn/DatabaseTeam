@@ -23,22 +23,63 @@
     Author URL: https://bootstrapmade.com
 	======================================================= -->
 	<script>
-	var bDisplay = true;
-        function doDisplay(movie){
-            var con = document.getElementById(movie);
-            con.style.display = "block";//해당 id를 가진 div 보이기
-            var movies = ["all", "inter-conf", "inter-jour", "dom-conf", "dom-jour"];
-            for (let i = 0; i < movies.length; i++) {//나머지 모든 div의 내용 숨기기
-                if (movies[i]===movie) {
-                    continue;
-                }
-                else{
-                    con = document.getElementById(movies[i]);
-                    con.style.display = "none";
-                }
-            }
-        }
-		</script>
+			function openCity(evt, cityName) {
+			  var i, tabcontent, tablinks;
+			  tabcontent = document.getElementsByClassName("tabcontent");
+			  for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			  }
+			  tablinks = document.getElementsByClassName("tablinks");
+			  for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			  }
+			  document.getElementById(cityName).style.display = "block";
+			  evt.currentTarget.className += " active";
+			}
+			</script>
+	<style>
+			/* Style the tab */
+.tab {
+overflow: hidden;
+border: 1px solid #fefefe;
+background-color: #fefefe;
+
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+background-color: inherit;
+float: left;
+border: none;
+outline: none;
+cursor: pointer;
+padding: 14px 16px;
+transition: 0.3s;
+font-size: 17px;
+margin-left: 265px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+color:black;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+color: black;
+}
+
+/* Style the tab content */
+.tabcontent {
+display: none;
+padding: 6px 12px;
+border: 1px solid #ccc;
+border-top: none;
+text-align: center;
+font-weight: bold;
+font-size:20px;
+}
+		</style>
 
 </head>
 
@@ -78,7 +119,7 @@
 						<div class="col-lg-12">
 							<ul class="breadcrumb">
 								<li ><a href="/"><i class="fa fa-home"></i></a><i class="icon-angle-right"></i></li>
-                                <li class="active">Movie Info</li>
+                           <li class="active">Movie Info</li>
                                 <li class="active">Timetable</li>
 							</ul>
 						</div>
@@ -86,22 +127,43 @@
 				</div>
             </section>
             <section>
-				<h1>안산중앙점</h1>
-                <ul>
-                    <a href= "/tic_seat"><li><%=results[0].time%> [<%=results[0].sc_num%>관]</li></a>
-					<a href= "/tic_seat"><li><%=results[5].time%> [<%=results[5].sc_num%>관]</li></a>
-					<a href= "/tic_seat"><li><%=results[8].time%> [<%=results[8].sc_num%>관]</li></a>
-				</ul>
-				<h1>서울이수점</h1>
-				<ul>
-					<a href= "/tic_seat1-2"><li><%=results[15].time%> [<%=results[15].sc_num%>관]</li></a>
-					<a href= "/tic_seat1-2"><li><%=results[17].time%> [<%=results[17].sc_num%>관]</li></a>
-					<a href= "/tic_seat1-2"><li><%=results[21].time%> [<%=results[21].sc_num%>관]</li></a>
-				</ul>
-				<h1>경기광명점</h1>
-				<ul>
-					<a href= "/tic_seat1-3"><li><%=results[27].time%> [<%=results[27].sc_num%>관]</li></a>
-					<a href= "/tic_seat1-3"><li><%=results[32].time%> [<%=results[32].sc_num%>관]</li></a>
-					<a href= "/tic_seat1-3"><li><%=results[36].time%> [<%=results[36].sc_num%>관]</li></a>
-				</ul>
+				<hr/>
+					<div class="tab">
+					  <button class="tablinks" onclick="openCity(event, 'London')">안산 중앙점</button>
+					  <button class="tablinks" onclick="openCity(event, 'Paris')">서울 이수점</button>
+					  <button class="tablinks" onclick="openCity(event, 'Tokyo')">경기 광명점</button>
+					</div>
+					<div id="London" class="tabcontent">
+						<br>
+					  <P>
+							<a href= "/tic_seat"><%=results[0].time%> [<%=results[0].sc_num%>관]</a>&emsp;&emsp;&emsp;&emsp;
+							<a href= "/tic_seat"><%=results[5].time%> [<%=results[5].sc_num%>관]</a>&emsp;&emsp;&emsp;&emsp;
+							<a href= "/tic_seat"><%=results[8].time%> [<%=results[8].sc_num%>관]</a>&emsp;&emsp;&emsp;&emsp;<br><br><hr/>					
+					 </P>
+					 <p>[안산 중앙점 위치]</p>
+					 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3173.9695885393676!2d126.8341926670861!3d37.29585458069418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b6ef2f5a7cb73%3A0x26b59cb3d9af4a46!2z7ZWc7JaR64yA7ZWZ6rWQIEVSSUNB7Lqg7Y287Iqk!5e0!3m2!1sko!2skr!4v1575990319829!5m2!1sko!2skr" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+					</div>
+					
+					<div id="Paris" class="tabcontent">
+							<br>
+					  <p>
+							<a href= "/tic_seat1-2"><%=results[15].time%> [<%=results[15].sc_num%>관]</a>&emsp;&emsp;&emsp;&emsp;
+							<a href= "/tic_seat1-2"><%=results[17].time%> [<%=results[17].sc_num%>관]</a>&emsp;&emsp;&emsp;&emsp;
+							<a href= "/tic_seat1-2"><%=results[21].time%> [<%=results[21].sc_num%>관]</a>&emsp;&emsp;&emsp;&emsp;<br><br><hr/>
+					</p>	
+					<p>[서울 이수점 위치]</p>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.9080893108953!2d126.97968731524452!3d37.48649523646586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca1b3e26dcf3d%3A0xa16abe6619550e35!2z7J207IiY7Jet!5e0!3m2!1sko!2skr!4v1575990806775!5m2!1sko!2skr" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+					</div>
+					
+					<div id="Tokyo" class="tabcontent">
+						<br>
+					  <p>
+							<a href= "/tic_seat1-3"><%=results[27].time%> [<%=results[27].sc_num%>관]</a>&emsp;&emsp;&emsp;&emsp;
+							<a href= "/tic_seat1-3"><%=results[32].time%> [<%=results[32].sc_num%>관]</a>&emsp;&emsp;&emsp;&emsp;
+							<a href= "/tic_seat1-3"><%=results[36].time%> [<%=results[36].sc_num%>관]</a>&emsp;&emsp;&emsp;&emsp;<br><br><hr/>	
+					</p>
+					<p>[경기 광명점 위치]</p>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.870899438244!2d126.88260031524278!3d37.41652624046273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61460d3eb51f%3A0x3642a68a7dfad030!2z6rSR66qF7Jet!5e0!3m2!1sko!2skr!4v1575990851826!5m2!1sko!2skr" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+				
+					</div>
             </section>

@@ -1,6 +1,6 @@
 // body-parser 기본 모듈 불러오기 및 설정 (POST req 해석)
 var bodyParser = require('body-parser'); // POST 방식 전송을 위해서 필요함
-
+var JSAlert = require("js-alert");
 // Express 기본 모듈 불러오기
 var express = require('express');
 var session = require('express-session');
@@ -104,9 +104,16 @@ app.post('/', function(req, res) {
     connection.query(sql, [id], function(error, results, fields) {
         if (results.length == 0) {
           var session = req.session;
-          console.log("try again~");
+          res.send(`
+          <script>
+           alert("로그인 정보를 다시 확인해주세요");
+          location.href='http://localhost:3307/login';
+         </script>
+        `);
           console.log(session);
-          res.render('login.ejs');
+ 
+         // res.render('login.ejs');
+         
         } else {
           console.log(results[0]);
           var db_name = results[0].log_id;
@@ -115,12 +122,21 @@ app.post('/', function(req, res) {
           req.session.user = {
             logined: true,
             user_id: db_name
+            
           }
+          res.send(`
+          <script>
+           alert("로그인 되었습니다.");
+           location.href='http://localhost:3307';
+         </script>
+        `);
     connection.query(sql2, function(error, results, fields){
           res.render('index.ejs', {
             logined: req.session.user.logined,
             user_id: req.session.user.user_id,
             results
+            
+            
 
           });
           });
@@ -143,6 +159,12 @@ app.get('/logout', function(req, res) {
   req.session.destroy();
   res.clearCookie('id');
   console.log('logout complete!');
+  res.send(`
+  <script>
+   alert("로그아웃 되었습니다.");
+   location.href='http://localhost:3307';
+ </script>
+`);
   var sql2 = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
   connection.query(sql2, function(error, results, fields){
   res.render('index.ejs', {
@@ -150,6 +172,7 @@ app.get('/logout', function(req, res) {
     user_id : null,
     results
   });
+
 });
 });
 
@@ -173,10 +196,9 @@ app.post('/sign_up', function(req, res) {
     connection.query(sql, [mem_id, log_id, log_pw, pwdconf, gender, phone_num, email], function(error, results, fields) {
       console.log(error);
     });
-
     res.redirect('/');
   } else {
-    res.render(alert("비밀번호 오류"));
+
     res.render('sign.ejs');
   }
 });

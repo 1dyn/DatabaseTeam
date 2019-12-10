@@ -57,18 +57,19 @@
 						<a class="navbar-brand" href="/"><span>냉면에 엽떡 </span>Cinema</a>
 					</div>
 					<div class="navbar-collapse collapse ">
-						<ul class="nav navbar-nav">
-							<li><a href="/">Home</a></li>
-							<li class="active"><a href="/movie_info">Movie info</a></li>
-							<li><a href="/screen">Screen</a></li>
-							<li><a href="/Ticketing">Ticketing </a></li>
-							<!-- <li><a href="/login">login</a></li> -->
-							<% if(logined) { %>
-								<li><a><%= user_id %> 님, 어서오세요</a></li>
-							<% } else { %>
-								<li><a href="/login">login</a></li>
-							<% } %>     
-						</ul>
+							<ul class="nav navbar-nav">
+									<li ><a href="/">Home</a></li>
+									<li class="active"><a href="/movie_info">Movie info & booking</a></li>
+									<li><a href="/screen">Screen</a></li>
+							
+									<!-- <li><a href="login.html">login</a></li> -->
+									<% if(logined) { %>
+										<li><a href="/logout">Logout</a></li>
+										<li><a>| <%= user_id %> 님, 어서오세요</a></li>
+									<% } else { %>
+										<li><a href="/login">login</a></li>
+									<% } %>
+								</ul>
 					</div>
 				</div>
 			</div>
@@ -97,7 +98,11 @@
 								</li>
 								<h4><%=results[0].mov_name%><a href='javascript:doDisplay("all");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown"><%=results[0].mov_name%> 소개 영상</span></button><br></a></h4>
 								<p class="sizedown1">
-									<strong ><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<a href="/timetable">[예매하기]</a><br> 
+									<strong ><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp; <% if(logined) { %>
+										<a href="/timetable">예매하기</a>
+										<% } else { %> <a href="/login">[예매하기]</a>
+										<% } %>
+									</li><br> 
 									<em><%=results[0].mov_eng_name%></em></strong> <br><br>
 									
 									<%=results[0].genre%> |  <%=open_date0%>. 개봉 | <%=results[0].mov_runtime%>분 | <%=results[0].mov_country%> | <%=results[0].mov_rated%> <br>
@@ -117,7 +122,12 @@
 						</li>
 							<h4><%=results[1].mov_name%><a href='javascript:doDisplay("inter-conf");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown"><%=results[1].mov_name%> 소개 영상</span></button><br></a></h4>
 							<p class="sizedown1">
-									<strong><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<a href="/timetable2">[예매하기]</a><br> <br>
+									<strong><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<% if(logined) { %>
+										<a href="/timetable2">[예매하기]</a>
+										<% } else { %> <a href="/login">[예매하기]</a>
+										<% } %>
+										<br><br>
+										
 									<em><%=results[1].mov_eng_name%></em></strong> <br><br>
 									
 									<%=results[1].genre%> |  <%=open_date1%>. 개봉 | <%=results[1].mov_runtime%>분 | <%=results[1].mov_country%> | <%=results[1].mov_rated%> <br>
@@ -136,7 +146,11 @@
 							</li>
 							<h4><%=results[2].mov_name%><a href='javascript:doDisplay("inter-jour");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown"><%=results[2].mov_name%> 소개 영상</span></button><br></a></h4>
 							<p class="sizedown1">
-								<strong><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<a href="/timetable3">[예매하기]</a><br> <br>
+								<strong><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<% if(logined) { %>
+									<a href="/timetable3">[예매하기]</a>
+									<% } else { %> <a href="/login">[예매하기]</a>
+										<% } %>
+										<br><br>
 								<em><%=results[2].mov_eng_name%></em> </strong><br><br>
 								
 								<%=results[2].genre%> |  <%=open_date2%>. 개봉 | <%=results[2].mov_runtime%>분 | <%=results[2].mov_country%> | <%=results[2].mov_rated%> <br>
@@ -155,7 +169,11 @@
 							</li>
 							<h4><%=results[3].mov_name%><a href='javascript:doDisplay("dom-conf");'><button class="buttonpub" style="vertical-align:middle"><span class="sizedown"><%=results[3].mov_name%> 소개 영상</span></button><br></a></h4>
 							<p class="sizedown1">
-								<strong><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<a href="/timetable4">[예매하기]</a><br><br>
+								<strong><a href="/ticketing1">상영중</a>&nbsp;&nbsp;&nbsp;<% if(logined) { %>
+									<a href="/timetable4">[예매하기]</a>
+									<% } else { %> <a href="/login">[예매하기]</a>
+										<% } %>
+										<br><br>
 								<em><%=results[3].mov_eng_name%></em></strong> <br><br>
 								
 								<%=results[3].genre%> |  <%=open_date3%>. 개봉 | <%=results[3].mov_runtime%>분 | <%=results[3].mov_country%> | <%=results[3].mov_rated%> <br>
@@ -167,23 +185,23 @@
 					<div class="article" style="padding-left: 40pt; background-color:white;">
 						<div id="all" style="display: none">
 							<br>
-							<h2><em>신의 한수 소개영상<span class="sizedown1"> The Divine Move 2: The Wrathful, 2019</span></em></h2>
+							<h2><%=results[0].mov_name%> 소개영상<span class="sizedown1"> </h2>
 							<iframe width="560" height="315" src="https://www.youtube.com/embed/JPEOa01U_Ls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 						</div>
 						<div id="inter-conf" style="display: none">
 							<br>
-							<h2><em>겨울 왕국 소개영상  <span class="sizedown1"> Frozen 2, 2019</span></em></h2>
+							<h2><%=results[1].mov_name%> 소개영상  <span class="sizedown1"> </h2>
 							<iframe width="560" height="315" src="https://www.youtube.com/embed/eSEs4B4H-EA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						</div>
 						<div id="inter-jour" style="display: none">
 							<br>
-							<h2><em>알라딘 소개영상  <span class="sizedown1"> Aladdin, 2019</span></em></h2>
+							<h2><%=results[2].mov_name%> 소개영상  <span class="sizedown1"> </h2>
 							<iframe width="560" height="315" src="https://www.youtube.com/embed/KrM3vS5sy2w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						</div>
 						<div id="dom-conf" style="display: none">
 							<br>
-							<h2><em>라이온킹 소개영 <span class="sizedown1"> The Lion King, 2019</span></em></h2>
+							<h2><%=results[3].mov_name%> 소개영상 <span class="sizedown1"> </h2>
 							<iframe width="560" height="315" src="https://www.youtube.com/embed/SXMoaC3IJ3I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						</div>
 					</div>
