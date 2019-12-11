@@ -848,14 +848,6 @@ app.get('/mem_info',function(req,res){
           ikuoit,
           gandait,
         });
-      
-      } else {
-        res.render('mem_info.ejs', {
-          logined : false,
-          user_id : null,
-          ikuoit,
-          gandait,
-        });
       }
     });
   });
