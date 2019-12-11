@@ -206,10 +206,14 @@ app.post('/sign_up', function(req, res) {
     connection.query(sql, [mem_id, log_id, log_pw, pwdconf, gender, phone_num, email], function(error, results, fields) {
       console.log(error);
     });
-    res.redirect('/');
+    res.send(`
+    <script>
+     alert("회원가입이 완료되었습니다. 다시 로그인 해주세요.");
+     location.href='http://localhost:3307/login';
+   </script>
+  `);
   } else {
 
-    res.render('sign.ejs');
   }
 });
 
