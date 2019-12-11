@@ -137,7 +137,7 @@ app.post('/', function(req, res) {
           res.send(`
           <script>
            alert("로그인 되었습니다.");
-           location.href='/;
+           location.href='/';
          </script>
         `);
     connection.query(sql2, function(error, results, fields){
