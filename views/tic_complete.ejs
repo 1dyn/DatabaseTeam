@@ -33,10 +33,10 @@
 					</div>
 					<div class="navbar-collapse collapse ">
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="/">Home</a></li>
+							<li><a href="/">Home</a></li>
 							<li><a href="/movie_info">Movie info</a></li>
 							<li><a href="/screen">Screen</a></li>
-							<li><a href="/Ticketing">Ticketing</a></li>
+							<li class="active"><a href="/Ticketing">Ticketing</a></li>
 							<% if(logined) { %>
 								<li><a href="/logout">Logout</a></li>
 								<li><a>| <%= user_id %> 님, 어서오세요</a></li>
@@ -61,6 +61,7 @@
 				<p> 전화 번호  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; -</p>
       </strong>
     </div>
+		<button style="margin-top: 10px; margin-left: 40%;" onclick = "location.href='http://localhost:3307/'">홈으로</button><button style="margin-top: 10px; margin-left: 10px;" onclick = "location.href='http://localhost:3307/mem_info'">예매 확인하기</button>
     <hr />
     <div id="ntc">
       <blockquote>
