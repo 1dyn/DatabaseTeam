@@ -68,7 +68,7 @@ server.listen(3307, function() {
 // 라우팅 처리
 // '/'을 통해 들어온 요청 처리
 app.get('/', function(req, res) {
-  var sql = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
+  var sql = `SELECT *FROM movie`;
 
   connection.query(sql, function(error, results, fields){
     console.log(results);
@@ -110,7 +110,7 @@ app.post('/', function(req, res) {
     var pwd = req.body.pwd;
 
     var sql = `SELECT * FROM members WHERE log_id = ?`;
-    var sql2 = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
+    var sql2 = `SELECT mov_name, mov_desc, mov_eng_name, FROM movie`;
     connection.query(sql, [id], function(error, results, fields) {
         if (results.length == 0) {
           var session = req.session;
