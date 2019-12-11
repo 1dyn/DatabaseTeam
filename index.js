@@ -95,7 +95,7 @@ app.get('/login_rv', function(req, res) {
   res.send(`
   <script>
    alert("로그인 후 이용 가능합니다.");
-  location.href='http://localhost:3307/login';
+  location.href='/login';
  </script>
 `);
 });
@@ -117,7 +117,7 @@ app.post('/', function(req, res) {
           res.send(`
           <script>
            alert("로그인 정보를 다시 확인해주세요");
-          location.href='http://localhost:3307/login';
+          location.href='/login';
          </script>
         `);
           console.log(session);
@@ -137,7 +137,7 @@ app.post('/', function(req, res) {
           res.send(`
           <script>
            alert("로그인 되었습니다.");
-           location.href='http://localhost:3307';
+           location.href='/;
          </script>
         `);
     connection.query(sql2, function(error, results, fields){
@@ -172,7 +172,7 @@ app.get('/logout', function(req, res) {
   res.send(`
   <script>
    alert("로그아웃 되었습니다.");
-   location.href='http://localhost:3307';
+   location.href='/';
  </script>
 `);
   var sql2 = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
@@ -209,7 +209,7 @@ app.post('/sign_up', function(req, res) {
     res.send(`
     <script>
      alert("회원가입이 완료되었습니다. 다시 로그인 해주세요.");
-     location.href='http://localhost:3307/login';
+     location.href='/login';
    </script>
   `);
   } else {
