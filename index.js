@@ -417,7 +417,7 @@ app.get('/tic_seat', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     var sql4 = 'SELECT * FROM seats';
     var sql5 = 'SELECT * FROM movie';
-    connection.equery(sql5,function(error,result_movie,fields){
+    connection.query(sql5,function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring2,fields){
 
@@ -498,7 +498,7 @@ app.get('/tic_seat', function(req,res){
     var sql3 = 'SELECT * FROM timetable';
     var sql4 = 'SELECT * FROM seats'
     var sql5 = 'SELECT * FROM movie';
-    connection.equery(sql5,function(error,result_movie,fields){
+    connection.query(sql5,function(error,result_movie,fields){
     connection.query(sql3, function(error,results,fields){
       connection.query(sql4,function(error,results_gimoring3,fields){
 
