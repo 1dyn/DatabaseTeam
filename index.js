@@ -68,7 +68,7 @@ server.listen(3307, function() {
 // 라우팅 처리
 // '/'을 통해 들어온 요청 처리
 app.get('/', function(req, res) {
-  var sql = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
+  var sql = `SELECT *FROM movie`;
 
   connection.query(sql, function(error, results, fields){
     console.log(results);
@@ -95,7 +95,7 @@ app.get('/login_rv', function(req, res) {
   res.send(`
   <script>
    alert("로그인 후 이용 가능합니다.");
-  location.href='http://localhost:3307/login';
+  location.href='/login';
  </script>
 `);
 });
@@ -110,14 +110,14 @@ app.post('/', function(req, res) {
     var pwd = req.body.pwd;
 
     var sql = `SELECT * FROM members WHERE log_id = ?`;
-    var sql2 = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
+    var sql2 = `SELECT mov_name, mov_desc, mov_eng_name, FROM movie`;
     connection.query(sql, [id], function(error, results, fields) {
         if (results.length == 0) {
           var session = req.session;
           res.send(`
           <script>
            alert("로그인 정보를 다시 확인해주세요");
-          location.href='http://localhost:3307/login';
+          location.href='/login';
          </script>
         `);
           console.log(session);
@@ -137,7 +137,7 @@ app.post('/', function(req, res) {
           res.send(`
           <script>
            alert("로그인 되었습니다.");
-           location.href='http://localhost:3307';
+           location.href='/';
          </script>
         `);
     connection.query(sql2, function(error, results, fields){
@@ -172,7 +172,7 @@ app.get('/logout', function(req, res) {
   res.send(`
   <script>
    alert("로그아웃 되었습니다.");
-   location.href='http://localhost:3307';
+   location.href='/';
  </script>
 `);
   var sql2 = `SELECT mov_name, mov_desc, mov_eng_name FROM movie`;
@@ -210,7 +210,7 @@ app.post('/sign_up', function(req, res) {
     res.send(`
     <script>
      alert("회원가입이 완료되었습니다. 다시 로그인 해주세요.");
-     location.href='http://localhost:3307/login';
+     location.href='/login';
    </script>
   `);
   } else {
