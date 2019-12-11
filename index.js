@@ -199,11 +199,12 @@ app.post('/sign_up', function(req, res) {
   var mem_id = req.body.mem_id;
   var phone_num = req.body.phone_num;
   var email = req.body.email;
+  var mem_name= req.body.mem_name;
   if (log_pw === pwdconf) {
 
     //DB에 쿼리 알리기
-    var sql = `INSERT INTO members (mem_id,log_id,log_pw,pwdconf,gender,phone_num,email) VALUES(?, ?, ?, ?, ?, ?, ?)`;
-    connection.query(sql, [mem_id, log_id, log_pw, pwdconf, gender, phone_num, email], function(error, results, fields) {
+    var sql = `INSERT INTO members (mem_name,mem_id,log_id,log_pw,pwdconf,gender,phone_num,email) VALUES(?,?, ?, ?, ?, ?, ?, ?)`;
+    connection.query(sql, [mem_name,mem_id, log_id, log_pw, pwdconf, gender, phone_num, email], function(error, results, fields) {
       console.log(error);
     });
     res.send(`
