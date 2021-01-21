@@ -30,6 +30,6 @@
     "nodemon": "^2.0.1",
     "path": "^0.12.7",
     "serve-favicon": "^2.5.0",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   }
 }
